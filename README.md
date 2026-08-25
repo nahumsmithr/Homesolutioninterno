@@ -33,6 +33,37 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <!-- ============ Conexión real a Firebase (base de datos en tiempo real) ============
+         SDK "compat" (variable global `firebase`, no requiere Webpack/bundler — funciona con
+         las etiquetas de script normales de este archivo). Si esta línea no logra cargar (sin internet,
+         bloqueador, red restringida), window.__fbDb queda null y TODA la app sigue funcionando
+         100% en memoria local como antes — nunca se rompe por falta de conexión. -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script>
+        window.__fbDb = null;
+        window.__fbReady = false;
+        try {
+            const firebaseConfig = {
+                apiKey: "AIzaSyCeRNVlMaZtX3__Hu2XCzxPKohlKBUznT0",
+                authDomain: "homesolutions-9e473.firebaseapp.com",
+                projectId: "homesolutions-9e473",
+                storageBucket: "homesolutions-9e473.firebasestorage.app",
+                messagingSenderId: "986796949060",
+                appId: "1:986796949060:web:53e6fab174eda745590611",
+                measurementId: "G-94KQWXY5GP"
+            };
+            if (typeof firebase !== 'undefined') {
+                const fbApp = firebase.initializeApp(firebaseConfig);
+                window.__fbDb = firebase.firestore(fbApp);
+                window.__fbReady = true;
+            }
+        } catch (e) {
+            console.error('Firebase no se pudo inicializar — la app sigue en modo local.', e);
+            window.__fbDb = null;
+            window.__fbReady = false;
+        }
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
         body { font-family: 'Inter', sans-serif; background: #f6faff; }
@@ -971,6 +1002,9 @@
             calcRenderProductGrid();
             calcUpdateTermOptions('calc-bp-provider', 'calc-bp-term-wrap', 'calc-bp-term');
             initHeroBlobParallax();
+            // Conecta los oyentes de Firestore en tiempo real (si Firebase cargó bien). A partir
+            // de aquí, cualquier cambio hecho desde OTRO dispositivo/pestaña llega solo, sin recargar.
+            if (typeof window.leonV2InitFirebaseSync === 'function') window.leonV2InitFirebaseSync();
         });
 
         // ===================== HERO: entrada escalonada del copy =====================
@@ -1304,6 +1338,8 @@
                 }
                 state.loginLockouts[u.email] = lock;
             }
+            if (typeof window.leonV2DbAppendLog === 'function') window.leonV2DbAppendLog('securityLog', state.securityLog[0]);
+            if (typeof window.leonV2SyncMeta === 'function') window.leonV2SyncMeta('loginLockouts');
         }
 
         function logoutUser() { state.currentUser = null; switchView('public'); showToast('Sesión cerrada.', 'info'); }
@@ -1385,6 +1421,7 @@
             const pin = String(Math.floor(10000 + Math.random() * 90000));
             const newUser = { id: 'u-' + Date.now(), name, email, role, supervisorId, pin, photoUrl: '', phone: '', address: '', contract: null };
             state.users.push(newUser);
+            if (typeof window.leonV2SyncCollection === 'function') window.leonV2SyncCollection('users');
             renderUsersList();
             showToast(`Usuario ${name} registrado como ${role}.`, 'success');
             leonV2ShowPinAssigned(newUser);
@@ -1434,6 +1471,7 @@
             if (state.currentUser && state.currentUser.id === id) { showToast('No puedes eliminar tu propio usuario mientras tienes la sesión activa.', 'error'); return; }
             if (u.role === 'Administrador' && state.users.filter(x => x.role === 'Administrador').length <= 1) { showToast('Debe quedar al menos un Administrador activo.', 'error'); return; }
             state.users = state.users.filter(x => x.id !== id);
+            if (typeof window.leonV2DbDelete === 'function') window.leonV2DbDelete('users', id);
             renderUsersList();
             showToast(`Usuario ${u.name} eliminado.`, 'success');
         }
@@ -1681,6 +1719,7 @@
                 state.products.unshift(data);
                 showToast('Equipo añadido al catálogo.', 'success');
             }
+            if (typeof window.leonV2SyncCollection === 'function') window.leonV2SyncCollection('products');
             closeProductModal();
             renderAdminProductsList();
             renderCategoryFilters();
@@ -1691,6 +1730,7 @@
 
         function deleteProduct(id) {
             state.products = state.products.filter(p => p.id !== id);
+            if (typeof window.leonV2DbDelete === 'function') window.leonV2DbDelete('products', id);
             renderAdminProductsList();
             productsPage = 1;
             renderProducts(lastRenderedCategory);
@@ -1772,6 +1812,7 @@
                 createdAt: new Date().toISOString().slice(0, 10)
             };
             state.quotes.unshift(newQuote);
+            if (typeof window.leonV2SyncCollection === 'function') window.leonV2SyncCollection('quotes');
             renderQuotesList();
             renderVendedorView();
             renderCallCenterView();
@@ -1888,7 +1929,8 @@
             compressImageFile(file, 300, 0.9).then(result => {
                 state.siteContent.logoUrl = result.dataUrl;
                 renderSiteBranding();
-                statusEl.innerText = `Actualizado (${formatBytes(result.compressedSize)}). Visible mientras esta pestaña siga abierta.`;
+                if (typeof window.leonV2SyncMeta === 'function') window.leonV2SyncMeta('siteContent');
+                statusEl.innerText = `Actualizado (${formatBytes(result.compressedSize)}).`;
                 showToast('Logo actualizado en el sitio.', 'success');
             }).catch(err => { console.error(err); statusEl.innerText = 'No se pudo procesar la imagen.'; showToast('No se pudo procesar la imagen.', 'error'); });
         }
@@ -1908,7 +1950,8 @@
                     state.siteContent.heroMediaType = 'video';
                     state.siteContent.heroVideoUrl = e.target.result;
                     renderSiteBranding();
-                    statusEl.innerText = `Video activo (${formatBytes(file.size)}). Visible mientras esta pestaña siga abierta.`;
+                    if (typeof window.leonV2SyncMeta === 'function') window.leonV2SyncMeta('siteContent');
+                    statusEl.innerText = `Video activo (${formatBytes(file.size)}).`;
                     showToast('Banner de video actualizado.', 'success');
                 };
                 reader.onerror = () => showToast('No se pudo leer el video.', 'error');
@@ -1919,6 +1962,7 @@
                     state.siteContent.heroMediaType = 'image';
                     state.siteContent.heroImageUrl = result.dataUrl;
                     renderSiteBranding();
+                    if (typeof window.leonV2SyncMeta === 'function') window.leonV2SyncMeta('siteContent');
                     statusEl.innerText = `Imagen actualizada (${formatBytes(result.compressedSize)}, -${result.reductionPct}%).`;
                     showToast('Banner de imagen actualizado.', 'success');
                 }).catch(err => { console.error(err); statusEl.innerText = 'No se pudo procesar la imagen.'; showToast('No se pudo procesar la imagen.', 'error'); });
@@ -1931,6 +1975,7 @@
             const keepGallery = state.siteContent.gallery;
             state.siteContent = { logoUrl: '', heroMediaType: 'image', heroImageUrl: DEFAULT_HERO_IMG, heroVideoUrl: '', heroOverlay: true, gallery: keepGallery };
             renderSiteBranding();
+            if (typeof window.leonV2SyncMeta === 'function') window.leonV2SyncMeta('siteContent');
             const logoStatus = document.getElementById('cms-logo-status');
             const heroStatus = document.getElementById('cms-hero-status');
             if (logoStatus) logoStatus.innerText = 'Restaurado al valor por defecto.';
@@ -1963,15 +2008,23 @@
                 renderGallery();
                 renderSiteBranding();
                 if (typeof renderGalleryCmsEditor === 'function') renderGalleryCmsEditor();
+                if (typeof window.leonV2SyncMeta === 'function') window.leonV2SyncMeta('siteContent');
                 if (statusEl) statusEl.innerText = `Actualizada (${formatBytes(result.compressedSize)}).`;
                 showToast('Foto de galería actualizada.', 'success');
             }).catch(err => { console.error(err); if (statusEl) statusEl.innerText = 'No se pudo procesar la imagen.'; showToast('No se pudo procesar la imagen.', 'error'); });
         }
 
+        let cmsGalleryTextSyncTimer = null;
         function handleCmsGalleryText(index, field, value) {
             if (!state.siteContent.gallery[index]) return;
             state.siteContent.gallery[index][field] = value;
             renderGallery();
+            // Se escribe letra por letra (oninput) — se espera una pausa antes de mandarlo a la
+            // base de datos compartida, para no generar una escritura por cada tecla.
+            clearTimeout(cmsGalleryTextSyncTimer);
+            cmsGalleryTextSyncTimer = setTimeout(() => {
+                if (typeof window.leonV2SyncMeta === 'function') window.leonV2SyncMeta('siteContent');
+            }, 600);
         }
 
         function addCmsGalleryItem() {
@@ -1979,6 +2032,7 @@
             renderGallery();
             renderSiteBranding();
             if (typeof renderGalleryCmsEditor === 'function') renderGalleryCmsEditor();
+            if (typeof window.leonV2SyncMeta === 'function') window.leonV2SyncMeta('siteContent');
         }
 
         function removeCmsGalleryItem(index) {
@@ -1986,6 +2040,7 @@
             renderGallery();
             renderSiteBranding();
             if (typeof renderGalleryCmsEditor === 'function') renderGalleryCmsEditor();
+            if (typeof window.leonV2SyncMeta === 'function') window.leonV2SyncMeta('siteContent');
         }
 
         // ===================== CATEGORÍAS DINÁMICAS (filtros públicos + select del modal) =====================
@@ -2070,9 +2125,11 @@
                 state.products.forEach(p => { if (p.category === oldName) p.category = name; });
                 if (lastRenderedCategory === oldName) lastRenderedCategory = name;
                 showToast('Categoría actualizada.', 'success');
+                if (typeof window.leonV2SyncCollection === 'function') { window.leonV2SyncCollection('categories'); window.leonV2SyncCollection('products'); }
             } else {
                 state.categories.push({ id: 'cat-' + Date.now(), name });
                 showToast('Categoría añadida.', 'success');
+                if (typeof window.leonV2SyncCollection === 'function') window.leonV2SyncCollection('categories');
             }
             document.getElementById('category-form').reset();
             document.getElementById('cat-edit-id').value = '';
@@ -2093,6 +2150,7 @@
                 return;
             }
             state.categories = state.categories.filter(cat => cat.id !== id);
+            if (typeof window.leonV2DbDelete === 'function') window.leonV2DbDelete('categories', id);
             if (lastRenderedCategory === c.name) { lastRenderedCategory = 'All'; productsPage = 1; renderProducts('All'); }
             renderCategoryManagerList();
             renderCategoryFilters();
@@ -2174,47 +2232,20 @@
             renderHistorial();
         }
 
-        // ===================== ADAPTADOR DE DATOS (listo para Firebase, desactivado por defecto) =====================
-        // Todo lo de arriba lee y escribe directamente sobre `state` (en memoria de esta pestaña) —
-        // igual que el resto de esta demo. Sigue siendo así hoy: nada de esto se sincroniza entre
-        // usuarios ni sobrevive a un refresco de página. Lo que sigue es un punto de partida REAL y
-        // correcto (no un simulacro) para conectar esto a Firebase Firestore + Storage el día que se
-        // decida separar el frontend del almacenamiento de verdad:
-        //
-        //   1. Crea un proyecto en https://console.firebase.google.com y habilita Firestore + Storage.
-        //   2. Agrega, ANTES de este bloque <script>, un <script type="module"> que importe el SDK:
-        //        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-        //        import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query,
-        //                 where, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
-        //        import { getStorage, ref, uploadBytes, getDownloadURL } from
-        //                 "https://www.gstatic.com/firebasejs/10.13.0/firebase-storage.js";
-        //        window.__firebase = { initializeApp, getFirestore, collection, getDocs, addDoc, updateDoc,
-        //                 deleteDoc, doc, query, where, orderBy, limit, getStorage, ref, uploadBytes, getDownloadURL };
-        //   3. Rellena FIREBASE_CONFIG abajo con las credenciales de tu proyecto (son públicas por diseño
-        //      en apps web de Firebase — la seguridad real la dan las Firestore Security Rules, NUNCA
-        //      ocultar esta config).
-        //   4. Escribe reglas de seguridad reales en Firestore antes de poner esto en producción — sin
-        //      reglas, cualquiera con la config puede leer/escribir todo.
-        //   5. Cambia DB_MODE a 'firebase' y reemplaza, función por función, las líneas que tocan
-        //      `state.products` / `state.quotes` / etc. por llamadas a getDocs/addDoc/updateDoc/deleteDoc
-        //      sobre las colecciones equivalentes (p.ej. collection(firebaseDb, 'organizations/demo/products')).
-        //
-        // A propósito NO se activa solo ni se conecta a ningún proyecto: no existe un proyecto Firebase
-        // real detrás de este archivo, y fingir que sí lo hay violaría el principio de este sistema de
-        // nunca simular seguridad ni persistencia que no existe de verdad.
-        const DB_MODE = 'local'; // 'local' | 'firebase'
-        const FIREBASE_CONFIG = {
-            apiKey: '', authDomain: '', projectId: '', storageBucket: '', messagingSenderId: '', appId: ''
-        };
-        let firebaseApp = null, firebaseDb = null, firebaseStorage = null;
-        function initFirebaseApp() {
-            if (DB_MODE !== 'firebase') { console.warn('DB_MODE sigue en "local" — initFirebaseApp() no hace nada.'); return; }
-            if (!window.__firebase) { console.error('Falta importar el SDK de Firebase (ver comentario arriba) antes de llamar initFirebaseApp().'); return; }
-            const fb = window.__firebase;
-            firebaseApp = fb.initializeApp(FIREBASE_CONFIG);
-            firebaseDb = fb.getFirestore(firebaseApp);
-            firebaseStorage = fb.getStorage(firebaseApp);
-        }
+        // ===================== ADAPTADOR DE DATOS: CONECTADO A FIREBASE =====================
+        // Esto YA está hecho — este bloque solía ser un plan a futuro; ahora es un registro de lo que
+        // se implementó de verdad. La conexión real vive en 3 lugares del archivo:
+        //   1. <head>: SDK "compat" de Firebase (firebase-app-compat.js + firebase-firestore-compat.js)
+        //      + initializeApp con el firebaseConfig real del proyecto → window.__fbDb.
+        //   2. Bloque "Firebase Firestore: sincronización en tiempo real" (más abajo, dentro del script
+        //      leon-v2-script): leonV2SyncCollection / leonV2SyncMeta / leonV2DbDelete / leonV2DbAppendLog
+        //      para escribir, y leonV2InitFirebaseSync (con onSnapshot) para escuchar cambios en vivo.
+        //   3. Cada función que crea/edita/borra algo (crear usuario, guardar propuesta, mover a la
+        //      papelera, etc.) llama a una de esas funciones al final — por eso un cambio en un
+        //      dispositivo aparece solo, sin recargar, en cualquier otro dispositivo conectado.
+        // Si window.__fbDb es null (sin internet, o el proyecto de Firebase cambió de config), todo
+        // esto se vuelve una no-operación silenciosa y la app sigue funcionando 100% en memoria local,
+        // exactamente como en las versiones anteriores de este archivo.
 
         // ===================== HERO: gotas orgánicas -> tiñen el fondo =====================
         function escPublic(s) { return String(s ?? '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m])); }
@@ -2604,6 +2635,7 @@
     }
     if(q.clientIdType){c.idType=q.clientIdType; c.idNumber=q.clientIdNumberMasked||c.idNumber}
     c.activity.push({type:'propuesta',text:activityText||('Propuesta '+q.id+' — '+q.status),at:now,by:actor});
+    if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('clients');
     return c;
   }
   // Enmascara SSN/ID/pasaporte para mostrar en pantalla — deja visibles solo los últimos 4
@@ -2619,17 +2651,177 @@
   // Un registro de auditoría de verdad para producción vive en el servidor, nunca solo aquí.
   function leonV2Audit(action, details){
     if(!state.auditLog) state.auditLog=[];
-    state.auditLog.unshift({
+    const entry={
       action, details,
       by:(state.currentUser&&state.currentUser.name)||'Sistema',
       role:(state.currentUser&&state.currentUser.role)||'—',
       at:new Date().toISOString()
-    });
+    };
+    state.auditLog.unshift(entry);
     if(state.auditLog.length>500) state.auditLog.length=500;
+    if(typeof window.leonV2DbAppendLog==='function')window.leonV2DbAppendLog('auditLog', entry);
   }
   // Se expone en window porque handlePinSubmit (2do factor) vive en el otro bloque <script>
   // (ámbito distinto a este IIFE) y necesita poder llamar a esta misma función de auditoría.
   window.leonV2Audit=leonV2Audit;
+
+  // ================= Firebase Firestore: sincronización en tiempo real =================
+  // Idea: Firestore es la fuente de verdad compartida. Cada colección de state que es una
+  // lista de elementos con id (usuarios, clientes, propuestas, etc.) vive como una colección
+  // de Firestore con el mismo nombre; cada configuración simple (galería, reglas de comisión,
+  // listas de estados) vive como UN documento dentro de la colección "meta". Cuando cualquier
+  // pantalla (celular, PC, otra pestaña) escribe, Firestore avisa a todas las demás al instante
+  // vía onSnapshot, y esas pantallas actualizan su state local y vuelven a pintar. Si no hay
+  // conexión a Firebase (window.__fbDb es null), todas estas funciones simplemente no hacen
+  // nada y la app sigue funcionando 100% en memoria local, como antes.
+  // auditLog y securityLog NO están aquí: son bitácoras que solo crecen (unshift), y reescribir
+  // las 500 entradas completas en cada evento sería carísimo — esas dos usan leonV2DbAppendLog
+  // (un documento nuevo por evento) más abajo, en vez de leonV2SyncCollection.
+  const FB_LIST_COLLECTIONS = ['categories','products','users','quotes','quotesHistory','clients','trash','commissions','tickets','projects'];
+  const FB_LOG_COLLECTIONS = ['auditLog','securityLog'];
+  const FB_META_DOCS = ['siteContent','commissionRules','pipelineStatuses','ticketStatuses','projectStages','loginLockouts'];
+  let fbApplyingRemote = false; // true mientras aplicamos un cambio QUE YA VINO de Firestore, para no reenviarlo
+
+  // Firestore rechaza cualquier documento de más de ~1MB. Fotos/videos grandes (base64) pueden
+  // pasarse de ese límite fácilmente — en vez de fallar en silencio, avisamos y NO mandamos ese
+  // documento (el resto de la app sigue funcionando local para ese elemento en esta pestaña).
+  function leonV2TooBigForFirestore(obj, label){
+    let size = 0;
+    try{ size = JSON.stringify(obj).length; }catch(e){ return false; }
+    if(size > 900000){
+      console.error('Firebase: '+label+' pesa '+Math.round(size/1024)+'KB — supera el límite de Firestore (1MB por documento) y no se sincronizó.');
+      if(typeof showToast==='function') showToast('Ese archivo es muy pesado para guardarse en la base de datos compartida (límite 1MB) — quedó visible solo en este dispositivo. Usa una foto/video más liviano.', 'error');
+      return true;
+    }
+    return false;
+  }
+
+  // Sube de una vez todos los elementos actuales de state[key] a su colección de Firestore.
+  // Se llama al final de cada acción que crea o edita algo (no borra remotos que ya no estén
+  // localmente — los borrados se hacen aparte con leonV2DbDelete, justo donde se quita el
+  // elemento de state, para no perder ese registro).
+  window.leonV2SyncCollection = function(key){
+    if(!window.__fbDb || fbApplyingRemote) return;
+    const arr = state[key];
+    if(!Array.isArray(arr) || !arr.length) return;
+    try{
+      const batch = window.__fbDb.batch();
+      arr.forEach(item=>{
+        if(!item || item.id==null) return;
+        if(leonV2TooBigForFirestore(item, key+'/'+item.id)) return;
+        batch.set(window.__fbDb.collection(key).doc(String(item.id)), item);
+      });
+      batch.commit().catch(err=>console.error('Firebase: error al sincronizar '+key, err));
+    }catch(err){ console.error('Firebase: error al sincronizar '+key, err); }
+  };
+
+  window.leonV2DbDelete = function(key, id){
+    if(!window.__fbDb || id==null) return;
+    window.__fbDb.collection(key).doc(String(id)).delete().catch(err=>console.error('Firebase: error al borrar '+key+'/'+id, err));
+  };
+
+  // Para auditLog/securityLog: un documento nuevo por evento (nunca se reescribe lo viejo).
+  // Se llama justo después de hacer unshift(entry) en el arreglo local.
+  window.leonV2DbAppendLog = function(key, entry){
+    if(!window.__fbDb || fbApplyingRemote || !entry) return;
+    if(leonV2TooBigForFirestore(entry, key)) return;
+    try{
+      const id = 'log-'+Date.now()+'-'+Math.floor(Math.random()*100000);
+      window.__fbDb.collection(key).doc(id).set(entry).catch(err=>console.error('Firebase: error al registrar '+key, err));
+    }catch(err){ console.error('Firebase: error al registrar '+key, err); }
+  };
+
+  // Config simple (no es una lista de elementos con id) → un documento fijo en "meta".
+  window.leonV2SyncMeta = function(key){
+    if(!window.__fbDb || fbApplyingRemote) return;
+    const value = state[key];
+    if(value===undefined) return;
+    if(leonV2TooBigForFirestore(value, 'meta/'+key)) return;
+    try{
+      window.__fbDb.collection('meta').doc(key).set({data:value}).catch(err=>console.error('Firebase: error al sincronizar meta/'+key, err));
+    }catch(err){ console.error('Firebase: error al sincronizar meta/'+key, err); }
+  };
+
+  // Tras cualquier cambio que llegue de Firestore (venga de este mismo dispositivo o de otro),
+  // volvemos a pintar lo que esté visible en pantalla ahora mismo — así el cambio se ve al
+  // instante sin tener que recargar la página.
+  function leonV2RerenderAfterSync(){
+    try{
+      if(typeof renderGallery==='function') renderGallery();
+      if(typeof renderSiteBranding==='function') renderSiteBranding();
+      if(typeof renderProducts==='function' && document.getElementById('products-grid')) renderProducts((typeof lastRenderedCategory!=='undefined' && lastRenderedCategory)?lastRenderedCategory:'All');
+      const internalView = document.getElementById('internal-view');
+      const activeBtn = document.querySelector('#v2-nav button.active');
+      if(internalView && !internalView.classList.contains('hidden') && activeBtn && activeBtn.dataset.sec && typeof leonV2OpenSection==='function'){
+        leonV2OpenSection(activeBtn.dataset.sec);
+      }
+    }catch(err){ console.error('Error al re-renderizar tras sincronizar:', err); }
+  }
+
+  // Pinta el badge de estado de conexión (existe tanto en la vista pública, si se agrega ahí,
+  // como en el encabezado interno — buildCRM lo reconstruye en cada login, así que hay que
+  // volver a pintarlo cada vez que ese encabezado se recrea, no solo una vez al cargar).
+  window.leonV2UpdateDbStatusBadge = function(){
+    const statusEl = document.getElementById('v2-db-status');
+    if(!statusEl) return;
+    if(window.__fbDb){
+      statusEl.innerHTML = '<span class="inline-flex items-center gap-1.5 text-emerald-500 text-[11px] font-black uppercase tracking-wide"><i class="fa-solid fa-circle text-[7px] animate-pulse"></i> Base de datos conectada · tiempo real</span>';
+    } else {
+      statusEl.innerHTML = '<span class="inline-flex items-center gap-1.5 text-slate-400 text-[11px] font-black uppercase tracking-wide"><i class="fa-solid fa-circle text-[7px]"></i> Solo local (sin conexión a base de datos)</span>';
+    }
+  };
+
+  // Arranca los oyentes en tiempo real (uno por colección/documento) y hace la primera carga.
+  // Se llama una sola vez, desde DOMContentLoaded, después de que exista window.__fbDb.
+  window.leonV2InitFirebaseSync = function(){
+    window.leonV2UpdateDbStatusBadge();
+    if(!window.__fbDb) return;
+    // Primera vez que se usa este proyecto de Firebase: si una colección todavía está vacía en
+    // Firestore, la sembramos con los datos de demostración que ya trae este archivo (usuarios,
+    // productos, reglas de comisión, etc.), para que CUALQUIER dispositivo que abra la página de
+    // ahora en adelante vea exactamente lo mismo, en vez de que cada uno arranque con su propia
+    // copia local desconectada.
+    FB_LIST_COLLECTIONS.forEach(key=>{
+      window.__fbDb.collection(key).limit(1).get().then(snap=>{
+        if(snap.empty && typeof window.leonV2SyncCollection==='function') window.leonV2SyncCollection(key);
+      }).catch(err=>console.error('Firebase: error revisando '+key, err));
+    });
+    FB_META_DOCS.forEach(key=>{
+      window.__fbDb.collection('meta').doc(key).get().then(doc=>{
+        if(!doc.exists && typeof window.leonV2SyncMeta==='function') window.leonV2SyncMeta(key);
+      }).catch(err=>console.error('Firebase: error revisando meta/'+key, err));
+    });
+    FB_LIST_COLLECTIONS.forEach(key=>{
+      window.__fbDb.collection(key).onSnapshot(snap=>{
+        fbApplyingRemote = true;
+        const docs = snap.docs.map(d=>d.data());
+        if(docs.length || !(state[key]&&state[key].length)) state[key] = docs; // no borra lo local si Firestore aún está vacío (primera carga)
+        fbApplyingRemote = false;
+        leonV2RerenderAfterSync();
+      }, err=>console.error('Firebase: error escuchando '+key, err));
+    });
+    FB_META_DOCS.forEach(key=>{
+      window.__fbDb.collection('meta').doc(key).onSnapshot(doc=>{
+        if(!doc.exists) return;
+        const d = doc.data();
+        if(!d || !('data' in d)) return;
+        fbApplyingRemote = true;
+        state[key] = d.data;
+        fbApplyingRemote = false;
+        leonV2RerenderAfterSync();
+      }, err=>console.error('Firebase: error escuchando meta/'+key, err));
+    });
+    // Bitácoras: solo las 500 más recientes por fecha, para no leer historiales enormes.
+    FB_LOG_COLLECTIONS.forEach(key=>{
+      window.__fbDb.collection(key).orderBy('at','desc').limit(500).onSnapshot(snap=>{
+        fbApplyingRemote = true;
+        const docs = snap.docs.map(d=>d.data());
+        if(docs.length || !(state[key]&&state[key].length)) state[key] = docs;
+        fbApplyingRemote = false;
+        leonV2RerenderAfterSync();
+      }, err=>console.error('Firebase: error escuchando '+key, err));
+    });
+  };
   window.leonV2Close=id=>document.getElementById(id)?.classList.remove('show');
   window.leonV2CloseChoice=()=>leonV2Close('leon-v2-proposal-choice');
   window.leonV2CloseClientForm=()=>leonV2Close('leon-v2-client-form');
@@ -2713,6 +2905,7 @@
     if(typeof updateCartUI==='function')updateCartUI();
     leonV2UpsertClient(q,'Propuesta '+id+' generada — '+q.status);
     leonV2Audit('Propuesta creada', id+' · '+q.clientName+' · '+paymentType);
+    if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('quotes');
     leonV2CloseClientForm();
     showToast('Proceso '+id+' creado correctamente.','success');
     setTimeout(()=>leonV2OpenPortal(q),250);
@@ -2792,12 +2985,13 @@
     q.editorVersions.push({version:q.editorVersion, blocks:v2Blocks.slice(), savedAt:new Date().toISOString()});
     renderEditor();
     showToast('Versión '+q.editorVersion+' guardada para '+q.id+'.','success');
+    if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection(state.quotes.includes(q)?'quotes':'quotesHistory');
   };
   window.leonV2PrintProposal=()=>{const id=document.getElementById('leon-v2-editor-modal').dataset.quoteId;leonV2PrintProposalById(id)};
   window.leonV2PrintProposalById=id=>{const q=findQuoteAnywhere(id);if(!q)return;const t=leonV2ComputeTotal(q);const w=window.open('','_blank');w.document.write(`<html><head><title>Propuesta ${esc(q.id)}</title><style>body{font-family:Arial,sans-serif;padding:40px;color:#172033}h1{color:#0876c9}table{width:100%;border-collapse:collapse;margin-top:20px}th,td{padding:12px;border-bottom:1px solid #ddd;text-align:left}img{width:80px;height:60px;object-fit:contain} .total{font-size:22px;font-weight:800;text-align:right;margin-top:20px}.head{display:flex;justify-content:space-between;border-bottom:3px solid #0876c9;padding-bottom:18px}.box{background:#f5f9fd;padding:16px;border-radius:10px;margin-top:20px}.breakdown td{padding:6px 0;border:none}</style></head><body><div class="head"><div><h1>LEON HOME SOLUTIONS</h1><b>PROPUESTA COMERCIAL</b><div>${esc(q.id)}</div></div><div><b>Fecha</b><br>${esc(q.createdAt||'')}</div></div><div class="box"><b>CLIENTE</b><br>${esc(q.clientName)}<br>${esc(q.clientCompany||'')}<br>${esc(q.clientEmail||'')} · ${esc(q.clientPhone||'')}</div><div class="box"><b>CONSULTOR</b><br>${esc(q.vendorName||'Asignación pendiente')}<br>Origen: ${esc(q.origin||'')}</div><table><thead><tr><th>Producto</th><th>Cantidad</th><th>Precio</th><th>Subtotal</th></tr></thead><tbody>${q.items.map(i=>`<tr><td><img src="${esc(i.image||'')}" onerror="this.style.display='none'"> ${esc(i.name)}</td><td>${i.qty}</td><td>${money(i.price)}</td><td>${money(i.price*i.qty)}</td></tr>`).join('')}</tbody></table><table class="breakdown"><tbody><tr><td>Subtotal</td><td style="text-align:right">${money(t.subtotal)}</td></tr>${t.discount?`<tr><td>Descuento</td><td style="text-align:right">-${money(t.discount)}</td></tr>`:''}${t.install?`<tr><td>Instalación</td><td style="text-align:right">${money(t.install)}</td></tr>`:''}${t.transport?`<tr><td>Transporte</td><td style="text-align:right">${money(t.transport)}</td></tr>`:''}${t.tax?`<tr><td>Impuesto</td><td style="text-align:right">${money(t.tax)}</td></tr>`:''}</tbody></table><div class="total">TOTAL: ${money(t.total)}</div>${t.monthly?`<div style="text-align:right;color:#0876c9">Pago mensual estimado (${t.months} meses, sin interés): ${money(t.monthly)}</div>`:''}<div class="box">Condiciones: propuesta sujeta a disponibilidad, validación comercial y condiciones de financiación. Vigencia configurable por administración.</div>${q.acceptance?`<div class="box" style="background:#ecfdf5"><b>ACEPTACIÓN DIGITAL</b><br>${esc(q.acceptance.name)} — ${esc(new Date(q.acceptance.acceptedAt).toLocaleString())}<br><span style="font-size:11px;color:#555">Registro digital de aceptación (no es firma electrónica con validez legal).</span></div>`:''}<div style="margin-top:70px;display:flex;justify-content:space-between"><div>________________________<br>Cliente</div><div>________________________<br>Consultor</div></div><script>window.onload=()=>window.print()<\/script></body></html>`);w.document.close()};
 
   function buildCRM(){
-    const old=document.querySelector('#internal-view > .max-w-7xl'); if(!old)return; old.innerHTML=`<div class="leon-v2-shell"><div class="flex flex-col lg:flex-row justify-between gap-4 mb-6"><div><div class="v2-pill bg-white"><i class="fa-solid fa-shield-halved text-brand-600"></i><span id="v2-role-pill">Administrador</span></div><h2 class="text-3xl md:text-4xl font-black text-slate-900 mt-3" id="v2-greeting">Buenos días 👋</h2><p class="text-sm text-slate-500 mt-1">Tu espacio comercial se adapta automáticamente a tus permisos.</p></div><div class="flex items-center gap-3"><div class="relative"><button onclick="leonV2ToggleNotifications()" class="relative px-4 py-3 rounded-xl border bg-white text-xs font-black" title="Notificaciones"><i class="fa-solid fa-bell"></i><span id="v2-notif-count" class="hidden absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] font-black rounded-full w-4 h-4 flex items-center justify-center">0</span></button><div id="v2-notif-dropdown" class="hidden absolute right-0 top-full mt-2 w-80 max-w-[90vw] bg-white border border-slate-200 rounded-xl shadow-glass-lg z-50 max-h-96 overflow-y-auto"></div></div><button onclick="leonV2OpenSection('clients')" class="px-4 py-3 rounded-xl border bg-white text-xs font-black"><i class="fa-solid fa-magnifying-glass mr-2"></i>Buscar cliente</button><button onclick="logoutUser()" class="px-4 py-3 rounded-xl bg-red-50 text-red-600 text-xs font-black"><i class="fa-solid fa-right-from-bracket mr-2"></i>Salir</button></div></div><div class="grid lg:grid-cols-[230px_1fr] gap-6 v2-layout"><aside class="v2-nav h-fit"><div class="px-3 pb-3 text-[10px] font-black uppercase tracking-widest text-slate-500">Workspace</div><div id="v2-nav"></div></aside><section id="v2-main" class="min-w-0"></section></div></div>`;renderNav();renderDashboard();leonV2RefreshNotifications();
+    const old=document.querySelector('#internal-view > .max-w-7xl'); if(!old)return; old.innerHTML=`<div class="leon-v2-shell"><div class="flex flex-col lg:flex-row justify-between gap-4 mb-6"><div><div class="v2-pill bg-white"><i class="fa-solid fa-shield-halved text-brand-600"></i><span id="v2-role-pill">Administrador</span></div><h2 class="text-3xl md:text-4xl font-black text-slate-900 mt-3" id="v2-greeting">Buenos días 👋</h2><p class="text-sm text-slate-500 mt-1">Tu espacio comercial se adapta automáticamente a tus permisos.</p><div id="v2-db-status" class="mt-2"></div></div><div class="flex items-center gap-3"><div class="relative"><button onclick="leonV2ToggleNotifications()" class="relative px-4 py-3 rounded-xl border bg-white text-xs font-black" title="Notificaciones"><i class="fa-solid fa-bell"></i><span id="v2-notif-count" class="hidden absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] font-black rounded-full w-4 h-4 flex items-center justify-center">0</span></button><div id="v2-notif-dropdown" class="hidden absolute right-0 top-full mt-2 w-80 max-w-[90vw] bg-white border border-slate-200 rounded-xl shadow-glass-lg z-50 max-h-96 overflow-y-auto"></div></div><button onclick="leonV2OpenSection('clients')" class="px-4 py-3 rounded-xl border bg-white text-xs font-black"><i class="fa-solid fa-magnifying-glass mr-2"></i>Buscar cliente</button><button onclick="logoutUser()" class="px-4 py-3 rounded-xl bg-red-50 text-red-600 text-xs font-black"><i class="fa-solid fa-right-from-bracket mr-2"></i>Salir</button></div></div><div class="grid lg:grid-cols-[230px_1fr] gap-6 v2-layout"><aside class="v2-nav h-fit"><div class="px-3 pb-3 text-[10px] font-black uppercase tracking-widest text-slate-500">Workspace</div><div id="v2-nav"></div></aside><section id="v2-main" class="min-w-0"></section></div></div>`;renderNav();renderDashboard();leonV2RefreshNotifications();if(typeof window.leonV2UpdateDbStatusBadge==='function')window.leonV2UpdateDbStatusBadge();
   }
   const navItems=[['dashboard','fa-chart-pie','Dashboard'],['clients','fa-address-card','Clientes'],['pipeline','fa-filter-circle-dollar','Pipeline'],['historial','fa-clock-rotate-left','Historial'],['catalog','fa-boxes-stacked','Catálogo'],['proposals','fa-file-signature','Propuestas'],['payroll','fa-sitemap','Comisiones'],['tickets','fa-ticket','Tickets'],['projects','fa-helmet-safety','Proyectos'],['reports','fa-chart-line','Reportes'],['branding','fa-pen-ruler','Sitio Web'],['users','fa-user-shield','Usuarios'],['trash','fa-trash-can','Papelera'],['audit','fa-clipboard-list','Auditoría'],['settings','fa-gear','Configuración']];
   window.leonV2OpenSection=sec=>{document.querySelectorAll('#v2-nav button').forEach(b=>b.classList.toggle('active',b.dataset.sec===sec));({dashboard:renderDashboard,clients:renderClients,pipeline:renderPipeline,historial:renderHistorialSection,catalog:renderCatalog,proposals:renderProposals,payroll:renderPayroll,tickets:renderTickets,projects:renderProjects,reports:renderReports,branding:renderBranding,users:renderUsers,trash:renderTrash,audit:renderAudit,settings:renderSettings}[sec]||renderDashboard)()};
@@ -2936,6 +3130,7 @@
     e.target.classList.add('hidden');
     showToast('Ticket '+t.id+' creado.','success');
     renderTicketsList();
+    if(typeof window.leonV2SyncCollection==='function'){window.leonV2SyncCollection('tickets');if(client)window.leonV2SyncCollection('clients');}
   };
   function renderTicketsList(){
     const box=document.getElementById('v2-tickets-list'); if(!box)return;
@@ -2953,6 +3148,7 @@
     showToast('Ticket '+t.id+' → '+status,'success');
     renderTicketsList();
     if(typeof leonV2RefreshNotifications==='function')leonV2RefreshNotifications();
+    if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('tickets');
   };
   window.leonV2OpenTicketDetail=id=>{
     const t=(state.tickets||[]).find(x=>x.id===id); if(!t)return;
@@ -2973,6 +3169,7 @@
     t.comments.push({text,by:(state.currentUser&&state.currentUser.name)||'Equipo',at:new Date().toISOString()});
     leonV2OpenTicketDetail(id);
     showToast('Comentario agregado.','success');
+    if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('tickets');
   };
 
   // ===================== PROYECTOS E INSTALACIONES =====================
@@ -2989,6 +3186,7 @@
       createdAt:new Date().toISOString()
     });
     leonV2Audit('Proyecto creado', q.id+' → proyecto de instalación');
+    if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('projects');
   }
   function renderProjects(){
     document.getElementById('v2-main').innerHTML=`<div class="v2-card p-6"><h3 class="text-xl font-black">Proyectos e Instalaciones</h3><p class="text-xs text-slate-500 mt-1">Cada propuesta aceptada se convierte en proyecto automáticamente.</p><div id="v2-projects-list" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-5"></div></div>`;
@@ -3015,6 +3213,7 @@
     leonV2Audit('Etapa de proyecto cambiada', p.id+': '+prev+' → '+stage);
     showToast('Proyecto '+p.id+' → '+stage,'success');
     renderProjectsList();
+    if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('projects');
   };
   window.leonV2AssignTechnician=(id,techId)=>{
     const p=(state.projects||[]).find(x=>x.id===id); if(!p)return;
@@ -3023,11 +3222,13 @@
     leonV2Audit('Técnico asignado', p.id+' → '+(tech?tech.name:'sin asignar'));
     showToast('Técnico actualizado.','success');
     renderProjectsList();
+    if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('projects');
   };
   window.leonV2ToggleChecklist=(id,idx)=>{
     const p=(state.projects||[]).find(x=>x.id===id); if(!p)return;
     if(p.checklist[idx]) p.checklist[idx].done=!p.checklist[idx].done;
     renderProjectsList();
+    if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('projects');
   };
 
   // ===================== EXPEDIENTE 360° DEL CLIENTE =====================
@@ -3099,6 +3300,7 @@
     const labels={nota:'Nota',llamada:'Llamada',email:'Email',whatsapp:'WhatsApp',reunion:'Reunión'};
     c.activity.push({type,text:(labels[type]||'Nota')+': '+text,at:new Date().toISOString(),by:actor});
     c.lastContact=new Date().toISOString();
+    if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('clients');
     input.value='';
     leonV2OpenClientDossier(id);
     showToast((labels[type]||'Nota')+' registrada en el expediente.','success');
@@ -3112,11 +3314,13 @@
     const purge=new Date(now.getTime()+30*24*60*60*1000);
     state.trash.unshift({trashId:'trash-'+Date.now()+'-'+Math.floor(Math.random()*999), type, label, data:obj, deletedAt:now.toISOString(), deletedBy:(state.currentUser&&state.currentUser.name)||'Sistema', purgeAt:purge.toISOString()});
     leonV2Audit('Enviado a papelera', type+': '+label);
+    if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('trash');
   }
   window.leonV2DeleteClient=id=>{
     const idx=(state.clients||[]).findIndex(x=>x.id===id); if(idx===-1)return;
     const c=state.clients[idx];
     state.clients.splice(idx,1);
+    if(typeof window.leonV2DbDelete==='function')window.leonV2DbDelete('clients', id);
     leonV2SoftDelete('client', c, c.name);
     leonV2Close('leon-v2-client-dossier');
     showToast('Cliente movido a la papelera. Se puede restaurar durante 30 días.','success');
@@ -3142,6 +3346,12 @@
     showToast(t.label+' restaurado.','success');
     renderTrashList();
     if(typeof renderAdminProductsList==='function')renderAdminProductsList();
+    if(typeof window.leonV2SyncCollection==='function'){
+      if(t.type==='client')window.leonV2SyncCollection('clients');
+      else if(t.type==='product')window.leonV2SyncCollection('products');
+      else if(t.type==='category')window.leonV2SyncCollection('categories');
+    }
+    if(typeof window.leonV2DbDelete==='function')window.leonV2DbDelete('trash', trashId);
   };
   window.leonV2PurgeTrash=trashId=>{
     const idx=(state.trash||[]).findIndex(t=>t.trashId===trashId); if(idx===-1)return;
@@ -3150,11 +3360,12 @@
     leonV2Audit('Eliminado definitivamente', t.type+': '+t.label);
     showToast(t.label+' eliminado en definitiva.','error');
     renderTrashList();
+    if(typeof window.leonV2DbDelete==='function')window.leonV2DbDelete('trash', trashId);
   };
 
   // ===================== AUDITORÍA (registro local de acciones, no reemplaza un log de servidor) =====================
   function renderAudit(){
-    document.getElementById('v2-main').innerHTML=`<div class="v2-card p-6"><div class="flex justify-between items-center mb-2"><div><h3 class="text-xl font-black">Auditoría</h3><p class="text-xs text-slate-500 mt-1">Quién hizo qué y cuándo, dentro de esta sesión del navegador.</p></div></div><div class="p-3 rounded-xl bg-amber-50 border border-amber-100 text-[11px] text-amber-800 mb-4"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Este registro vive solo en esta pestaña. Un log de auditoría de producción debe grabarse en el servidor, con IP y con protección contra edición.</div><div id="v2-audit-list"></div></div>`;
+    document.getElementById('v2-main').innerHTML=`<div class="v2-card p-6"><div class="flex justify-between items-center mb-2"><div><h3 class="text-xl font-black">Auditoría</h3><p class="text-xs text-slate-500 mt-1">Quién hizo qué y cuándo.</p></div></div><div class="p-3 rounded-xl ${window.__fbDb?'bg-emerald-50 border border-emerald-100 text-emerald-800':'bg-amber-50 border border-amber-100 text-amber-800'} text-[11px] mb-4"><i class="fa-solid ${window.__fbDb?'fa-circle-check':'fa-triangle-exclamation'} mr-1"></i> ${window.__fbDb?'Este registro se guarda en la base de datos compartida (Firestore) y es visible desde cualquier dispositivo del equipo.':'Este registro vive solo en esta pestaña — no hay conexión a la base de datos ahora mismo.'} Aun así, cualquiera con el código fuente podría alterarlo desde la consola del navegador; un log de auditoría a prueba de manipulación necesita escribirse desde un servidor (Cloud Function), no directo desde el cliente.</div><div id="v2-audit-list"></div></div>`;
     const items=(state.auditLog||[]);
     document.getElementById('v2-audit-list').innerHTML=items.length?`<table class="w-full v2-table"><thead><tr><th>Acción</th><th>Detalle</th><th>Usuario</th><th>Rol</th><th>Fecha</th></tr></thead><tbody>${items.map(a=>`<tr><td><b>${esc(a.action)}</b></td><td class="text-slate-500">${esc(a.details||'')}</td><td>${esc(a.by)}</td><td>${esc(a.role)}</td><td>${esc(new Date(a.at).toLocaleString())}</td></tr>`).join('')}</tbody></table>`:'<div class="v2-empty">Sin actividad registrada todavía.</div>';
   }
@@ -3203,6 +3414,7 @@
     showToast('Precio actualizado. Nuevo total: '+money(t.total),'success');
     if(document.getElementById('v2-main').innerHTML.includes('Propuestas & Cotizaciones'))renderProposals();
     if(typeof renderQuotesList==='function')renderQuotesList();
+    if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('quotes');
   };
 
   function renderPipeline(){
@@ -3223,7 +3435,7 @@
   }
 
   function renderBranding(){
-    document.getElementById('v2-main').innerHTML=`<div class="v2-card p-6"><div class="flex items-center justify-between mb-2 flex-wrap gap-2"><div><h3 class="text-xl font-black text-slate-900">Editor de Sitio Web</h3><p class="text-xs text-slate-500 mt-1">Cambia el logo y el banner principal que ven todos los visitantes — sin tocar código.</p></div><span class="v2-pill">CMS</span></div><div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6"><div class="p-5 rounded-2xl border border-brand-100 bg-brand-50/40"><h4 class="text-[10px] font-black uppercase tracking-widest text-slate-600 mb-3">Logo de la Marca</h4><div class="flex items-center gap-4"><div id="cms-logo-preview" class="w-16 h-16 rounded-xl border border-brand-200 bg-white overflow-hidden flex items-center justify-center shrink-0"></div><div class="flex-grow min-w-0"><input type="file" id="cms-logo-file" accept="image/*" class="hidden" onchange="handleCmsLogoUpload(event)"><button type="button" onclick="document.getElementById('cms-logo-file').click()" class="w-full bg-ink-900 hover:bg-ink-800 text-white px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider"><i class="fa-solid fa-upload text-brand-400 mr-1"></i> Subir Logo</button><p id="cms-logo-status" class="text-[10px] text-slate-400 font-mono mt-2">Sin cambios recientes.</p></div></div></div><div class="p-5 rounded-2xl border border-brand-100 bg-brand-50/40"><h4 class="text-[10px] font-black uppercase tracking-widest text-slate-600 mb-3">Banner Principal (Inicio)</h4><div class="flex items-center gap-4"><div id="cms-hero-preview" class="w-16 h-16 rounded-xl border border-brand-200 bg-white overflow-hidden flex items-center justify-center shrink-0"><i class="fa-solid fa-image text-slate-300"></i></div><div class="flex-grow min-w-0"><input type="file" id="cms-hero-file" accept="image/*,video/*" class="hidden" onchange="handleCmsHeroUpload(event)"><button type="button" onclick="document.getElementById('cms-hero-file').click()" class="w-full bg-ink-900 hover:bg-ink-800 text-white px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider"><i class="fa-solid fa-upload text-brand-400 mr-1"></i> Subir Imagen o Video</button><p id="cms-hero-status" class="text-[10px] text-slate-400 font-mono mt-2">Acepta imagen o video (MP4, máx. 25MB).</p><label class="flex items-center gap-2 mt-3 text-[11px] text-slate-600 font-bold cursor-pointer"><input type="checkbox" id="cms-hero-overlay" ${state.siteContent.heroOverlay===false?'':'checked'} onchange="state.siteContent.heroOverlay=this.checked;renderSiteBranding()"> Aplicar degradado oscuro sobre la foto/video (mejora la legibilidad del texto)</label></div></div></div></div><button onclick="resetSiteBranding()" class="mt-5 text-[10px] font-bold text-slate-400 hover:text-red-500 uppercase tracking-wider transition"><i class="fa-solid fa-rotate-left mr-1"></i>Restaurar valores por defecto</button><div class="mt-6 p-4 rounded-2xl bg-amber-50 border border-amber-100 text-xs text-amber-800"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Estos cambios viven solo en esta pestaña del navegador — no hay backend conectado todavía. Para que el logo y el banner se vean iguales para todos los visitantes hace falta conectar Firebase Storage (ver el comentario "ADAPTADOR DE DATOS" en el código fuente).</div></div>
+    document.getElementById('v2-main').innerHTML=`<div class="v2-card p-6"><div class="flex items-center justify-between mb-2 flex-wrap gap-2"><div><h3 class="text-xl font-black text-slate-900">Editor de Sitio Web</h3><p class="text-xs text-slate-500 mt-1">Cambia el logo y el banner principal que ven todos los visitantes — sin tocar código.</p></div><span class="v2-pill">CMS</span></div><div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6"><div class="p-5 rounded-2xl border border-brand-100 bg-brand-50/40"><h4 class="text-[10px] font-black uppercase tracking-widest text-slate-600 mb-3">Logo de la Marca</h4><div class="flex items-center gap-4"><div id="cms-logo-preview" class="w-16 h-16 rounded-xl border border-brand-200 bg-white overflow-hidden flex items-center justify-center shrink-0"></div><div class="flex-grow min-w-0"><input type="file" id="cms-logo-file" accept="image/*" class="hidden" onchange="handleCmsLogoUpload(event)"><button type="button" onclick="document.getElementById('cms-logo-file').click()" class="w-full bg-ink-900 hover:bg-ink-800 text-white px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider"><i class="fa-solid fa-upload text-brand-400 mr-1"></i> Subir Logo</button><p id="cms-logo-status" class="text-[10px] text-slate-400 font-mono mt-2">Sin cambios recientes.</p></div></div></div><div class="p-5 rounded-2xl border border-brand-100 bg-brand-50/40"><h4 class="text-[10px] font-black uppercase tracking-widest text-slate-600 mb-3">Banner Principal (Inicio)</h4><div class="flex items-center gap-4"><div id="cms-hero-preview" class="w-16 h-16 rounded-xl border border-brand-200 bg-white overflow-hidden flex items-center justify-center shrink-0"><i class="fa-solid fa-image text-slate-300"></i></div><div class="flex-grow min-w-0"><input type="file" id="cms-hero-file" accept="image/*,video/*" class="hidden" onchange="handleCmsHeroUpload(event)"><button type="button" onclick="document.getElementById('cms-hero-file').click()" class="w-full bg-ink-900 hover:bg-ink-800 text-white px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider"><i class="fa-solid fa-upload text-brand-400 mr-1"></i> Subir Imagen o Video</button><p id="cms-hero-status" class="text-[10px] text-slate-400 font-mono mt-2">Acepta imagen o video (MP4, máx. 25MB).</p><label class="flex items-center gap-2 mt-3 text-[11px] text-slate-600 font-bold cursor-pointer"><input type="checkbox" id="cms-hero-overlay" ${state.siteContent.heroOverlay===false?'':'checked'} onchange="state.siteContent.heroOverlay=this.checked;renderSiteBranding();if(typeof window.leonV2SyncMeta==='function')window.leonV2SyncMeta('siteContent')"> Aplicar degradado oscuro sobre la foto/video (mejora la legibilidad del texto)</label></div></div></div></div><button onclick="resetSiteBranding()" class="mt-5 text-[10px] font-bold text-slate-400 hover:text-red-500 uppercase tracking-wider transition"><i class="fa-solid fa-rotate-left mr-1"></i>Restaurar valores por defecto</button><div class="mt-6 p-4 rounded-2xl ${window.__fbDb?'bg-emerald-50 border border-emerald-100 text-emerald-800':'bg-amber-50 border border-amber-100 text-amber-800'} text-xs"><i class="fa-solid ${window.__fbDb?'fa-circle-check':'fa-triangle-exclamation'} mr-1"></i> ${window.__fbDb?'Conectado a la base de datos — estos cambios se guardan y se ven iguales para todos los visitantes, en todos los dispositivos del equipo.':'Sin conexión a la base de datos ahora mismo — estos cambios solo viven en esta pestaña.'} Nota: fotos o videos muy pesados (más de ~1MB) no caben en un documento de Firestore y no se sincronizarán aunque se vean bien en esta pantalla — para medios grandes en producción, lo correcto es Firebase Storage, no guardarlos como texto en la base de datos.</div></div>
     <div class="v2-card p-6 mt-6"><div class="flex items-center justify-between mb-2 flex-wrap gap-2"><div><h3 class="text-xl font-black text-slate-900">Galería de Proyectos</h3><p class="text-xs text-slate-500 mt-1">Cambia las fotos y el texto que se muestran en "Nuestro Trabajo" del sitio público.</p></div><button onclick="addCmsGalleryItem()" class="bg-ink-900 hover:bg-ink-800 text-white px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider"><i class="fa-solid fa-plus mr-1"></i>Añadir foto</button></div><div id="cms-gallery-list" class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-4"></div></div>`;
     renderSiteBranding();
     renderGalleryCmsEditor();
@@ -3279,7 +3491,7 @@
 
   function renderSettings(){
     const role=state.currentUser?.role||'Administrador';
-    document.getElementById('v2-main').innerHTML=`<div class="grid lg:grid-cols-2 gap-6"><div class="v2-card p-6"><h3 class="font-black text-slate-900">Simular Rol (solo demo)</h3><p class="text-xs text-slate-500 mt-1">Cambia de rol para revisar cómo se ve el sistema desde cada perfil, sin cerrar sesión.</p><select id="v2-role-selector" onchange="changeRoleSimulated(this.value)" class="w-full mt-4 px-4 py-3 rounded-xl bg-white border border-slate-200 text-sm outline-none"><option value="Administrador">Administrador</option><option value="Vendedor">Vendedor</option><option value="Call Center">Call Center</option><option value="Nuevo Consultor">Nuevo Consultor</option><option value="Técnico">Técnico</option></select></div><div class="v2-card p-6"><h3 class="font-black text-slate-900">Seguridad — estado real</h3><div class="space-y-3 mt-4 text-xs"><div class="p-3 bg-amber-50 border border-amber-100 rounded-xl text-amber-800"><b>Acceso staff:</b> hoy es un candado de demostración en el navegador (clave compartida), no autenticación real. Para producción hace falta un proveedor real (Firebase Authentication o backend con sesiones/JWT) que valide credenciales en un servidor, nunca en el navegador.</div><div class="p-3 bg-amber-50 border border-amber-100 rounded-xl text-amber-800"><b>Almacenamiento:</b> todo vive en memoria de esta pestaña (variable <code>state</code>). Nada se sincroniza entre usuarios ni sobrevive un refresco. Ver el comentario "ADAPTADOR DE DATOS" en el código para conectar Firestore/Storage de verdad.</div><div class="p-3 bg-emerald-50 border border-emerald-100 rounded-xl text-emerald-800"><b>Compresión de imágenes:</b> real, vía canvas — recodifica los píxeles, no es una animación falsa.</div><div class="p-3 bg-amber-50 border border-amber-100 rounded-xl text-amber-800"><b>Identificación (SSN/ID/Pasaporte):</b> se enmascara antes de guardarse y solo se conservan los últimos 4 caracteres — no hay cifrado real porque no hay servidor. Para datos reales, la identificación completa no debe tocar el navegador sin cifrado en tránsito y en reposo.</div><div class="p-3 bg-amber-50 border border-amber-100 rounded-xl text-amber-800"><b>PIN / segundo factor:</b> real como flujo (correo + clave, luego PIN de 5 dígitos por usuario, con bloqueo tras 5 fallos) pero sin backend — el PIN se muestra en pantalla al crearlo en vez de llegar por correo, y el bloqueo vive solo en esta pestaña. Ver el registro de accesos abajo.</div></div></div><div class="v2-card p-6 lg:col-span-2"><h3 class="font-black text-slate-900 flex items-center gap-2"><i class="fa-solid fa-key text-brand-500"></i> Accesos y PIN (segundo factor)</h3><p class="text-xs text-slate-500 mt-1">Quién intentó iniciar sesión, cuándo, y si el PIN fue correcto — para detectar accesos sospechosos.</p><div id="v2-lockouts" class="flex flex-wrap gap-2 mt-4"></div><div id="v2-security-log" class="overflow-x-auto mt-4"></div></div><div class="v2-card p-6 lg:col-span-2"><h3 class="font-black text-slate-900">Estados del Pipeline</h3><p class="text-xs text-slate-500 mt-1">Los estados que aparecen en el selector de cada propuesta activa. Agrega o quita los que tu operación necesite.</p><div id="v2-status-list" class="flex flex-wrap gap-2 mt-4"></div><form onsubmit="leonV2AddPipelineStatus(event)" class="flex gap-2 mt-4"><input id="v2-new-status" placeholder="Nuevo estado, ej. Pendiente de inspección" class="flex-grow px-4 py-2.5 rounded-xl border border-slate-200 text-sm outline-none"><button type="submit" class="px-4 py-2.5 rounded-xl bg-ink-900 text-white text-xs font-black uppercase">Agregar</button></form></div></div>`;
+    document.getElementById('v2-main').innerHTML=`<div class="grid lg:grid-cols-2 gap-6"><div class="v2-card p-6"><h3 class="font-black text-slate-900">Simular Rol (solo demo)</h3><p class="text-xs text-slate-500 mt-1">Cambia de rol para revisar cómo se ve el sistema desde cada perfil, sin cerrar sesión.</p><select id="v2-role-selector" onchange="changeRoleSimulated(this.value)" class="w-full mt-4 px-4 py-3 rounded-xl bg-white border border-slate-200 text-sm outline-none"><option value="Administrador">Administrador</option><option value="Vendedor">Vendedor</option><option value="Call Center">Call Center</option><option value="Nuevo Consultor">Nuevo Consultor</option><option value="Técnico">Técnico</option></select></div><div class="v2-card p-6"><h3 class="font-black text-slate-900">Seguridad — estado real</h3><div class="space-y-3 mt-4 text-xs"><div class="p-3 bg-amber-50 border border-amber-100 rounded-xl text-amber-800"><b>Acceso staff:</b> hoy es un candado de demostración en el navegador (clave compartida), no autenticación real. Para producción hace falta un proveedor real (Firebase Authentication o backend con sesiones/JWT) que valide credenciales en un servidor, nunca en el navegador.</div><div class="p-3 ${window.__fbDb?'bg-emerald-50 border border-emerald-100 text-emerald-800':'bg-amber-50 border border-amber-100 text-amber-800'} rounded-xl">${window.__fbDb?'<b>Almacenamiento:</b> conectado a Firestore (Firebase) en tiempo real — los cambios se guardan de verdad y se ven en todos los dispositivos del equipo, no solo en esta pestaña.':'<b>Almacenamiento:</b> sin conexión a la base de datos ahora mismo — todo vive en memoria de esta pestaña (variable <code>state</code>) y no sobrevive un refresco.'} La seguridad de esos datos depende de las reglas de Firestore configuradas en la consola de Firebase, no de esta pantalla.</div><div class="p-3 bg-emerald-50 border border-emerald-100 rounded-xl text-emerald-800"><b>Compresión de imágenes:</b> real, vía canvas — recodifica los píxeles, no es una animación falsa.</div><div class="p-3 bg-amber-50 border border-amber-100 rounded-xl text-amber-800"><b>Identificación (SSN/ID/Pasaporte):</b> se enmascara antes de guardarse y solo se conservan los últimos 4 caracteres — no hay cifrado real porque no hay servidor. Para datos reales, la identificación completa no debe tocar el navegador sin cifrado en tránsito y en reposo.</div><div class="p-3 bg-amber-50 border border-amber-100 rounded-xl text-amber-800"><b>PIN / segundo factor:</b> real como flujo (correo + clave, luego PIN de 5 dígitos por usuario, con bloqueo tras 5 fallos)${window.__fbDb?' y el registro de accesos + los bloqueos ya se guardan en la base de datos compartida — visibles desde cualquier dispositivo.':', pero sin conexión a la base de datos ahora mismo el bloqueo vive solo en esta pestaña.'} Aún falta lo que ninguna base de datos por sí sola resuelve: el PIN se muestra en pantalla al crearlo en vez de llegar por correo (hace falta una Cloud Function que envíe el correo), y la validación de la clave sigue pasando por el navegador en vez de un proveedor de autenticación real (Firebase Authentication). Ver el registro de accesos abajo.</div></div></div><div class="v2-card p-6 lg:col-span-2"><h3 class="font-black text-slate-900 flex items-center gap-2"><i class="fa-solid fa-key text-brand-500"></i> Accesos y PIN (segundo factor)</h3><p class="text-xs text-slate-500 mt-1">Quién intentó iniciar sesión, cuándo, y si el PIN fue correcto — para detectar accesos sospechosos.</p><div id="v2-lockouts" class="flex flex-wrap gap-2 mt-4"></div><div id="v2-security-log" class="overflow-x-auto mt-4"></div></div><div class="v2-card p-6 lg:col-span-2"><h3 class="font-black text-slate-900">Estados del Pipeline</h3><p class="text-xs text-slate-500 mt-1">Los estados que aparecen en el selector de cada propuesta activa. Agrega o quita los que tu operación necesite.</p><div id="v2-status-list" class="flex flex-wrap gap-2 mt-4"></div><form onsubmit="leonV2AddPipelineStatus(event)" class="flex gap-2 mt-4"><input id="v2-new-status" placeholder="Nuevo estado, ej. Pendiente de inspección" class="flex-grow px-4 py-2.5 rounded-xl border border-slate-200 text-sm outline-none"><button type="submit" class="px-4 py-2.5 rounded-xl bg-ink-900 text-white text-xs font-black uppercase">Agregar</button></form></div></div>`;
     const sel=document.getElementById('v2-role-selector'); if(sel) sel.value=role;
     renderPipelineStatusList();
     renderSecurityAccessLog();
@@ -3300,6 +3512,7 @@
     leonV2Audit('Cuenta desbloqueada', email);
     showToast('Cuenta desbloqueada.','success');
     renderSecurityAccessLog();
+    if(typeof window.leonV2SyncMeta==='function')window.leonV2SyncMeta('loginLockouts');
   };
   function renderPipelineStatusList(){
     const box=document.getElementById('v2-status-list'); if(!box)return;
@@ -3317,12 +3530,14 @@
     input.value='';
     renderPipelineStatusList();
     showToast('Estado agregado.','success');
+    if(typeof window.leonV2SyncMeta==='function')window.leonV2SyncMeta('pipelineStatuses');
   };
   window.leonV2RemovePipelineStatus=val=>{
     state.pipelineStatuses=(state.pipelineStatuses||[]).filter(s=>s!==val);
     leonV2Audit('Estado de pipeline eliminado', val);
     renderPipelineStatusList();
     showToast('Estado eliminado de la lista (las propuestas que ya lo tenían lo conservan).','info');
+    if(typeof window.leonV2SyncMeta==='function')window.leonV2SyncMeta('pipelineStatuses');
   };
   // Cambio de estado no terminal (a diferencia de approveQuote/rejectQuote, esto no mueve la
   // propuesta al historial — solo actualiza dónde está dentro del pipeline activo).
@@ -3334,6 +3549,7 @@
     leonV2Audit('Estado de propuesta cambiado', q.id+': '+prev+' → '+status);
     showToast('Estado actualizado a "'+status+'".','success');
     if(typeof renderAdminCharts==='function')renderAdminCharts();
+    if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('quotes');
   };
 
   // Hook existing cart checkout into the V2 decision flow.
@@ -3344,8 +3560,11 @@
   // para que la demo se sienta como un login de verdad; cualquiera que abra el código fuente puede
   // leer DEMO_ACCESS_CODE. Antes de usar este sistema con datos reales hace falta un proveedor de
   // autenticación real (p.ej. Firebase Authentication o un backend con sesiones/JWT) que verifique
-  // credenciales en un servidor, nunca en el navegador. Mismo principio que el comentario
-  // "ADAPTADOR DE DATOS" más abajo, aplicado aquí al login en vez del almacenamiento.
+  // credenciales en un servidor, nunca en el navegador. La base de datos (Firestore) ya está
+  // conectada de verdad — ver "ADAPTADOR DE DATOS" más arriba — pero eso resuelve el ALMACENAMIENTO,
+  // no la AUTENTICACIÓN: el PIN de 5 dígitos (ver handlePinSubmit) es un segundo factor real como
+  // flujo, mas la verificación de la clave sigue pasando por este código del navegador, no por un
+  // proveedor de identidad de verdad.
   const DEMO_ACCESS_CODE='leon2026';
   window.handleLoginSubmit=function(e){
     e.preventDefault();
@@ -3404,11 +3623,13 @@
         if(p&&typeof p.stock==='number')p.stock=Math.max(0,p.stock-item.qty);
       });
       if(typeof renderAdminProductsList==='function')renderAdminProductsList();
+      if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('products');
       leonV2GenerateCommissions(q);
       leonV2CreateProject(q);
     }
     leonV2UpsertClient(q,'Propuesta '+q.id+' — '+finalStatus);
     leonV2Audit('Cambio de estado', q.id+' → '+finalStatus);
+    if(typeof window.leonV2SyncCollection==='function'){window.leonV2SyncCollection('quotes');window.leonV2SyncCollection('quotesHistory');}
   };
 
   // ===================== ESTRUCTURA PIRAMIDAL + COMISIONES JERÁRQUICAS =====================
@@ -3433,6 +3654,7 @@
     leonV2Audit('Supervisor cambiado', u.name+': '+prevSup+' → '+newSupName);
     showToast('Supervisor de '+u.name+' actualizado.','success');
     renderUsersList();
+    if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('users');
   };
   // Genera el ledger de comisiones para UNA venta aceptada: comisión directa para quien vendió, y
   // comisión de referido (override) para cada nivel de supervisores hacia arriba, aplicando una
@@ -3457,6 +3679,7 @@
       current=sup;
     });
     leonV2Audit('Comisiones generadas', q.id+' · venta '+money(saleAmount));
+    if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('commissions');
   }
 
   function leonV2Descendants(userId){
@@ -3489,10 +3712,11 @@
   // ===================== CONTRATO DE VENDEDOR (perfil, datos personales y de pago) =====================
   // Igual que con la identificación del cliente (ver maskId): el número de cuenta y el routing
   // number NUNCA se guardan completos en state — solo se conservan los últimos 4 dígitos. El valor
-  // completo se usa un instante para calcular la máscara y luego se descarta. Esto es deliberado:
-  // sin backend ni cifrado real, mantener números de cuenta bancaria completos en la memoria del
-  // navegador sería un riesgo real de seguridad para el personal. Para operar pagos de verdad hace
-  // falta un procesador de pagos (ACH real) o backend con cifrado en reposo — nunca el navegador.
+  // completo se usa un instante para calcular la máscara y luego se descarta. Esto es deliberado y
+  // se mantiene igual con la base de datos conectada: lo único que viaja a Firestore es la versión
+  // enmascarada — el número completo nunca sale del navegador ni queda guardado en ningún lugar.
+  // Para operar pagos de verdad hace falta un procesador de pagos (ACH real) o un backend con
+  // cifrado en reposo para el número completo — nunca el navegador ni Firestore tal cual.
   let vendorContractPhotoPending = null;
   window.leonV2OpenVendorContract = function(userId){
     const u = state.users.find(x=>x.id===userId); if(!u) return;
@@ -3560,6 +3784,7 @@
     showToast('Contrato de vendedor guardado.','success');
     leonV2Close('leon-v2-vendor-contract');
     if(typeof renderUsersList==='function') renderUsersList();
+    if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('users');
   };
 
   // ===================== NÓMINA Y COMISIONES =====================
@@ -3694,10 +3919,12 @@
     levels.push({level:nextLevel, percent:1});
     state.commissionRules.levels=levels;
     renderCommissionLevels();
+    if(typeof window.leonV2SyncMeta==='function')window.leonV2SyncMeta('commissionRules');
   };
   window.leonV2RemoveCommissionLevel=idx=>{
     state.commissionRules.levels.splice(idx,1);
     renderCommissionLevels();
+    if(typeof window.leonV2SyncMeta==='function')window.leonV2SyncMeta('commissionRules');
   };
   window.leonV2SaveCommissionRules=()=>{
     const direct=Number(document.getElementById('v2-com-direct').value)||0;
@@ -3706,6 +3933,7 @@
     state.commissionRules.direct=direct;
     leonV2Audit('Reglas de comisión actualizadas', 'Directa '+direct+'% + '+state.commissionRules.levels.length+' nivel(es)');
     showToast('Reglas de comisión guardadas. Aplican a partir de la próxima venta aceptada.','success');
+    if(typeof window.leonV2SyncMeta==='function')window.leonV2SyncMeta('commissionRules');
   };
   function renderCommissionLedger(isAdmin){
     const box=document.getElementById('v2-commission-ledger'); if(!box)return;
@@ -3721,6 +3949,7 @@
     leonV2Audit('Comisión '+status.toLowerCase(), c.beneficiaryName+' · '+c.quoteId+' · '+money(c.amount));
     showToast('Comisión de '+c.beneficiaryName+' marcada como '+status+'.','success');
     renderCommissionLedger(true);
+    if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('commissions');
   };
   window.leonV2OpenAdjustCommission=id=>{
     const c=(state.commissions||[]).find(x=>x.id===id); if(!c)return;
@@ -3742,6 +3971,7 @@
     leonV2Close('leon-v2-adjust-commission');
     showToast('Comisión ajustada.','success');
     renderCommissionLedger(true);
+    if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('commissions');
   };
 
   // ===================== Auditoría + Papelera sobre acciones existentes =====================
