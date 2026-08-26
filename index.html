@@ -373,7 +373,7 @@
     <!-- Corporate info bar (black detail strip) -->
     <div id="corporate-topbar" class="hidden md:flex justify-between items-center px-8 lg:px-12 py-2 bg-ink-950 border-b border-ink-800 text-[11px] font-bold text-slate-400 relative z-30">
         <div class="flex gap-6">
-            <span class="flex items-center gap-2 hover:text-brand-400 transition-colors cursor-pointer"><i class="fa-solid fa-phone text-brand-400"></i> 787-410-0694 </span>
+            <span class="flex items-center gap-2 hover:text-brand-400 transition-colors cursor-pointer"><i class="fa-solid fa-phone text-brand-400"></i> 809-555-0140</span>
             <span class="flex items-center gap-2 hover:text-brand-400 transition-colors cursor-pointer"><i class="fa-solid fa-envelope text-brand-400"></i> ventas@leonsolutions.com</span>
         </div>
         <div class="flex gap-6">
@@ -685,7 +685,7 @@
                         <p class="text-slate-600 mb-10 text-sm leading-relaxed">Déjanos tus datos y un consultor LEON se comunicará contigo para una evaluación preliminar sin compromiso.</p>
                         <div class="space-y-6">
                             <div class="flex items-start gap-4"><div class="w-10 h-10 bg-brand-50 border border-brand-100 rounded-lg flex items-center justify-center text-brand-600 shrink-0"><i class="fa-solid fa-location-dot"></i></div><div><h4 class="font-bold text-slate-900 text-sm">Ubicación</h4><p class="text-slate-600 text-sm">Cobertura a nivel nacional</p></div></div>
-                            <div class="flex items-start gap-4"><div class="w-10 h-10 bg-brand-50 border border-brand-100 rounded-lg flex items-center justify-center text-brand-600 shrink-0"><i class="fa-solid fa-phone"></i></div><div><h4 class="font-bold text-slate-900 text-sm">Teléfono</h4><p class="text-slate-600 text-sm">787-410-0694</p></div></div>
+                            <div class="flex items-start gap-4"><div class="w-10 h-10 bg-brand-50 border border-brand-100 rounded-lg flex items-center justify-center text-brand-600 shrink-0"><i class="fa-solid fa-phone"></i></div><div><h4 class="font-bold text-slate-900 text-sm">Teléfono</h4><p class="text-slate-600 text-sm">809-555-0140</p></div></div>
                             <div class="flex items-start gap-4"><div class="w-10 h-10 bg-brand-50 border border-brand-100 rounded-lg flex items-center justify-center text-brand-600 shrink-0"><i class="fa-solid fa-envelope"></i></div><div><h4 class="font-bold text-slate-900 text-sm">Email</h4><p class="text-slate-600 text-sm">ventas@leonsolutions.com</p></div></div>
                         </div>
                     </div>
@@ -3524,6 +3524,14 @@
       if(typeof renderGallery==='function') renderGallery();
       if(typeof renderSiteBranding==='function') renderSiteBranding();
       if(typeof renderProducts==='function' && document.getElementById('products-grid')) renderProducts((typeof lastRenderedCategory!=='undefined' && lastRenderedCategory)?lastRenderedCategory:'All');
+      // La "Calculadora de Pago Estimado" del sitio público pinta con state.products ANTES de que
+      // llegue la primera respuesta de Firestore (que trae las fotos reales subidas desde el admin,
+      // reemplazando los SVG de marcador de posición del arranque local). Sin este refresco, la
+      // tarjeta se queda con la imagen vieja hasta que algo más vuelva a llamar calcRenderProductGrid
+      // (p.ej. hacer clic en una tarjeta) — de ahí el reporte de "se ve mal al refrescar, bien al
+      // hacer clic". Mismo patrón de guardas por elemento que el resto de esta función.
+      if(typeof calcRenderProductGrid==='function' && document.getElementById('calc-product-grid')) calcRenderProductGrid();
+      if(typeof calcRenderSelectedPanel==='function' && document.getElementById('calc-selected-panel') && !document.getElementById('calc-selected-panel').classList.contains('hidden')) calcRenderSelectedPanel();
       const internalView = document.getElementById('internal-view');
       const activeBtn = document.querySelector('#v2-nav button.active');
       if(internalView && !internalView.classList.contains('hidden') && activeBtn && activeBtn.dataset.sec && typeof leonV2OpenSection==='function'){
