@@ -595,7 +595,6 @@
                         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             <div class="calc-field"><label>¿Cuánto pagas o quieres pagar al mes? <span class="normal-case font-normal text-white/40">(ej. tu factura de LUMA)</span></label><input type="number" id="calc-bp-amount" min="0" step="1" placeholder="200"></div>
                             <div class="calc-field"><label>Financiamiento</label><select id="calc-bp-provider" onchange="calcUpdateTermOptions('calc-bp-provider','calc-bp-term-wrap','calc-bp-term')">
-                                <option value="Sunrun">Sunrun</option>
                                 <option value="PCI" selected>PCI</option>
                                 <option value="Synchrony Bank">Synchrony Bank</option>
                                 <option value="Cooperativa">Cooperativa</option>
@@ -937,10 +936,10 @@
                 { id: 'prod-6', name: 'Bomba Presurizadora Silenciosa', category: 'Agua', price: 890, code: 'AGU-BOM', image: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22600%22%20height%3D%22450%22%20viewBox%3D%220%200%20600%20450%22%3E%0A%3Cdefs%3E%0A%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230a1a2e%22/%3E%0A%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%23025fae%22/%3E%0A%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%231893f5%22/%3E%0A%3C/linearGradient%3E%0A%3Cpattern%20id%3D%22dots%22%20width%3D%2226%22%20height%3D%2226%22%20patternUnits%3D%22userSpaceOnUse%22%3E%0A%3Ccircle%20cx%3D%221.5%22%20cy%3D%221.5%22%20r%3D%221.5%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.10%22/%3E%0A%3C/pattern%3E%0A%3C/defs%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22450%22%20fill%3D%22url%28%23g%29%22/%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22450%22%20fill%3D%22url%28%23dots%29%22/%3E%0A%3Ccircle%20cx%3D%22516.0%22%20cy%3D%2263.00000000000001%22%20r%3D%22144.0%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.05%22/%3E%0A%3Ccircle%20cx%3D%2260.0%22%20cy%3D%22414.0%22%20r%3D%2299.0%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.06%22/%3E%0A%3Ctext%20x%3D%22300.0%22%20y%3D%22207.0%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%22126%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.16%22%20font-weight%3D%22900%22%20text-anchor%3D%22middle%22%3E%E2%97%88%3C/text%3E%0A%3Ctext%20x%3D%22300.0%22%20y%3D%22261.0%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2249%22%20fill%3D%22%23ffffff%22%20font-weight%3D%22900%22%20text-anchor%3D%22middle%22%20letter-spacing%3D%221%22%3EAGU-BOM%3C/text%3E%0A%3Ctext%20x%3D%22300.0%22%20y%3D%22299.0%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%23bfe0ff%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20letter-spacing%3D%222%22%3EBOMBA%20PRESURIZADORA%3C/text%3E%0A%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22600%22%20height%3D%226%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.25%22/%3E%0A%3C/svg%3E', desc: 'Presión de agua perfecta en todas las duchas simultáneamente.', agotado: true, oculto: false, stock: 0 }
             ],
             users: [
-                { id: 'u1', name: 'Admin LEON', email: 'admin@leonsolutions.com', role: 'Administrador', supervisorId: null, pin: '10001', photoUrl: '', phone: '', address: '', contract: null },
-                { id: 'u2', name: 'Juan Pérez', email: 'vendedor@leonsolutions.com', role: 'Vendedor', supervisorId: null, pin: '10002', photoUrl: '', phone: '', address: '', contract: null },
-                { id: 'u3', name: 'Carla Reyes', email: 'callcenter@leonsolutions.com', role: 'Call Center', supervisorId: null, pin: '10003', photoUrl: '', phone: '', address: '', contract: null },
-                { id: 'u4', name: 'Miguel Santos', email: 'consultor@leonsolutions.com', role: 'Nuevo Consultor', supervisorId: 'u2', pin: '10004', photoUrl: '', phone: '', address: '', contract: null }
+                { id: 'u1', name: 'Admin LEON', email: 'admin@leonsolutions.com', role: 'Administrador', supervisorId: null, pin: '10001', photoUrl: '', phone: '', address: '', contract: null, taxId: '', documents: [] },
+                { id: 'u2', name: 'Juan Pérez', email: 'vendedor@leonsolutions.com', role: 'Vendedor', supervisorId: null, pin: '10002', photoUrl: '', phone: '', address: '', contract: null, taxId: '', documents: [] },
+                { id: 'u3', name: 'Carla Reyes', email: 'callcenter@leonsolutions.com', role: 'Call Center', supervisorId: null, pin: '10003', photoUrl: '', phone: '', address: '', contract: null, taxId: '', documents: [] },
+                { id: 'u4', name: 'Miguel Santos', email: 'consultor@leonsolutions.com', role: 'Nuevo Consultor', supervisorId: 'u2', pin: '10004', photoUrl: '', phone: '', address: '', contract: null, taxId: '', documents: [] }
             ],
             quotes: [
                 {
@@ -986,7 +985,11 @@
             ticketStatuses: ['Nuevo','Asignado','En progreso','Esperando cliente','Resuelto','Cerrado'],
             // Proyectos e instalaciones — se crean automáticamente al aceptar una propuesta.
             projects: [],
-            projectStages: ['Proyecto','Instalación programada','En instalación','Completado']
+            projectStages: ['Proyecto','Instalación programada','En instalación','Completado'],
+            // Chat interno de equipo — un solo canal compartido (no mensajes directos por ahora).
+            // Se sincroniza como bitácora (un documento nuevo por mensaje, nunca se reescribe) —
+            // ver FB_LOG_COLLECTIONS y leonV2DbAppendLog más abajo, en leon-v2-script.
+            chatMessages: []
         };
         // `let` bindings at script top-level do NOT become `window` properties (unlike plain
         // `function`/`var` declarations) — the LEON V2 block below checks `window.state` before
@@ -2495,7 +2498,10 @@
             if (!panel) return;
             if (!p) { panel.classList.add('hidden'); panel.innerHTML = ''; return; }
             panel.classList.remove('hidden');
-            const providers = ['Cash', 'Sunrun', 'PCI', 'Synchrony Bank', 'Cooperativa'];
+            // Sunrun solo financia equipos solares — no tiene sentido ofrecerlo para HVAC/agua/domótica.
+            const providers = ['Cash', 'PCI', 'Synchrony Bank', 'Cooperativa'];
+            if (p.category === 'Solar') providers.splice(1, 0, 'Sunrun');
+            if (calcProvider === 'Sunrun' && p.category !== 'Solar') calcProvider = 'PCI';
             panel.innerHTML = `
                 <div class="grid md:grid-cols-2 gap-8 items-center">
                     <div class="calc-selected-img"><img src="${p.image}" alt="${escPublic(p.name)}"></div>
@@ -2535,7 +2541,10 @@
             if (calcProvider === 'Cash') {
                 termWrap.classList.add('hidden'); cashWrap.classList.remove('hidden'); termSel.innerHTML = '';
             } else if (calcProvider === 'Sunrun') {
-                cashWrap.classList.add('hidden'); termWrap.classList.remove('hidden'); termSel.innerHTML = '<option value="120">10 años</option>';
+                // Sunrun no es total÷meses — es un PPA que depende del consumo eléctrico real, no
+                // del precio del equipo. Ese cálculo vive solo en el formulario interno de
+                // propuestas (con un consultor); aquí no se ofrece plazo ni se inventa un número.
+                cashWrap.classList.add('hidden'); termWrap.classList.add('hidden'); termSel.innerHTML = '';
             } else {
                 cashWrap.classList.add('hidden'); termWrap.classList.remove('hidden');
                 const months = []; for (let m = 6; m <= 96; m += 6) months.push(m);
@@ -2553,16 +2562,31 @@
                 anim.innerHTML = `<div class="calc-anim-price"><span class="calc-anim-dollar">$</span><span class="calc-anim-int">${p.price.toLocaleString()}</span></div><div class="calc-result-sub">Pago único · ${escPublic(mode)}</div>`;
                 return;
             }
+            if (calcProvider === 'Sunrun') {
+                anim.innerHTML = `<div class="calc-result-sub"><i class="fa-solid fa-solar-panel mr-1"></i> Sunrun se calcula según tu consumo eléctrico real (factura o historial), no según el precio del equipo. Solicita tu estimado personalizado con un consultor.</div>`;
+                return;
+            }
             const months = Number(document.getElementById('calc-term')?.value) || 0;
             if (!months) { anim.innerHTML = ''; return; }
-            const monthly = p.price / months;
+            // Misma fórmula real que usa el sistema interno de propuestas (window.leonV2CalcFinancing)
+            // — así esta calculadora pública nunca muestra un número distinto al de la cotización real.
+            // La calculadora pública no tiene campo de tasa (es un estimado, no una propuesta real)
+            // — para PCI se usa la tasa "fija" típica citada por el negocio como estimado razonable;
+            // Cooperativa no tiene default (varía demasiado por crédito) y queda marcada como tal.
+            const financingOpts = (calcProvider === 'PCI' && window.FINANCING_CONFIG) ? { rate: window.FINANCING_CONFIG.pciDefaultRate } : {};
+            const financing = typeof window.leonV2CalcFinancing === 'function' ? window.leonV2CalcFinancing(calcProvider, p.price, months, financingOpts) : null;
+            const monthly = financing ? financing.monthly : (p.price / months);
             const intPart = Math.floor(monthly);
             const centPart = Math.round((monthly - intPart) * 100);
+            const rateNote = (financing && (calcProvider === 'PCI' || calcProvider === 'Cooperativa'))
+                ? `<div><span>Tasa</span><b>${financing.rateMissing ? 'según crédito aprobado' : financing.rate.toFixed(2) + '%'}</b></div>`
+                : (financing && calcProvider === 'Synchrony Bank' ? `<div><span>Fee de financiamiento</span><b>${financing.rate.toFixed(0)}%</b></div>` : '');
             anim.innerHTML = `<div class="calc-anim-price"><span class="calc-anim-dollar">$</span><span class="calc-anim-int">${intPart.toLocaleString()}</span><span class="calc-anim-cents">.${String(centPart).padStart(2, '0')}</span><span class="calc-anim-unit">/mes</span></div>
                 <div class="calc-breakdown">
                     <div><span>Producto</span><b>$${p.price.toLocaleString()}</b></div>
                     <div><span>Plazo</span><b>${months} meses</b></div>
                     <div><span>Método</span><b>${escPublic(calcProvider)}</b></div>
+                    ${rateNote}
                 </div>`;
         }
 
@@ -2573,7 +2597,20 @@
             const provider = document.getElementById('calc-bp-provider').value;
             const monthsVal = Number(document.getElementById('calc-bp-term').value) || 0;
             if (!monthsVal) { resultEl.innerHTML = '<div class="calc-empty">Selecciona un plazo de financiamiento.</div>'; return; }
-            const budgetTotal = monthlyBudget * monthsVal;
+            // Principal máximo real según el proveedor (mismas reglas que la propuesta interna) —
+            // para PCI usamos la tasa "fija" típica citada por el negocio (19.99%) como estimado
+            // conservador; Cooperativa no tiene tasa por defecto (varía por crédito), así que aquí
+            // se estima sin interés y se avisa que el pago real depende de la tasa aprobada.
+            let budgetTotal, rateNote = '';
+            if (provider === 'Synchrony Bank' && window.FINANCING_CONFIG) {
+                budgetTotal = (monthlyBudget * monthsVal) / (1 + window.FINANCING_CONFIG.synchronyFeePct);
+            } else if (provider === 'PCI' && typeof window.leonV2MaxPrincipalForPayment === 'function') {
+                budgetTotal = window.leonV2MaxPrincipalForPayment(monthlyBudget, window.FINANCING_CONFIG.pciDefaultRate, monthsVal);
+                rateNote = ' · tasa estimada ' + window.FINANCING_CONFIG.pciDefaultRate + '%';
+            } else {
+                budgetTotal = monthlyBudget * monthsVal;
+                rateNote = ' · estimado sin interés — el pago real depende de la tasa que te aprueben';
+            }
             const catalog = (state.products || []).filter(p => !p.agotado && !p.oculto).slice().sort((a, b) => a.price - b.price);
             let matches = catalog.filter(p => p.price <= budgetTotal).slice(-6).reverse();
             let note = '';
@@ -2581,7 +2618,7 @@
                 matches = [catalog[0]];
                 note = '<div class="calc-note"><i class="fa-solid fa-triangle-exclamation mt-0.5"></i><span>Con ese presupuesto y plazo, ningún equipo cae dentro del monto exacto — aquí el más accesible de nuestro catálogo:</span></div>';
             }
-            resultEl.innerHTML = `<div class="calc-budget-summary">Presupuesto financiado estimado: <b>$${budgetTotal.toLocaleString()}</b> (${escPublic(provider)} · ${monthsVal} meses)</div>
+            resultEl.innerHTML = `<div class="calc-budget-summary">Presupuesto financiado estimado: <b>$${Math.round(budgetTotal).toLocaleString()}</b> (${escPublic(provider)} · ${monthsVal} meses${rateNote})</div>
                 ${note}
                 <div class="calc-budget-grid">${matches.map(p => `<div class="calc-budget-item"><div class="font-black text-sm">${escPublic(p.name)}</div><div class="text-[10px] uppercase text-white/50 tracking-widest mt-0.5">${escPublic(CALC_CATEGORY_LABEL[p.category] || p.category)}</div><div class="flex justify-between items-end mt-3"><div><div class="text-[10px] text-white/50 uppercase">Pago estimado</div><div class="text-lg font-black text-brand-300">$${(p.price / monthsVal).toLocaleString('en-US', { maximumFractionDigits: 0 })}/mes</div></div><button type="button" onclick="addToCart('${p.id}')" class="calc-add-mini" title="Agregar a mi propuesta"><i class="fa-solid fa-plus"></i></button></div></div>`).join('')}</div>
                 <div class="calc-disclaimer"><i class="fa-solid fa-circle-info mr-1"></i> Estimado educativo basado en el precio de catálogo y el plazo seleccionado. No incluye impuestos, instalación, transporte, promociones ni descuentos vigentes. Sujeto a aprobación de crédito y evaluación en sitio. Esto no es una cotización ni una oferta de financiamiento.</div>`;
@@ -2671,8 +2708,52 @@
       <div id="v2-consultant-wrap" class="hidden"><label class="text-[10px] font-black uppercase text-slate-500">Nombre del consultor *</label><select id="v2-consultant" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3"></select></div>
       <div class="grid md:grid-cols-2 gap-4"><div><label class="text-[10px] font-black uppercase text-slate-500">Tipo de proceso</label><select id="v2-flow" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3"><option value="propuesta">Propuesta preliminar</option><option value="cotizacion">Cotización personalizada</option><option value="asesoria">Solicitud de asesoría</option></select></div><div><label class="text-[10px] font-black uppercase text-slate-500">Método de pago / Financiamiento</label><select id="v2-fin-provider" onchange="leonV2UpdateFinancingOptions()" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3"><option value="Cash">Cash</option><option value="Sunrun">Sunrun</option><option value="PCI">PCI</option><option value="Synchrony Bank">Synchrony Bank</option><option value="Cooperativa">Cooperativa</option></select></div></div>
       <div class="grid md:grid-cols-2 gap-4">
-        <div id="v2-fin-term-wrap"><label class="text-[10px] font-black uppercase text-slate-500">Plazo</label><select id="v2-fin-term" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3"></select></div>
+        <div id="v2-fin-term-wrap"><label class="text-[10px] font-black uppercase text-slate-500">Plazo</label><select id="v2-fin-term" onchange="leonV2RecalcFinRatePreview()" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3"></select></div>
         <div id="v2-fin-cash-wrap" class="hidden"><label class="text-[10px] font-black uppercase text-slate-500">Forma de pago</label><select id="v2-fin-cash-mode" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3"><option>Efectivo</option><option>Cheque</option></select></div>
+      </div>
+      <div id="v2-fin-rate-wrap" class="hidden">
+        <label class="text-[10px] font-black uppercase text-slate-500">Tasa de interés anual (%) — según aprobación de crédito</label>
+        <input type="number" id="v2-fin-rate" min="0" step="0.01" oninput="leonV2RecalcFinRatePreview()" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3" placeholder="Ej. 14.00">
+        <p id="v2-fin-rate-hint" class="text-[10px] text-slate-400 mt-1"></p>
+        <p id="v2-fin-rate-preview" class="text-[11px] font-bold text-brand-600 mt-1"></p>
+      </div>
+      <div id="v2-solar-wrap" class="hidden p-4 rounded-2xl bg-brand-50/50 border border-brand-100">
+        <div class="text-[10px] font-black uppercase tracking-widest text-brand-700 mb-3"><i class="fa-solid fa-solar-panel mr-1"></i>Calculadora Solar Sunrun (PPA)</div>
+        <div class="mb-4"><label class="text-[10px] font-black uppercase text-slate-500">¿Cómo quieres calcular el consumo?</label>
+          <select id="v2-solar-method" onchange="leonV2SolarSetMethod()" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3 bg-white">
+            <option value="Pago mensual">Pago mensual (factura de LUMA)</option>
+            <option value="Consumo Histórico">Consumo histórico (hasta 12 meses)</option>
+          </select>
+        </div>
+        <div id="v2-solar-monthly-wrap" class="grid sm:grid-cols-2 gap-4 mb-4">
+          <div><label class="text-[10px] font-black uppercase text-slate-500">Factura mensual actual ($)</label><input type="number" id="v2-solar-bill" min="0" step="0.01" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3 bg-white" placeholder="Ej. 250"></div>
+          <div><label class="text-[10px] font-black uppercase text-slate-500">Tarifa LUMA ($/kWh)</label><input type="number" id="v2-solar-luma-rate" min="0" step="0.001" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3 bg-white"></div>
+        </div>
+        <div id="v2-solar-historical-wrap" class="hidden mb-4">
+          <label class="text-[10px] font-black uppercase text-slate-500 mb-2 block">Consumo histórico por mes (kWh) — deja en blanco los meses que no tengas</label>
+          <div class="grid grid-cols-3 sm:grid-cols-4 gap-2">
+            <div><label class="text-[9px] text-slate-400">Ene</label><input type="number" id="v2-solar-hist-1" min="0" step="1" class="w-full mt-0.5 border border-slate-200 rounded-lg px-2 py-2 text-xs bg-white"></div>
+            <div><label class="text-[9px] text-slate-400">Feb</label><input type="number" id="v2-solar-hist-2" min="0" step="1" class="w-full mt-0.5 border border-slate-200 rounded-lg px-2 py-2 text-xs bg-white"></div>
+            <div><label class="text-[9px] text-slate-400">Mar</label><input type="number" id="v2-solar-hist-3" min="0" step="1" class="w-full mt-0.5 border border-slate-200 rounded-lg px-2 py-2 text-xs bg-white"></div>
+            <div><label class="text-[9px] text-slate-400">Abr</label><input type="number" id="v2-solar-hist-4" min="0" step="1" class="w-full mt-0.5 border border-slate-200 rounded-lg px-2 py-2 text-xs bg-white"></div>
+            <div><label class="text-[9px] text-slate-400">May</label><input type="number" id="v2-solar-hist-5" min="0" step="1" class="w-full mt-0.5 border border-slate-200 rounded-lg px-2 py-2 text-xs bg-white"></div>
+            <div><label class="text-[9px] text-slate-400">Jun</label><input type="number" id="v2-solar-hist-6" min="0" step="1" class="w-full mt-0.5 border border-slate-200 rounded-lg px-2 py-2 text-xs bg-white"></div>
+            <div><label class="text-[9px] text-slate-400">Jul</label><input type="number" id="v2-solar-hist-7" min="0" step="1" class="w-full mt-0.5 border border-slate-200 rounded-lg px-2 py-2 text-xs bg-white"></div>
+            <div><label class="text-[9px] text-slate-400">Ago</label><input type="number" id="v2-solar-hist-8" min="0" step="1" class="w-full mt-0.5 border border-slate-200 rounded-lg px-2 py-2 text-xs bg-white"></div>
+            <div><label class="text-[9px] text-slate-400">Sep</label><input type="number" id="v2-solar-hist-9" min="0" step="1" class="w-full mt-0.5 border border-slate-200 rounded-lg px-2 py-2 text-xs bg-white"></div>
+            <div><label class="text-[9px] text-slate-400">Oct</label><input type="number" id="v2-solar-hist-10" min="0" step="1" class="w-full mt-0.5 border border-slate-200 rounded-lg px-2 py-2 text-xs bg-white"></div>
+            <div><label class="text-[9px] text-slate-400">Nov</label><input type="number" id="v2-solar-hist-11" min="0" step="1" class="w-full mt-0.5 border border-slate-200 rounded-lg px-2 py-2 text-xs bg-white"></div>
+            <div><label class="text-[9px] text-slate-400">Dic</label><input type="number" id="v2-solar-hist-12" min="0" step="1" class="w-full mt-0.5 border border-slate-200 rounded-lg px-2 py-2 text-xs bg-white"></div>
+          </div>
+        </div>
+        <details class="mb-4"><summary class="text-[10px] font-black uppercase text-slate-500 cursor-pointer">Parámetros avanzados (opcional)</summary>
+          <div class="grid sm:grid-cols-2 gap-4 mt-2">
+            <div><label class="text-[10px] text-slate-400">Tarifa PPA ($/kWh)</label><input type="number" id="v2-solar-ppa-rate" min="0" step="0.001" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-2.5 bg-white"></div>
+            <div><label class="text-[10px] text-slate-400">Escalador anual (%)</label><input type="number" id="v2-solar-escalator" min="0" step="0.1" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-2.5 bg-white"></div>
+          </div>
+        </details>
+        <button type="button" onclick="calculateSolarProposal()" class="w-full py-3 rounded-xl bg-gradient-to-r from-brand-600 to-brand-400 text-white font-black text-xs uppercase tracking-wider"><i class="fa-solid fa-calculator mr-2"></i>Calcular sistema solar</button>
+        <div id="v2-solar-result" class="mt-4"></div>
       </div>
       <div class="grid md:grid-cols-2 gap-4">
         <div><label class="text-[10px] font-black uppercase text-slate-500">Tipo de identificación</label><select id="v2-client-id-type" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3"><option value="">No especificar</option><option value="SSN">Social Security Number (SSN)</option><option value="ID">ID / Identificación</option><option value="Pasaporte">Pasaporte</option><option value="Licencia">Licencia de conducir</option><option value="Otro">Otro documento</option></select></div>
@@ -2745,8 +2826,10 @@
         <div><label class="text-[10px] font-black uppercase text-slate-500">Transporte (USD)</label><input id="v2-price-transport" type="number" min="0" step="0.01" value="0" oninput="leonV2RecalcPricingPreview()" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3"></div>
         <div><label class="text-[10px] font-black uppercase text-slate-500">Impuesto (%)</label><input id="v2-price-tax" type="number" min="0" step="0.01" value="0" oninput="leonV2RecalcPricingPreview()" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3"></div>
       </div>
-      <div><label class="text-[10px] font-black uppercase text-slate-500">Financiamiento</label><select id="v2-price-months" onchange="leonV2RecalcPricingPreview()" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3"><option value="0">Contado — sin financiamiento</option><option value="6">6 meses</option><option value="12">12 meses</option><option value="18">18 meses</option><option value="24">24 meses</option><option value="30">30 meses</option><option value="36">36 meses</option><option value="42">42 meses</option><option value="48">48 meses</option><option value="54">54 meses</option><option value="60">60 meses</option><option value="66">66 meses</option><option value="72">72 meses</option><option value="78">78 meses</option><option value="84">84 meses</option><option value="90">90 meses</option><option value="96">96 meses</option></select></div>
-      <div class="p-4 rounded-2xl bg-blue-50 border border-blue-100 text-xs text-blue-800"><i class="fa-solid fa-circle-info mr-1"></i> El pago mensual estimado es un cálculo simple (total ÷ meses, sin interés) — para financiamiento real con interés hace falta integrarlo con la entidad financiera.</div>
+      <div id="v2-price-months-wrap"><label class="text-[10px] font-black uppercase text-slate-500">Financiamiento</label><select id="v2-price-months" onchange="leonV2RecalcPricingPreview()" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3"><option value="0">Contado — sin financiamiento</option><option value="6">6 meses</option><option value="12">12 meses</option><option value="18">18 meses</option><option value="24">24 meses</option><option value="30">30 meses</option><option value="36">36 meses</option><option value="42">42 meses</option><option value="48">48 meses</option><option value="54">54 meses</option><option value="60">60 meses</option><option value="66">66 meses</option><option value="72">72 meses</option><option value="78">78 meses</option><option value="84">84 meses</option><option value="90">90 meses</option><option value="96">96 meses</option></select></div>
+      <div id="v2-price-rate-wrap" class="hidden"><label class="text-[10px] font-black uppercase text-slate-500">Tasa de interés anual (%)</label><input id="v2-price-rate" type="number" min="0" step="0.01" value="0" oninput="leonV2RecalcPricingPreview()" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3" placeholder="Ej. 14.00"></div>
+      <div id="v2-price-sunrun-note" class="hidden p-4 rounded-2xl bg-amber-50 border border-amber-100 text-xs text-amber-800"><i class="fa-solid fa-solar-panel mr-1"></i> Esta propuesta usa financiamiento Sunrun (PPA) — el pago mensual se fijó con la calculadora solar al crearla y no se recalcula aquí. Para cambiarlo, genera una nueva propuesta.</div>
+      <div id="v2-price-disclaimer" class="p-4 rounded-2xl bg-blue-50 border border-blue-100 text-xs text-blue-800"><i class="fa-solid fa-circle-info mr-1"></i> El pago mensual estimado usa la fórmula real del proveedor seleccionado (interés compuesto para PCI/Cooperativa, fee fijo para Synchrony, sin interés para Cash).</div>
       <div class="grid sm:grid-cols-2 gap-4 p-4 rounded-2xl bg-slate-900 text-white">
         <div><div class="text-[10px] uppercase font-black text-slate-400">Total final</div><div class="text-2xl font-black mt-1" id="v2-price-total-preview">$0</div></div>
         <div><div class="text-[10px] uppercase font-black text-slate-400">Pago mensual estimado</div><div class="text-2xl font-black mt-1" id="v2-price-monthly-preview">—</div></div>
@@ -2768,6 +2851,198 @@
   function daysBetween(a,b){const da=new Date(a),db=new Date(b);if(isNaN(da)||isNaN(db))return null;return Math.round((db-da)/(1000*60*60*24))}
   function findQuoteAnywhere(id){return state.quotes.find(x=>x.id===id)||state.quotesHistory.find(x=>x.id===id)}
   function findClient(email){return email?state.clients.find(c=>c.email&&c.email.toLowerCase()===email.toLowerCase()):null}
+  // ===================== FINANCIAMIENTO REAL POR PROVEEDOR =====================
+  // Antes TODO proveedor (incluido Sunrun) usaba la misma división sin interés: total ÷ meses.
+  // Esto centraliza las reglas reales de cada proveedor para no tener los números regados por
+  // el código — se puede ajustar aquí sin tocar cada función que calcula un pago.
+  const FINANCING_CONFIG = {
+    synchronyFeePct: 0.27,      // Synchrony: fee único sobre el principal, luego se divide entre los meses (sin interés compuesto) — así lo describió el negocio.
+    cooperativaDefaultRate: null, // Cooperativa: sin default — el vendedor escribe la tasa real aprobada (típico 10.99%–14% según crédito del cliente).
+    pciDefaultRate: 19.99       // PCI: "tasa fija" típica citada por el negocio — varía según la letra de score que devuelva Impirica, el vendedor puede ajustarla.
+  };
+  const SOLAR_CONFIG = {
+    tarifaLuma: 0.27,           // $/kWh de LUMA usado para traducir factura ⇄ consumo
+    coberturaObjetivo: 1.05,    // 105% — el sistema se dimensiona un poco por encima del consumo real
+    produccionPorKwAnual: 1450, // kWh que produce 1kW instalado al año en PR
+    tarifaPpaSunrun: 0.18,      // $/kWh que cobra Sunrun por la energía producida (PPA)
+    escaladorPpa: 0.029,        // % que sube el pago PPA cada año del contrato
+    plazoSunrunAnios: 15        // años máximos de contrato PPA
+  };
+
+  // Pago mensual de un préstamo con interés real (amortización estándar — igual que un préstamo de
+  // carro): M = P × r(1+r)^n / ((1+r)^n − 1), con r = tasa mensual. Si la tasa es 0 o inválida cae a
+  // división simple (mismo comportamiento que antes) y marca rateMissing para que la UI avise.
+  function leonV2AmortizedMonthly(principal, annualRatePct, months){
+    const P=Number(principal)||0, n=Math.max(1, Math.round(Number(months))||0);
+    const rate=Number(annualRatePct);
+    if(!rate || rate<=0) return {monthly: n>0?P/n:null, totalPaid:P, totalInterest:0, rateMissing:true};
+    const r=(rate/100)/12;
+    const factor=Math.pow(1+r, n);
+    const monthly=P*r*factor/(factor-1);
+    const totalPaid=monthly*n;
+    return {monthly, totalPaid, totalInterest: totalPaid-P, rateMissing:false};
+  }
+  // Inversa de lo anterior: dado un pago mensual objetivo, ¿cuál es el principal máximo que se
+  // puede financiar? Se usa en la calculadora pública de "¿qué me ajusta a mi presupuesto?".
+  function leonV2MaxPrincipalForPayment(monthlyBudget, annualRatePct, months){
+    const M=Number(monthlyBudget)||0, n=Math.max(1, Math.round(Number(months))||0);
+    const rate=Number(annualRatePct);
+    if(!rate || rate<=0) return M*n;
+    const r=(rate/100)/12;
+    const factor=Math.pow(1+r, n);
+    return M*(factor-1)/(r*factor);
+  }
+  // Punto único para el pago mensual real de cualquier proveedor (excepto Sunrun, que no depende
+  // del precio del equipo — ver leonV2CalculateSolarProposal). Se usa tanto en las propuestas
+  // internas como en la calculadora pública, para que nunca muestren números distintos.
+  window.leonV2CalcFinancing=function(provider, principal, termMonths, opts){
+    opts=opts||{};
+    const P=Number(principal)||0;
+    if(provider==='Cash'){
+      return {method:'cash', monthly:null, totalPaid:P, totalInterest:0, rate:0, termMonths:0};
+    }
+    if(provider==='Synchrony Bank'){
+      const feePct=(typeof opts.feePct==='number')?opts.feePct:FINANCING_CONFIG.synchronyFeePct;
+      const n=Math.max(1, Math.round(Number(termMonths))||0);
+      const totalWithFee=P*(1+feePct);
+      return {method:'flat-fee', monthly: totalWithFee/n, totalPaid: totalWithFee, totalInterest: totalWithFee-P, rate: feePct*100, termMonths:n, rateMissing:false};
+    }
+    if(provider==='PCI' || provider==='Cooperativa'){
+      const n=Math.max(1, Math.round(Number(termMonths))||0);
+      const r=leonV2AmortizedMonthly(P, opts.rate, n);
+      return {method:'amortized', monthly:r.monthly, totalPaid:r.totalPaid, totalInterest:r.totalInterest, rate:Number(opts.rate)||0, termMonths:n, rateMissing:r.rateMissing};
+    }
+    if(provider==='Sunrun') return null; // Sunrun se calcula aparte — no es total÷meses (ver punto 20 del pedido).
+    const n=Math.max(1, Math.round(Number(termMonths))||0);
+    return {method:'flat', monthly:P/n, totalPaid:P, totalInterest:0, rate:0, termMonths:n, rateMissing:false};
+  };
+  // Se exponen para que la calculadora pública (otro <script>, otro scope) pueda usar exactamente
+  // las mismas reglas/constantes en vez de duplicarlas con números sueltos.
+  window.leonV2MaxPrincipalForPayment=leonV2MaxPrincipalForPayment;
+  window.FINANCING_CONFIG=FINANCING_CONFIG;
+
+  // ===================== CALCULADORA SOLAR SUNRUN (PPA) =====================
+  // Implementa exactamente las fórmulas que definió el negocio: dos métodos de entrada
+  // (factura mensual o consumo histórico de hasta 12 meses) que nunca se mezclan, ambos
+  // desembocan en el mismo tamaño de sistema / PPA / proyección de 15 años.
+  let v2SolarLastResult=null;
+  function calculateByMonthlyPayment(bill, lumaRate){
+    const b=Number(bill), rate=Number(lumaRate);
+    if(!(b>0)) return {error:'Escribe tu factura mensual (debe ser mayor que $0).'};
+    if(!(rate>0)) return {error:'La tarifa LUMA debe ser mayor que $0 — no se puede dividir entre cero.'};
+    const consumoMensual=b/rate;
+    const consumoAnual=consumoMensual*12;
+    const produccionTarget=consumoAnual*SOLAR_CONFIG.coberturaObjetivo;
+    const sistemaKw=produccionTarget/SOLAR_CONFIG.produccionPorKwAnual;
+    return {method:'Pago mensual', facturaLumaMensual:b, lumaRateUsed:rate, consumoMensual, consumoAnual, produccionTarget, sistemaKw};
+  }
+  function calculateByHistoricalConsumption(monthValues, lumaRate){
+    const rate=Number(lumaRate);
+    if(!(rate>0)) return {error:'La tarifa LUMA debe ser mayor que $0 — no se puede dividir entre cero.'};
+    const valid=(monthValues||[]).filter(v=>typeof v==='number' && !isNaN(v) && v>=0);
+    if(!valid.length) return {error:'Ingresa al menos un mes de consumo histórico válido (en kWh).'};
+    const consumoAnual=valid.reduce((s,v)=>s+v,0);
+    const mesesLlenos=valid.length;
+    const consumoMensualPromedio=consumoAnual/mesesLlenos; // NUNCA se divide entre 12 si faltan meses
+    const produccionTarget=consumoAnual*SOLAR_CONFIG.coberturaObjetivo;
+    const sistemaKw=produccionTarget/SOLAR_CONFIG.produccionPorKwAnual;
+    const facturaLumaMensual=consumoMensualPromedio*rate;
+    return {method:'Consumo Histórico', lumaRateUsed:rate, consumoAnual, mesesLlenos, consumoMensual:consumoMensualPromedio, produccionTarget, sistemaKw, facturaLumaMensual};
+  }
+  function calculatePpa(produccionTarget, tarifaPpa){
+    const rate=(typeof tarifaPpa==='number' && tarifaPpa>0)?tarifaPpa:SOLAR_CONFIG.tarifaPpaSunrun;
+    return {tarifaPpa:rate, ppaMensualAnio1:(produccionTarget*rate)/12};
+  }
+  function calculateSavings(facturaLumaMensual, ppaMensualAnio1){
+    const ahorroMensual=facturaLumaMensual-ppaMensualAnio1;
+    const ahorroPorcentaje=facturaLumaMensual>0?(ahorroMensual/facturaLumaMensual)*100:0;
+    return {ahorroMensual, ahorroPorcentaje};
+  }
+  // No redondea internamente — cada año se compone sobre el valor exacto del año anterior, no
+  // sobre el valor ya redondeado, para que el año 15 no arrastre error de redondeo acumulado.
+  function calculatePpaProjection(ppaMensualAnio1, escalador, anios){
+    const esc=(typeof escalador==='number' && !isNaN(escalador))?escalador:SOLAR_CONFIG.escaladorPpa;
+    const n=anios||SOLAR_CONFIG.plazoSunrunAnios;
+    const years=[]; let prev=ppaMensualAnio1;
+    for(let year=1; year<=n; year++){
+      const pago = year===1 ? ppaMensualAnio1 : prev*(1+esc);
+      years.push({year, monthly:pago, annual:pago*12});
+      prev=pago;
+    }
+    return years;
+  }
+  // Función principal: decide el método según q419-equivalente (v2-solar-method) y arma el
+  // resultado completo. Lee el DOM (validateCalculatorInputs vive dentro de cada calculateByX).
+  window.calculateSolarProposal=function(){
+    const methodEl=document.getElementById('v2-solar-method');
+    const method=methodEl?methodEl.value:'Pago mensual';
+    // OJO: no usar "|| SOLAR_CONFIG.tarifaLuma" aquí — eso trataría un "0" escrito a propósito
+    // (para probar la validación) igual que un campo vacío, y nunca dispararía el error de
+    // "no se puede dividir entre cero". Solo se usa el default cuando el campo está REALMENTE vacío.
+    const lumaRateRaw=document.getElementById('v2-solar-luma-rate')?.value;
+    const lumaRate=(lumaRateRaw===''||lumaRateRaw==null)?SOLAR_CONFIG.tarifaLuma:Number(lumaRateRaw);
+    let base;
+    if(method==='Consumo Histórico'){
+      const values=[];
+      for(let i=1;i<=12;i++){
+        const el=document.getElementById('v2-solar-hist-'+i);
+        const raw=el?el.value.trim():'';
+        if(raw==='') continue; // vacío = se ignora, NUNCA se interpreta como 0
+        const n=Number(raw);
+        if(!isNaN(n) && n>=0) values.push(n);
+      }
+      base=calculateByHistoricalConsumption(values, lumaRate);
+    } else {
+      base=calculateByMonthlyPayment(Number(document.getElementById('v2-solar-bill')?.value), lumaRate);
+    }
+    if(base.error){ v2SolarLastResult=null; leonV2RenderSolarResult(null, base.error); return null; }
+    const ppaRateInput=Number(document.getElementById('v2-solar-ppa-rate')?.value);
+    const ppa=calculatePpa(base.produccionTarget, ppaRateInput>0?ppaRateInput:SOLAR_CONFIG.tarifaPpaSunrun);
+    const savings=calculateSavings(base.facturaLumaMensual, ppa.ppaMensualAnio1);
+    const escInput=Number(document.getElementById('v2-solar-escalator')?.value);
+    const escalador=(escInput>=0 && !isNaN(escInput))?escInput/100:SOLAR_CONFIG.escaladorPpa;
+    const projection=calculatePpaProjection(ppa.ppaMensualAnio1, escalador, SOLAR_CONFIG.plazoSunrunAnios);
+    const result=Object.assign({}, base, ppa, savings, {escalador, projection});
+    v2SolarLastResult=result;
+    leonV2RenderSolarResult(result, null);
+    return result;
+  };
+  window.leonV2SolarSetMethod=function(){
+    const method=document.getElementById('v2-solar-method').value;
+    document.getElementById('v2-solar-monthly-wrap').classList.toggle('hidden', method!=='Pago mensual');
+    document.getElementById('v2-solar-historical-wrap').classList.toggle('hidden', method!=='Consumo Histórico');
+    v2SolarLastResult=null;
+    leonV2RenderSolarResult(null, null);
+  };
+  function leonV2RenderSolarResult(r, errorMsg){
+    const el=document.getElementById('v2-solar-result');
+    if(!el) return;
+    if(errorMsg){ el.innerHTML=`<div class="p-3 rounded-xl bg-red-50 border border-red-100 text-xs text-red-700"><i class="fa-solid fa-triangle-exclamation mr-1"></i>${esc(errorMsg)}</div>`; return; }
+    if(!r){ el.innerHTML=''; return; }
+    const rows=[
+      ['Método utilizado', r.method],
+      ['Factura LUMA', money(r.facturaLumaMensual)],
+      ['Consumo mensual', r.consumoMensual.toLocaleString('en-US',{maximumFractionDigits:2})+' kWh'],
+      ['Consumo anual', r.consumoAnual.toLocaleString('en-US',{maximumFractionDigits:2})+' kWh'],
+      ['Cobertura objetivo', Math.round(SOLAR_CONFIG.coberturaObjetivo*100)+'%'],
+      ['Producción solar objetivo', r.produccionTarget.toLocaleString('en-US',{maximumFractionDigits:2})+' kWh/año'],
+      ['Sistema recomendado', r.sistemaKw.toFixed(2)+' kW'],
+      ['Tarifa PPA', '$'+r.tarifaPpa.toFixed(3)+'/kWh'],
+      ['Pago Sunrun Año 1', money(r.ppaMensualAnio1)+'/mes'],
+      ['Ahorro mensual inicial', money(r.ahorroMensual)],
+      ['Ahorro porcentual', r.ahorroPorcentaje.toFixed(1)+'%']
+    ];
+    if(r.mesesLlenos) rows.splice(3,0,['Meses con datos', r.mesesLlenos+' de 12']);
+    const projRows=r.projection.map(y=>`<tr><td>Año ${y.year}</td><td class="text-right">${money(y.monthly)}/mes</td><td class="text-right">${money(y.annual)}/año</td></tr>`).join('');
+    el.innerHTML=`<div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-100">
+      <div class="text-[10px] font-black uppercase tracking-widest text-emerald-700 mb-2"><i class="fa-solid fa-solar-panel mr-1"></i>Resultados Solares</div>
+      <div class="grid sm:grid-cols-2 gap-x-4 gap-y-1 text-xs">${rows.map(([label,val])=>`<div class="flex justify-between border-b border-emerald-100/70 py-1"><span class="text-slate-500">${esc(label)}</span><b>${val}</b></div>`).join('')}</div>
+      <details class="mt-3"><summary class="text-[10px] font-black uppercase text-emerald-700 cursor-pointer">Ver proyección de pago hasta ${SOLAR_CONFIG.plazoSunrunAnios} años (escalador ${(r.escalador*100).toFixed(1)}%/año)</summary>
+        <div class="overflow-x-auto mt-2"><table class="w-full text-[11px]"><thead><tr class="text-slate-500"><th class="text-left">Año</th><th class="text-right">Pago mensual</th><th class="text-right">Pago anual</th></tr></thead><tbody>${projRows}</tbody></table></div>
+      </details>
+    </div>`;
+  }
+
   // Motor de cotización (CPQ): un único cálculo compartido por el portal del cliente, el PDF y el
   // modal de precio del staff, para que los tres muestren siempre el mismo número.
   function leonV2ComputeTotal(q){
@@ -2777,9 +3052,19 @@
     const tax=taxable*(taxRate/100);
     const total=taxable+tax;
     const months=Number(q.financingMonths)||0;
-    const monthly=months>0?(total/months):null;
-    return {subtotal, discount, install, transport, tax, total, monthly, months};
+    const provider=q.financingProvider||'Cash';
+    let monthly=null, financing=null;
+    if(provider==='Sunrun'){
+      // El pago de Sunrun es un PPA por producción solar (ver SOLAR_CONFIG/calculateSolarProposal),
+      // NUNCA total÷meses — se fija al crear la propuesta con la calculadora solar.
+      monthly=(typeof q.solarPpaMonthlyYear1==='number')?q.solarPpaMonthlyYear1:null;
+    } else if(months>0){
+      financing=window.leonV2CalcFinancing(provider, total, months, {rate:q.financingRate});
+      monthly=financing?financing.monthly:(total/months);
+    }
+    return {subtotal, discount, install, transport, tax, total, monthly, months, financing};
   }
+  window.leonV2ComputeTotal=leonV2ComputeTotal; // mismo motivo que leonV2CalcFinancing: se necesita fuera de este scope.
   // Crea o actualiza el expediente del cliente cada vez que se genera una propuesta, sin importar
   // si vino del flujo público (leonV2SubmitClient) o del formulario interno de Vendedor
   // (handleVendorQuoteSubmit, envuelto más abajo) — un solo expediente por correo.
@@ -2844,7 +3129,10 @@
   // las 500 entradas completas en cada evento sería carísimo — esas dos usan leonV2DbAppendLog
   // (un documento nuevo por evento) más abajo, en vez de leonV2SyncCollection.
   const FB_LIST_COLLECTIONS = ['categories','products','users','quotes','quotesHistory','clients','trash','commissions','tickets','projects'];
-  const FB_LOG_COLLECTIONS = ['auditLog','securityLog'];
+  // chatMessages vive como bitácora (un documento nuevo por mensaje, ver leonV2DbAppendLog) — igual
+  // que auditLog/securityLog, así reescribir el historial completo no cuesta una escritura enorme
+  // cada vez que alguien manda un mensaje.
+  const FB_LOG_COLLECTIONS = ['auditLog','securityLog','chatMessages'];
   const FB_META_DOCS = ['siteContent','commissionRules','pipelineStatuses','ticketStatuses','projectStages','loginLockouts'];
   let fbApplyingRemote = false; // true mientras aplicamos un cambio QUE YA VINO de Firestore, para no reenviarlo
 
@@ -2921,6 +3209,9 @@
       if(internalView && !internalView.classList.contains('hidden') && activeBtn && activeBtn.dataset.sec && typeof leonV2OpenSection==='function'){
         leonV2OpenSection(activeBtn.dataset.sec);
       }
+      // El chat es un panel flotante (no una sección de navegación), así que se refresca aparte,
+      // sin importar qué sección esté activa — igual que las notificaciones.
+      if(typeof window.leonV2RefreshChat==='function') window.leonV2RefreshChat();
     }catch(err){ console.error('Error al re-renderizar tras sincronizar:', err); }
   }
 
@@ -3034,26 +3325,62 @@
   };
   window.leonV2AddProduct=id=>{const p=products().find(x=>x.id===id); if(!p)return; const ex=state.cart.find(x=>x.id===id); const {images,video,...pForCart}=p; if(ex)ex.qty++;else state.cart.push({...pForCart,qty:1}); if(typeof updateCartUI==='function')updateCartUI(); showToast('Producto añadido a tu propuesta.','success')};
 
-  window.leonV2ChooseFlow=flow=>{v2Flow=flow;document.getElementById('v2-flow').value=flow;leonV2CloseChoice(); if(flow==='asesoria'){showToast('Perfecto. Completa tus datos y asignaremos la solicitud a un consultor.','info')} document.getElementById('v2-consultant').innerHTML=consultants().map(u=>`<option value="${esc(u.name)}">${esc(u.name)} — ${esc(u.role)}</option>`).join('')||'<option>Asignación automática</option>'; leonV2UpdateFinancingOptions(); open('leon-v2-client-form');};
+  window.leonV2ChooseFlow=flow=>{v2Flow=flow;document.getElementById('v2-flow').value=flow;leonV2CloseChoice(); if(flow==='asesoria'){showToast('Perfecto. Completa tus datos y asignaremos la solicitud a un consultor.','info')} document.getElementById('v2-consultant').innerHTML=consultants().map(u=>`<option value="${esc(u.name)}">${esc(u.name)} — ${esc(u.role)}</option>`).join('')||'<option>Asignación automática</option>'; v2SolarLastResult=null; if(document.getElementById('v2-solar-result'))document.getElementById('v2-solar-result').innerHTML=''; leonV2UpdateFinancingOptions(); open('leon-v2-client-form');};
 
-  // Reglas reales de financiamiento por proveedor — exactamente las que define el negocio:
-  // Sunrun es un plazo fijo de 10 años (no se muestran meses), PCI/Synchrony/Cooperativa ofrecen
-  // 6 a 96 meses en incrementos de 6, y Cash no tiene plazo (solo Efectivo/Cheque).
+  // Reglas reales de financiamiento por proveedor:
+  // Cash = sin plazo (Efectivo/Cheque). Sunrun = PPA por producción solar, NO un préstamo de
+  // meses (usa la calculadora solar, sin plazo/tasa aquí — ver leonV2CalculateSolarProposal).
+  // PCI/Cooperativa = préstamo con interés real (6 a 96 meses) — piden tasa aprobada.
+  // Synchrony Bank = fee fijo del 27% sobre el precio, dividido entre los meses (6 a 96).
   window.leonV2UpdateFinancingOptions=()=>{
     const provider=document.getElementById('v2-fin-provider').value;
     const termWrap=document.getElementById('v2-fin-term-wrap');
     const termSel=document.getElementById('v2-fin-term');
     const cashWrap=document.getElementById('v2-fin-cash-wrap');
+    const rateWrap=document.getElementById('v2-fin-rate-wrap');
+    const rateInput=document.getElementById('v2-fin-rate');
+    const rateHint=document.getElementById('v2-fin-rate-hint');
+    const solarWrap=document.getElementById('v2-solar-wrap');
+    cashWrap.classList.add('hidden'); termWrap.classList.add('hidden'); rateWrap.classList.add('hidden'); solarWrap.classList.add('hidden');
     if(provider==='Cash'){
-      termWrap.classList.add('hidden'); cashWrap.classList.remove('hidden'); termSel.innerHTML='';
+      cashWrap.classList.remove('hidden'); termSel.innerHTML='';
     } else if(provider==='Sunrun'){
-      cashWrap.classList.add('hidden'); termWrap.classList.remove('hidden');
-      termSel.innerHTML='<option value="120">10 años</option>';
+      solarWrap.classList.remove('hidden');
+      // Rellena los parámetros avanzados con los defaults de SOLAR_CONFIG solo si están vacíos —
+      // así no se pisa lo que el vendedor ya haya escrito si va y vuelve a Sunrun.
+      const lumaEl=document.getElementById('v2-solar-luma-rate'); if(lumaEl && lumaEl.value==='') lumaEl.value=SOLAR_CONFIG.tarifaLuma;
+      const ppaEl=document.getElementById('v2-solar-ppa-rate'); if(ppaEl && ppaEl.value==='') ppaEl.value=SOLAR_CONFIG.tarifaPpaSunrun;
+      const escEl=document.getElementById('v2-solar-escalator'); if(escEl && escEl.value==='') escEl.value=(SOLAR_CONFIG.escaladorPpa*100).toFixed(1);
     } else {
-      cashWrap.classList.add('hidden'); termWrap.classList.remove('hidden');
+      termWrap.classList.remove('hidden');
       const months=[]; for(let m=6;m<=96;m+=6)months.push(m);
       termSel.innerHTML=months.map(m=>`<option value="${m}">${m} meses</option>`).join('');
+      if(provider==='PCI' || provider==='Cooperativa'){
+        rateWrap.classList.remove('hidden');
+        if(provider==='PCI'){
+          if(rateInput.value==='') rateInput.value=FINANCING_CONFIG.pciDefaultRate;
+          rateHint.textContent='PCI cita 19.99% como tasa "fija" típica, pero varía según la letra de score que devuelva Impirica — ajusta al valor real aprobado.';
+        } else {
+          rateHint.textContent='Cooperativa financia hasta 96 meses entre 10.99% y 14% aproximadamente, según el crédito del cliente — escribe la tasa real aprobada.';
+        }
+      }
+      leonV2RecalcFinRatePreview();
     }
+  };
+  // Vista previa en vivo de la mensualidad real (con interés) mientras el vendedor escribe la
+  // tasa o cambia el plazo — para que no tenga que guardar la propuesta para ver el número.
+  window.leonV2RecalcFinRatePreview=()=>{
+    const previewEl=document.getElementById('v2-fin-rate-preview');
+    if(!previewEl) return;
+    const provider=document.getElementById('v2-fin-provider')?.value;
+    if(provider!=='PCI' && provider!=='Cooperativa'){ previewEl.textContent=''; return; }
+    const months=Number(document.getElementById('v2-fin-term')?.value)||0;
+    const rate=Number(document.getElementById('v2-fin-rate')?.value)||0;
+    const total=(state.cart||[]).reduce((s,x)=>s+x.price*x.qty,0);
+    if(!months || !total){ previewEl.textContent=''; return; }
+    if(!rate){ previewEl.innerHTML='<span class="text-amber-600"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Escribe la tasa de interés para ver la mensualidad real.</span>'; return; }
+    const r=window.leonV2CalcFinancing(provider, total, months, {rate});
+    previewEl.textContent = r ? ('Mensualidad estimada: '+money(r.monthly)+'/mes (interés total: '+money(r.totalInterest)+')') : '';
   };
   window.leonV2SetHelp=val=>{v2Help=val;document.getElementById('v2-help-yes').classList.toggle('selected',val===true);document.getElementById('v2-help-no').classList.toggle('selected',val===false);document.getElementById('v2-consultant-wrap').classList.toggle('hidden',!val);if(val)document.getElementById('v2-consultant').required=true};
   // Geolocalización real (API estándar del navegador, requiere permiso del usuario) para que el
@@ -3083,19 +3410,35 @@
     const id='L-'+Math.floor(10000+Math.random()*89999);
     const consultant=v2Help?document.getElementById('v2-consultant').value:null;
     const provider=document.getElementById('v2-fin-provider').value;
-    let paymentType, financingMonths=0;
+    let paymentType, financingMonths=0, financingRate=0, solarFields={};
     if(provider==='Cash'){
       paymentType='Cash — '+document.getElementById('v2-fin-cash-mode').value;
     } else if(provider==='Sunrun'){
-      paymentType='Sunrun — 10 años';
+      // La calculadora solar debe haberse corrido con los datos actuales antes de poder generar
+      // la propuesta — así el pago PPA que se guarda siempre coincide con lo que se le mostró al
+      // vendedor en pantalla (nunca se inventa un número si no se calculó primero).
+      if(!v2SolarLastResult){showToast('Calcula el sistema solar (botón "Calcular sistema solar") antes de generar la propuesta.','warning');return}
+      const r=v2SolarLastResult;
+      paymentType='Sunrun — PPA '+r.sistemaKw.toFixed(2)+' kW ('+SOLAR_CONFIG.plazoSunrunAnios+' años)';
+      solarFields={
+        solarMethod:r.method, solarLumaRateUsed:r.lumaRateUsed, solarConsumoMensual:r.consumoMensual,
+        solarConsumoAnual:r.consumoAnual, solarMesesLlenos:r.mesesLlenos||null, solarProduccionTarget:r.produccionTarget,
+        solarSizeKw:r.sistemaKw, solarPpaRate:r.tarifaPpa, solarFacturaLumaMensual:r.facturaLumaMensual,
+        solarPpaMonthlyYear1:r.ppaMensualAnio1, solarAhorroMensual:r.ahorroMensual, solarAhorroPorcentaje:r.ahorroPorcentaje,
+        solarEscalador:r.escalador, solarPpaProjection:r.projection
+      };
     } else {
       const term=Number(document.getElementById('v2-fin-term').value)||0;
-      paymentType=provider+' — '+term+' meses';
+      if((provider==='PCI'||provider==='Cooperativa')){
+        financingRate=Number(document.getElementById('v2-fin-rate').value)||0;
+        if(!financingRate){showToast('Escribe la tasa de interés anual aprobada antes de generar la propuesta.','warning');return}
+      }
+      paymentType=provider+' — '+term+' meses'+(financingRate?(' @ '+financingRate+'%'):'');
       financingMonths=term;
     }
     const idType=document.getElementById('v2-client-id-type').value;
     const idRaw=document.getElementById('v2-client-id-number').value;
-    const q={id,clientName:document.getElementById('v2-client-name').value,clientCompany:document.getElementById('v2-client-company').value,clientEmail:document.getElementById('v2-client-email').value,clientPhone:document.getElementById('v2-client-phone').value,clientMunicipio:document.getElementById('v2-client-municipio')?document.getElementById('v2-client-municipio').value:'',clientAddress:document.getElementById('v2-client-address')?document.getElementById('v2-client-address').value:'',clientLocationUrl:document.getElementById('v2-client-location-url')?document.getElementById('v2-client-location-url').value:'',clientIdType:idType||null,clientIdNumberMasked:idRaw?maskId(idRaw):null,items,total,status:v2Flow==='cotizacion'?'Pendiente de cotización':v2Flow==='asesoria'?'Nueva asesoría':'Propuesta generada',paymentType,financingProvider:provider,vendorName:consultant,vendorEmail:consultants().find(u=>u.name===consultant)?.email||null,origin:v2Help?'Asistido':'Autogestionado',source:v2Help?'Consultor':'Sitio Web',createdAt:new Date().toISOString().slice(0,10),version:1,discount:0,installationFee:0,transportFee:0,taxRate:0,financingMonths};
+    const q=Object.assign({id,clientName:document.getElementById('v2-client-name').value,clientCompany:document.getElementById('v2-client-company').value,clientEmail:document.getElementById('v2-client-email').value,clientPhone:document.getElementById('v2-client-phone').value,clientMunicipio:document.getElementById('v2-client-municipio')?document.getElementById('v2-client-municipio').value:'',clientAddress:document.getElementById('v2-client-address')?document.getElementById('v2-client-address').value:'',clientLocationUrl:document.getElementById('v2-client-location-url')?document.getElementById('v2-client-location-url').value:'',clientIdType:idType||null,clientIdNumberMasked:idRaw?maskId(idRaw):null,items,total,status:v2Flow==='cotizacion'?'Pendiente de cotización':v2Flow==='asesoria'?'Nueva asesoría':'Propuesta generada',paymentType,financingProvider:provider,financingRate,vendorName:consultant,vendorEmail:consultants().find(u=>u.name===consultant)?.email||null,origin:v2Help?'Asistido':'Autogestionado',source:v2Help?'Consultor':'Sitio Web',createdAt:new Date().toISOString().slice(0,10),version:1,discount:0,installationFee:0,transportFee:0,taxRate:0,financingMonths}, solarFields);
     state.quotes.unshift(q);
     state.cart=[];
     if(typeof updateCartUI==='function')updateCartUI();
@@ -3184,13 +3527,34 @@
     if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection(state.quotes.includes(q)?'quotes':'quotesHistory');
   };
   window.leonV2PrintProposal=()=>{const id=document.getElementById('leon-v2-editor-modal').dataset.quoteId;leonV2PrintProposalById(id)};
-  window.leonV2PrintProposalById=id=>{const q=findQuoteAnywhere(id);if(!q)return;const t=leonV2ComputeTotal(q);const w=window.open('','_blank');w.document.write(`<html><head><title>Propuesta ${esc(q.id)}</title><style>body{font-family:Arial,sans-serif;padding:40px;color:#172033}h1{color:#0876c9}table{width:100%;border-collapse:collapse;margin-top:20px}th,td{padding:12px;border-bottom:1px solid #ddd;text-align:left}img{width:80px;height:60px;object-fit:contain} .total{font-size:22px;font-weight:800;text-align:right;margin-top:20px}.head{display:flex;justify-content:space-between;border-bottom:3px solid #0876c9;padding-bottom:18px}.box{background:#f5f9fd;padding:16px;border-radius:10px;margin-top:20px}.breakdown td{padding:6px 0;border:none}</style></head><body><div class="head"><div><h1>LEON HOME SOLUTIONS</h1><b>PROPUESTA COMERCIAL</b><div>${esc(q.id)}</div></div><div><b>Fecha</b><br>${esc(q.createdAt||'')}</div></div><div class="box"><b>CLIENTE</b><br>${esc(q.clientName)}<br>${esc(q.clientCompany||'')}<br>${esc(q.clientEmail||'')} · ${esc(q.clientPhone||'')}</div><div class="box"><b>CONSULTOR</b><br>${esc(q.vendorName||'Asignación pendiente')}<br>Origen: ${esc(q.origin||'')}</div><table><thead><tr><th>Producto</th><th>Cantidad</th><th>Precio</th><th>Subtotal</th></tr></thead><tbody>${q.items.map(i=>`<tr><td><img src="${esc(i.image||'')}" onerror="this.style.display='none'"> ${esc(i.name)}</td><td>${i.qty}</td><td>${money(i.price)}</td><td>${money(i.price*i.qty)}</td></tr>`).join('')}</tbody></table><table class="breakdown"><tbody><tr><td>Subtotal</td><td style="text-align:right">${money(t.subtotal)}</td></tr>${t.discount?`<tr><td>Descuento</td><td style="text-align:right">-${money(t.discount)}</td></tr>`:''}${t.install?`<tr><td>Instalación</td><td style="text-align:right">${money(t.install)}</td></tr>`:''}${t.transport?`<tr><td>Transporte</td><td style="text-align:right">${money(t.transport)}</td></tr>`:''}${t.tax?`<tr><td>Impuesto</td><td style="text-align:right">${money(t.tax)}</td></tr>`:''}</tbody></table><div class="total">TOTAL: ${money(t.total)}</div>${t.monthly?`<div style="text-align:right;color:#0876c9">Pago mensual estimado (${t.months} meses, sin interés): ${money(t.monthly)}</div>`:''}<div class="box">Condiciones: propuesta sujeta a disponibilidad, validación comercial y condiciones de financiación. Vigencia configurable por administración.</div>${q.acceptance?`<div class="box" style="background:#ecfdf5"><b>ACEPTACIÓN DIGITAL</b><br>${esc(q.acceptance.name)} — ${esc(new Date(q.acceptance.acceptedAt).toLocaleString())}<br><span style="font-size:11px;color:#555">Registro digital de aceptación (no es firma electrónica con validez legal).</span></div>`:''}<div style="margin-top:70px;display:flex;justify-content:space-between"><div>________________________<br>Cliente</div><div>________________________<br>Consultor</div></div><script>window.onload=()=>window.print()<\/script></body></html>`);w.document.close()};
+  // Bloque de financiamiento del PDF — antes decía siempre "sin interés" sin importar el
+  // proveedor, lo cual ya no es cierto para PCI/Cooperativa (interés real) ni tiene sentido
+  // para Sunrun (PPA, no un préstamo). Arma el texto/tabla correctos según cada caso real.
+  function leonV2PrintFinancingBlock(q,t){
+    const provider=q.financingProvider;
+    if(provider==='Sunrun' && typeof q.solarPpaMonthlyYear1==='number'){
+      const rows=(q.solarPpaProjection||[]).map(y=>`<tr><td>Año ${y.year}</td><td style="text-align:right">${money(y.monthly)}/mes</td><td style="text-align:right">${money(y.annual)}/año</td></tr>`).join('');
+      return `<div class="box"><b>FINANCIAMIENTO SUNRUN (PPA)</b><div style="margin-top:8px;font-size:13px">Sistema recomendado: <b>${q.solarSizeKw.toFixed(2)} kW</b> · Tarifa PPA: <b>$${q.solarPpaRate.toFixed(3)}/kWh</b><br>Pago Año 1: <b style="color:#0876c9">${money(q.solarPpaMonthlyYear1)}/mes</b> · Ahorro estimado vs. LUMA: <b>${money(q.solarAhorroMensual)}/mes (${q.solarAhorroPorcentaje.toFixed(1)}%)</b></div>
+        <table style="margin-top:12px"><thead><tr><th>Año</th><th style="text-align:right">Pago mensual</th><th style="text-align:right">Pago anual</th></tr></thead><tbody>${rows}</tbody></table>
+        <p style="font-size:11px;color:#666;margin-top:8px">Proyección a ${q.solarPpaProjection?q.solarPpaProjection.length:15} años con escalador de ${((q.solarEscalador||0)*100).toFixed(1)}%/año. Estimado sujeto a evaluación técnica final en sitio.</p></div>`;
+    }
+    if(!t.monthly) return '';
+    if(provider==='Synchrony Bank'){
+      return `<div style="text-align:right;color:#0876c9">Pago mensual estimado (${t.months} meses, fee de financiamiento ${FINANCING_CONFIG.synchronyFeePct*100}% incluido): ${money(t.monthly)}</div>`;
+    }
+    if((provider==='PCI'||provider==='Cooperativa') && t.financing){
+      const rateTxt=t.financing.rateMissing?'tasa pendiente de confirmar':('tasa '+t.financing.rate.toFixed(2)+'% anual');
+      return `<div style="text-align:right;color:#0876c9">Pago mensual estimado (${t.months} meses, ${rateTxt}): ${money(t.monthly)}</div>`;
+    }
+    return `<div style="text-align:right;color:#0876c9">Pago mensual estimado (${t.months} meses): ${money(t.monthly)}</div>`;
+  }
+  window.leonV2PrintProposalById=id=>{const q=findQuoteAnywhere(id);if(!q)return;const t=leonV2ComputeTotal(q);const w=window.open('','_blank');w.document.write(`<html><head><title>Propuesta ${esc(q.id)}</title><style>body{font-family:Arial,sans-serif;padding:40px;color:#172033}h1{color:#0876c9}table{width:100%;border-collapse:collapse;margin-top:20px}th,td{padding:12px;border-bottom:1px solid #ddd;text-align:left}img{width:80px;height:60px;object-fit:contain} .total{font-size:22px;font-weight:800;text-align:right;margin-top:20px}.head{display:flex;justify-content:space-between;border-bottom:3px solid #0876c9;padding-bottom:18px}.box{background:#f5f9fd;padding:16px;border-radius:10px;margin-top:20px}.breakdown td{padding:6px 0;border:none}</style></head><body><div class="head"><div><h1>LEON HOME SOLUTIONS</h1><b>PROPUESTA COMERCIAL</b><div>${esc(q.id)}</div></div><div><b>Fecha</b><br>${esc(q.createdAt||'')}</div></div><div class="box"><b>CLIENTE</b><br>${esc(q.clientName)}<br>${esc(q.clientCompany||'')}<br>${esc(q.clientEmail||'')} · ${esc(q.clientPhone||'')}</div><div class="box"><b>CONSULTOR</b><br>${esc(q.vendorName||'Asignación pendiente')}<br>Origen: ${esc(q.origin||'')}</div><table><thead><tr><th>Producto</th><th>Cantidad</th><th>Precio</th><th>Subtotal</th></tr></thead><tbody>${q.items.map(i=>`<tr><td><img src="${esc(i.image||'')}" onerror="this.style.display='none'"> ${esc(i.name)}</td><td>${i.qty}</td><td>${money(i.price)}</td><td>${money(i.price*i.qty)}</td></tr>`).join('')}</tbody></table><table class="breakdown"><tbody><tr><td>Subtotal</td><td style="text-align:right">${money(t.subtotal)}</td></tr>${t.discount?`<tr><td>Descuento</td><td style="text-align:right">-${money(t.discount)}</td></tr>`:''}${t.install?`<tr><td>Instalación</td><td style="text-align:right">${money(t.install)}</td></tr>`:''}${t.transport?`<tr><td>Transporte</td><td style="text-align:right">${money(t.transport)}</td></tr>`:''}${t.tax?`<tr><td>Impuesto</td><td style="text-align:right">${money(t.tax)}</td></tr>`:''}</tbody></table><div class="total">TOTAL: ${money(t.total)}</div>${leonV2PrintFinancingBlock(q,t)}<div class="box">Condiciones: propuesta sujeta a disponibilidad, validación comercial y condiciones de financiación. Vigencia configurable por administración.</div>${q.acceptance?`<div class="box" style="background:#ecfdf5"><b>ACEPTACIÓN DIGITAL</b><br>${esc(q.acceptance.name)} — ${esc(new Date(q.acceptance.acceptedAt).toLocaleString())}<br><span style="font-size:11px;color:#555">Registro digital de aceptación (no es firma electrónica con validez legal).</span></div>`:''}<div style="margin-top:70px;display:flex;justify-content:space-between"><div>________________________<br>Cliente</div><div>________________________<br>Consultor</div></div><script>window.onload=()=>window.print()<\/script></body></html>`);w.document.close()};
 
   function buildCRM(){
-    const old=document.querySelector('#internal-view > .max-w-7xl'); if(!old)return; old.innerHTML=`<div class="leon-v2-shell"><div class="flex flex-col lg:flex-row justify-between gap-4 mb-6"><div><div class="v2-pill bg-white"><i class="fa-solid fa-shield-halved text-brand-600"></i><span id="v2-role-pill">Administrador</span></div><h2 class="text-3xl md:text-4xl font-black text-slate-900 mt-3" id="v2-greeting">Buenos días 👋</h2><p class="text-sm text-slate-500 mt-1">Tu espacio comercial se adapta automáticamente a tus permisos.</p><div id="v2-db-status" class="mt-2"></div></div><div class="flex items-center gap-3"><div class="relative"><button onclick="leonV2ToggleNotifications()" class="relative px-4 py-3 rounded-xl border bg-white text-xs font-black" title="Notificaciones"><i class="fa-solid fa-bell"></i><span id="v2-notif-count" class="hidden absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] font-black rounded-full w-4 h-4 flex items-center justify-center">0</span></button><div id="v2-notif-dropdown" class="hidden absolute right-0 top-full mt-2 w-80 max-w-[90vw] bg-white border border-slate-200 rounded-xl shadow-glass-lg z-50 max-h-96 overflow-y-auto"></div></div><button onclick="leonV2OpenSection('clients')" class="px-4 py-3 rounded-xl border bg-white text-xs font-black"><i class="fa-solid fa-magnifying-glass mr-2"></i>Buscar cliente</button><button onclick="logoutUser()" class="px-4 py-3 rounded-xl bg-red-50 text-red-600 text-xs font-black"><i class="fa-solid fa-right-from-bracket mr-2"></i>Salir</button></div></div><div class="grid lg:grid-cols-[230px_1fr] gap-6 v2-layout"><aside class="v2-nav h-fit"><div class="px-3 pb-3 text-[10px] font-black uppercase tracking-widest text-slate-500">Workspace</div><div id="v2-nav"></div></aside><section id="v2-main" class="min-w-0"></section></div></div>`;renderNav();renderDashboard();leonV2RefreshNotifications();if(typeof window.leonV2UpdateDbStatusBadge==='function')window.leonV2UpdateDbStatusBadge();
+    const old=document.querySelector('#internal-view > .max-w-7xl'); if(!old)return; old.innerHTML=`<div class="leon-v2-shell"><div class="flex flex-col lg:flex-row justify-between gap-4 mb-6"><div><div class="v2-pill bg-white"><i class="fa-solid fa-shield-halved text-brand-600"></i><span id="v2-role-pill">Administrador</span></div><h2 class="text-3xl md:text-4xl font-black text-slate-900 mt-3" id="v2-greeting">Buenos días 👋</h2><p class="text-sm text-slate-500 mt-1">Tu espacio comercial se adapta automáticamente a tus permisos.</p><div id="v2-db-status" class="mt-2"></div></div><div class="flex items-center gap-3"><div class="relative"><button onclick="leonV2ToggleNotifications()" class="relative px-4 py-3 rounded-xl border bg-white text-xs font-black" title="Notificaciones"><i class="fa-solid fa-bell"></i><span id="v2-notif-count" class="hidden absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] font-black rounded-full w-4 h-4 flex items-center justify-center">0</span></button><div id="v2-notif-dropdown" class="hidden absolute right-0 top-full mt-2 w-80 max-w-[90vw] bg-white border border-slate-200 rounded-xl shadow-glass-lg z-50 max-h-96 overflow-y-auto"></div></div><div class="relative"><button onclick="leonV2ToggleChat()" class="relative px-4 py-3 rounded-xl border bg-white text-xs font-black" title="Chat interno"><i class="fa-solid fa-comments"></i><span id="v2-chat-count" class="hidden absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] font-black rounded-full w-4 h-4 flex items-center justify-center">0</span></button><div id="v2-chat-panel" class="hidden fixed right-4 bottom-4 top-24 sm:top-auto sm:h-[520px] w-[92vw] sm:w-96 max-w-[92vw] bg-white border border-slate-200 rounded-2xl shadow-glass-lg z-50 flex flex-col overflow-hidden"><div class="px-4 py-3 border-b border-slate-100 flex justify-between items-center bg-slate-50"><b class="text-sm"><i class="fa-solid fa-comments text-brand-500 mr-2"></i>Chat del equipo</b><button onclick="leonV2ToggleChat(true)" class="text-slate-400"><i class="fa-solid fa-xmark"></i></button></div><div id="v2-chat-messages" class="flex-grow overflow-y-auto p-4"></div><div id="v2-chat-gif-preview" class="hidden px-4 pb-1"></div><div class="border-t border-slate-100 p-3"><div class="flex gap-1 mb-2 flex-wrap">${['😀','😂','👍','🎉','🔥','❤️','😢','🙏','👏','💡'].map(em=>`<button type="button" onclick="leonV2InsertChatEmoji('${em}')" class="text-lg hover:scale-125 transition">${em}</button>`).join('')}<label class="ml-1 cursor-pointer text-slate-400 hover:text-brand-600 text-sm px-1" title="Adjuntar GIF/imagen"><i class="fa-solid fa-image"></i><input type="file" id="v2-chat-gif-file" accept="image/*" class="hidden" onchange="handleChatGifFile(event)"></label></div><form onsubmit="leonV2SendChatMessage(event)" class="flex gap-2"><input id="v2-chat-input" placeholder="Escribe un mensaje..." class="flex-grow px-3 py-2.5 rounded-xl border border-slate-200 text-xs outline-none"><button type="submit" class="px-4 py-2.5 rounded-xl bg-ink-900 text-white text-xs font-black"><i class="fa-solid fa-paper-plane"></i></button></form></div></div></div><button onclick="leonV2OpenSection('clients')" class="px-4 py-3 rounded-xl border bg-white text-xs font-black"><i class="fa-solid fa-magnifying-glass mr-2"></i>Buscar cliente</button><button onclick="logoutUser()" class="px-4 py-3 rounded-xl bg-red-50 text-red-600 text-xs font-black"><i class="fa-solid fa-right-from-bracket mr-2"></i>Salir</button></div></div><div class="grid lg:grid-cols-[230px_1fr] gap-6 v2-layout"><aside class="v2-nav h-fit"><div class="px-3 pb-3 text-[10px] font-black uppercase tracking-widest text-slate-500">Workspace</div><div id="v2-nav"></div></aside><section id="v2-main" class="min-w-0"></section></div></div>`;renderNav();renderDashboard();leonV2RefreshNotifications();if(typeof window.leonV2UpdateDbStatusBadge==='function')window.leonV2UpdateDbStatusBadge();
   }
-  const navItems=[['dashboard','fa-chart-pie','Dashboard'],['clients','fa-address-card','Clientes'],['pipeline','fa-filter-circle-dollar','Pipeline'],['historial','fa-clock-rotate-left','Historial'],['catalog','fa-boxes-stacked','Catálogo'],['proposals','fa-file-signature','Propuestas'],['payroll','fa-sitemap','Comisiones'],['tickets','fa-ticket','Tickets'],['projects','fa-helmet-safety','Proyectos'],['reports','fa-chart-line','Reportes'],['branding','fa-pen-ruler','Sitio Web'],['users','fa-user-shield','Usuarios'],['trash','fa-trash-can','Papelera'],['audit','fa-clipboard-list','Auditoría'],['settings','fa-gear','Configuración']];
-  window.leonV2OpenSection=sec=>{document.querySelectorAll('#v2-nav button').forEach(b=>b.classList.toggle('active',b.dataset.sec===sec));({dashboard:renderDashboard,clients:renderClients,pipeline:renderPipeline,historial:renderHistorialSection,catalog:renderCatalog,proposals:renderProposals,payroll:renderPayroll,tickets:renderTickets,projects:renderProjects,reports:renderReports,branding:renderBranding,users:renderUsers,trash:renderTrash,audit:renderAudit,settings:renderSettings}[sec]||renderDashboard)()};
+  const navItems=[['dashboard','fa-chart-pie','Dashboard'],['clients','fa-address-card','Clientes'],['pipeline','fa-filter-circle-dollar','Pipeline'],['historial','fa-clock-rotate-left','Historial'],['catalog','fa-boxes-stacked','Catálogo'],['proposals','fa-file-signature','Propuestas'],['payroll','fa-sitemap','Comisiones'],['empleados','fa-users-gear','Empleados'],['tickets','fa-ticket','Tickets'],['projects','fa-helmet-safety','Proyectos'],['reports','fa-chart-line','Reportes'],['branding','fa-pen-ruler','Sitio Web'],['users','fa-user-shield','Usuarios'],['trash','fa-trash-can','Papelera'],['audit','fa-clipboard-list','Auditoría'],['settings','fa-gear','Configuración']];
+  window.leonV2OpenSection=sec=>{document.querySelectorAll('#v2-nav button').forEach(b=>b.classList.toggle('active',b.dataset.sec===sec));({dashboard:renderDashboard,clients:renderClients,pipeline:renderPipeline,historial:renderHistorialSection,catalog:renderCatalog,proposals:renderProposals,payroll:renderPayroll,empleados:renderEmpleados,tickets:renderTickets,projects:renderProjects,reports:renderReports,branding:renderBranding,users:renderUsers,trash:renderTrash,audit:renderAudit,settings:renderSettings}[sec]||renderDashboard)()};
   function renderNav(){const role=state.currentUser?.role||'Administrador';document.getElementById('v2-role-pill').textContent=role;document.getElementById('v2-nav').innerHTML=navItems.map(([s,i,t])=>`<button data-sec="${s}" onclick="leonV2OpenSection('${s}')"><i class="fa-solid ${i} w-4"></i>${t}</button>`).join('');document.querySelector('#v2-nav button')?.classList.add('active')}
   function kpi(title,val,sub,icon){return `<div class="v2-card v2-kpi p-5"><div class="text-[10px] font-black uppercase tracking-widest text-slate-500">${title}</div><div class="text-3xl font-black text-slate-900 mt-2">${val}</div><div class="text-xs text-brand-600 font-bold mt-2">${sub}</div><i class="fa-solid ${icon} absolute right-5 top-5 text-xl text-brand-300"></i></div>`}
 
@@ -3281,6 +3645,95 @@
     const willOpen=box.classList.contains('hidden');
     box.classList.toggle('hidden');
     if(willOpen) leonV2RefreshNotifications();
+  };
+
+  // ===================== CHAT INTERNO DE EQUIPO =====================
+  // Un solo canal compartido (no mensajes directos por ahora) — cada mensaje es una entrada en
+  // state.chatMessages, sincronizada como bitácora (leonV2DbAppendLog) para que llegue en tiempo
+  // real a cualquier otro dispositivo conectado, igual que auditLog/securityLog.
+  let chatPendingGif = null;
+  let chatLastSeenCount = 0;
+  function leonV2RenderChatMessages(){
+    const box=document.getElementById('v2-chat-messages'); if(!box)return;
+    const msgs=(state.chatMessages||[]).slice().sort((a,b)=>new Date(a.at)-new Date(b.at));
+    const myId=state.currentUser&&state.currentUser.id;
+    box.innerHTML=msgs.length?msgs.map(m=>{
+      const mine=m.from&&m.from.id===myId;
+      return `<div class="flex ${mine?'justify-end':'justify-start'} mb-3"><div class="max-w-[80%] ${mine?'bg-brand-600 text-white':'bg-slate-100 text-slate-800'} rounded-2xl px-3 py-2">${!mine?`<div class="text-[10px] font-black opacity-70 mb-0.5">${esc((m.from&&m.from.name)||'Equipo')}</div>`:''}${m.text?`<div class="text-sm break-words whitespace-pre-wrap">${esc(m.text)}</div>`:''}${m.gifUrl?`<img src="${m.gifUrl}" class="rounded-lg mt-1 max-w-full max-h-48 object-contain">`:''}<div class="text-[9px] opacity-60 mt-1">${esc(new Date(m.at).toLocaleTimeString())}</div></div></div>`;
+    }).join(''):'<div class="text-center text-xs text-slate-400 py-8">Todavía no hay mensajes. ¡Saluda al equipo!</div>';
+    box.scrollTop=box.scrollHeight;
+  }
+  window.leonV2RefreshChat=function(){
+    leonV2RenderChatMessages();
+    const badge=document.getElementById('v2-chat-count');
+    const panel=document.getElementById('v2-chat-panel');
+    const panelOpen=panel&&!panel.classList.contains('hidden');
+    const count=(state.chatMessages||[]).length;
+    if(badge){
+      const unread=Math.max(0,count-chatLastSeenCount);
+      if(!panelOpen&&unread>0){badge.textContent=unread>9?'9+':unread;badge.classList.remove('hidden')}
+      else badge.classList.add('hidden');
+    }
+  };
+  window.leonV2ToggleChat=function(forceClose){
+    const panel=document.getElementById('v2-chat-panel'); if(!panel)return;
+    if(forceClose===true){panel.classList.add('hidden');return}
+    const willOpen=panel.classList.contains('hidden');
+    panel.classList.toggle('hidden');
+    if(willOpen){
+      chatLastSeenCount=(state.chatMessages||[]).length;
+      leonV2RenderChatMessages();
+      document.getElementById('v2-chat-count')?.classList.add('hidden');
+      document.getElementById('v2-chat-input')?.focus();
+    }
+  };
+  window.leonV2InsertChatEmoji=function(emoji){
+    const input=document.getElementById('v2-chat-input'); if(!input)return;
+    const start=input.selectionStart??input.value.length;
+    const end=input.selectionEnd??input.value.length;
+    input.value=input.value.slice(0,start)+emoji+input.value.slice(end);
+    input.focus();
+    const pos=start+emoji.length;
+    input.setSelectionRange(pos,pos);
+  };
+  window.handleChatGifFile=function(event){
+    const file=event.target.files[0]; if(!file)return;
+    if(!file.type.startsWith('image/')){ showToast('El archivo debe ser una imagen o GIF.','error'); return; }
+    if(file.size>700000){ showToast('El GIF/imagen es muy pesado (máx. ~700KB) para el chat compartido.','error'); event.target.value=''; return; }
+    const reader=new FileReader();
+    reader.onload=()=>{
+      chatPendingGif=reader.result;
+      const prev=document.getElementById('v2-chat-gif-preview');
+      if(prev){ prev.innerHTML=`<div class="inline-flex items-center gap-2"><img src="${reader.result}" class="h-16 rounded-lg border border-slate-200"><button type="button" onclick="leonV2ClearChatGif()" class="text-slate-400 text-xs"><i class="fa-solid fa-xmark"></i></button></div>`; prev.classList.remove('hidden'); }
+    };
+    reader.readAsDataURL(file);
+  };
+  window.leonV2ClearChatGif=function(){
+    chatPendingGif=null;
+    const prev=document.getElementById('v2-chat-gif-preview');
+    if(prev){ prev.innerHTML=''; prev.classList.add('hidden'); }
+    const inp=document.getElementById('v2-chat-gif-file'); if(inp)inp.value='';
+  };
+  window.leonV2SendChatMessage=function(e){
+    e.preventDefault();
+    const input=document.getElementById('v2-chat-input');
+    const text=(input.value||'').trim();
+    if(!text&&!chatPendingGif) return;
+    const entry={
+      id:'chat-'+Date.now()+'-'+Math.floor(Math.random()*99999),
+      text,
+      gifUrl:chatPendingGif||null,
+      from:{ id:(state.currentUser&&state.currentUser.id)||'anon', name:(state.currentUser&&state.currentUser.name)||'Equipo', photoUrl:(state.currentUser&&state.currentUser.photoUrl)||'' },
+      at:new Date().toISOString()
+    };
+    if(!state.chatMessages)state.chatMessages=[];
+    state.chatMessages.push(entry);
+    if(state.chatMessages.length>500) state.chatMessages=state.chatMessages.slice(-500);
+    if(typeof window.leonV2DbAppendLog==='function') window.leonV2DbAppendLog('chatMessages', entry);
+    input.value='';
+    leonV2ClearChatGif();
+    chatLastSeenCount=state.chatMessages.length;
+    leonV2RenderChatMessages();
   };
 
   // ===================== TICKETS DE SERVICIO =====================
@@ -3457,9 +3910,10 @@
       const qCount=(state.quotes||[]).concat(state.quotesHistory||[]).filter(q=>q.clientEmail&&c.email&&q.clientEmail.toLowerCase()===c.email.toLowerCase()).length;
       const ls=leonV2LeadScore(c);
       const cats=leonV2ClientCategories(c);
-      return `<div class="v2-card p-5 cursor-pointer hover:border-brand-300 transition" onclick="leonV2OpenClientDossier('${c.id}')"><div class="flex justify-between items-start"><div><b class="text-sm">${esc(c.name)}</b><div class="text-xs text-slate-500">${esc(c.company||'Cliente residencial')}</div></div><div class="flex flex-col items-end gap-1"><span class="v2-pill">${esc(c.source||'—')}</span>${leonV2ScoreBadge(ls.tier)}</div></div><div class="text-xs text-slate-500 mt-3 space-y-1"><div><i class="fa-solid fa-envelope w-4 text-slate-400"></i> ${esc(c.email||'')}</div><div><i class="fa-solid fa-phone w-4 text-slate-400"></i> ${esc(c.phone||'—')}</div><div><i class="fa-solid fa-location-dot w-4 text-slate-400"></i> ${esc(c.municipio||'—')}</div></div>${cats.length?`<div class="flex flex-wrap gap-1 mt-3">${cats.map(cat=>`<span class="text-[9px] font-black uppercase bg-brand-50 text-brand-700 border border-brand-100 px-2 py-0.5 rounded-full">${esc(categoryLabel(cat))}</span>`).join('')}</div>`:''}<div class="flex justify-between items-center mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-400"><span>${qCount} propuesta(s)</span><span>${esc(c.consultorName||'Sin consultor')}</span></div></div>`;
+      return `<div class="v2-card p-5 cursor-pointer hover:border-brand-300 transition" onclick="leonV2OpenClientDossier('${c.id}')"><div class="flex justify-between items-start"><div><b class="text-sm">${esc(c.name)}</b><div class="text-xs text-slate-500">${esc(c.company||'Cliente residencial')}</div></div><div class="flex flex-col items-end gap-1"><div class="flex items-center gap-2"><span class="v2-pill">${esc(c.source||'—')}</span><button onclick="event.stopPropagation();leonV2OpenEditClient('${c.id}')" title="Editar informacion del cliente" class="text-slate-400 hover:text-brand-600 text-xs px-1"><i class="fa-solid fa-user-pen"></i></button></div>${leonV2ScoreBadge(ls.tier)}</div></div><div class="text-xs text-slate-500 mt-3 space-y-1"><div><i class="fa-solid fa-envelope w-4 text-slate-400"></i> ${esc(c.email||'')}</div><div><i class="fa-solid fa-phone w-4 text-slate-400"></i> ${esc(c.phone||'—')}</div><div><i class="fa-solid fa-location-dot w-4 text-slate-400"></i> ${esc(c.municipio||'—')}</div></div>${cats.length?`<div class="flex flex-wrap gap-1 mt-3">${cats.map(cat=>`<span class="text-[9px] font-black uppercase bg-brand-50 text-brand-700 border border-brand-100 px-2 py-0.5 rounded-full">${esc(categoryLabel(cat))}</span>`).join('')}</div>`:''}<div class="flex justify-between items-center mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-400"><span>${qCount} propuesta(s)</span><span>${esc(c.consultorName||'Sin consultor')}</span></div></div>`;
     }).join(''):'<div class="v2-empty col-span-full">No hay clientes que coincidan. El expediente se crea automáticamente al generar una propuesta.</div>';
   }
+  window.renderClientsList=renderClientsList;
   window.leonV2OpenClientDossier=id=>{
     const c=(state.clients||[]).find(x=>x.id===id); if(!c)return;
     const quotes=(state.quotes||[]).concat(state.quotesHistory||[]).filter(q=>q.clientEmail&&c.email&&q.clientEmail.toLowerCase()===c.email.toLowerCase());
@@ -3475,7 +3929,15 @@
       <div class="v2-card p-4"><div class="text-[10px] uppercase font-black text-slate-500">Dirección</div><div class="text-sm mt-1">${esc(c.address||'—')}</div>${c.locationUrl?`<a href="${esc(c.locationUrl)}" target="_blank" rel="noopener" class="text-[11px] font-black text-brand-600 hover:text-brand-800 mt-2 inline-flex items-center gap-1"><i class="fa-solid fa-map-location-dot"></i> Ver ubicación en Google Maps</a>`:'<div class="text-[10px] text-slate-400 mt-2">Sin ubicación GPS compartida</div>'}</div>
       <div class="v2-card p-4">${c.idType?`<div class="flex justify-between items-start"><div><div class="text-[10px] uppercase font-black text-slate-500">${esc(c.idType)}</div><div class="text-sm font-mono mt-1" id="v2-dossier-id-value">${esc(c.idNumber||'—')}</div></div><button onclick="leonV2ToggleIdReveal('${c.id}')" class="text-slate-400 text-xs" title="Este número ya está enmascarado — no hay valor completo guardado para revelar"><i class="fa-solid fa-eye-slash"></i></button></div>`:'<div class="text-[10px] uppercase font-black text-slate-500">Identificación</div><div class="text-sm mt-1 text-slate-400">No registrada</div>'}</div>
     </div>
-    <div class="flex justify-end gap-4 mt-3"><button onclick="leonV2OpenEditClient('${c.id}')" class="text-[11px] font-bold text-slate-500 hover:text-ink-900 uppercase tracking-wider"><i class="fa-solid fa-user-pen mr-1"></i>Editar información</button><button onclick="leonV2Close('leon-v2-client-dossier');leonV2OpenSection('tickets');leonV2OpenNewTicket('${c.id}')" class="text-[11px] font-bold text-brand-500 hover:text-brand-700 uppercase tracking-wider"><i class="fa-solid fa-ticket mr-1"></i>Nuevo ticket</button><button onclick="leonV2DeleteClient('${c.id}')" class="text-[11px] font-bold text-red-400 hover:text-red-600 uppercase tracking-wider"><i class="fa-solid fa-trash mr-1"></i>Mover a papelera</button></div>
+    <div class="flex justify-end gap-4 mt-3"><button onclick="leonV2OpenEditClient('${c.id}')" class="text-[11px] font-bold text-slate-500 hover:text-ink-900 uppercase tracking-wider"><i class="fa-solid fa-user-pen mr-1"></i>Editar información</button><button onclick="leonV2Close('leon-v2-client-dossier');leonV2OpenSection('tickets');leonV2OpenNewTicket('${c.id}')" class="text-[11px] font-bold text-brand-500 hover:text-brand-700 uppercase tracking-wider"><i class="fa-solid fa-ticket mr-1"></i>Nuevo ticket</button>${(state.currentUser&&state.currentUser.role==='Administrador')?`<button onclick="leonV2DeleteClient('${c.id}')" class="text-[11px] font-bold text-red-400 hover:text-red-600 uppercase tracking-wider"><i class="fa-solid fa-trash mr-1"></i>Mover a papelera</button>`:''}</div>
+    <div class="grid lg:grid-cols-2 gap-6 mt-4">
+      <div class="v2-card p-5"><div class="flex justify-between items-center"><h4 class="font-black text-sm"><i class="fa-solid fa-images text-brand-500 mr-2"></i>Fotos de instalación (${(c.installationPhotos||[]).length})</h4><label class="text-brand-600 text-[11px] font-bold cursor-pointer"><i class="fa-solid fa-upload mr-1"></i>Subir fotos<input type="file" accept="image/*" multiple class="hidden" onchange="leonV2AddClientPhotos(event,'${c.id}')"></label></div>
+        <div class="flex flex-wrap gap-2 mt-3">${(c.installationPhotos||[]).length?c.installationPhotos.map((url,i)=>`<div class="relative w-16 h-16 rounded-lg overflow-hidden border border-slate-200 group"><a href="${url}" target="_blank" rel="noopener"><img src="${url}" class="w-full h-full object-cover"></a><button onclick="leonV2RemoveClientPhoto('${c.id}',${i})" class="absolute top-0.5 right-0.5 bg-black/60 text-white rounded-full w-4 h-4 flex items-center justify-center text-[9px] opacity-0 group-hover:opacity-100"><i class="fa-solid fa-xmark"></i></button></div>`).join(''):'<div class="text-xs text-slate-400">Sin fotos todavía.</div>'}</div>
+      </div>
+      <div class="v2-card p-5"><div class="flex justify-between items-center"><h4 class="font-black text-sm"><i class="fa-solid fa-folder-open text-brand-500 mr-2"></i>Documentos (${(c.documents||[]).length})</h4><label class="text-brand-600 text-[11px] font-bold cursor-pointer"><i class="fa-solid fa-upload mr-1"></i>Subir<input type="file" class="hidden" onchange="handleClientDocFile(event,'${c.id}')"></label></div>
+        <div class="mt-3 space-y-1">${(c.documents||[]).length?c.documents.map((d,i)=>`<div class="flex items-center justify-between text-[11px] bg-slate-50 rounded-lg px-2 py-1.5"><a href="${d.dataUrl}" download="${esc(d.name)}" class="text-slate-600 truncate flex-grow hover:text-brand-600"><i class="fa-solid fa-paperclip mr-1"></i>${esc(d.name)}</a><button onclick="leonV2RemoveClientDocument('${c.id}',${i})" class="text-slate-400 hover:text-red-500 ml-2"><i class="fa-solid fa-trash"></i></button></div>`).join(''):'<div class="text-xs text-slate-400">Sin documentos todavía.</div>'}</div>
+      </div>
+    </div>
     <div class="grid lg:grid-cols-[1fr_1fr] gap-6 mt-6">
       <div class="v2-card p-6"><h4 class="font-black">Propuestas vinculadas (${quotes.length})</h4><div class="mt-4 space-y-2 max-h-72 overflow-y-auto">${quotes.length?quotes.map(q=>`<div class="flex justify-between items-center p-3 bg-slate-50 rounded-xl"><div><b class="text-sm">${esc(q.id)}</b><div class="text-[11px] text-slate-500">${esc(q.createdAt||'')}</div></div><div class="text-right"><div class="text-sm font-bold">${money(leonV2ComputeTotal(q).total)}</div><span class="v2-status bg-blue-50 text-blue-700">${esc(q.status)}</span></div></div>`).join(''):'<div class="text-sm text-slate-400">Sin propuestas todavía.</div>'}</div></div>
       <div class="v2-card p-6"><h4 class="font-black">Actividad</h4><div class="v2-timeline mt-5 space-y-4 max-h-56 overflow-y-auto">${activity.length?activity.map(a=>`<div class="relative"><span class="v2-dot"></span><b class="text-sm">${esc(a.text)}</b><div class="text-xs text-slate-500">${esc(new Date(a.at).toLocaleString())} · ${esc(a.by||'')}</div></div>`).join(''):'<div class="text-sm text-slate-400">Sin actividad registrada.</div>'}</div>
@@ -3500,6 +3962,47 @@
     input.value='';
     leonV2OpenClientDossier(id);
     showToast((labels[type]||'Nota')+' registrada en el expediente.','success');
+  };
+  // Fotos de instalación del proyecto — mismo patrón que la galería de fotos de producto
+  // (compressImageFile + arreglo de data URLs), aplicado ahora al expediente del cliente.
+  window.leonV2AddClientPhotos=function(event,id){
+    const files=Array.from(event.target.files||[]); if(!files.length)return;
+    const c=(state.clients||[]).find(x=>x.id===id); if(!c)return;
+    Promise.all(files.map(f=>compressImageFile(f,1200,0.82))).then(results=>{
+      if(!c.installationPhotos)c.installationPhotos=[];
+      results.forEach(r=>c.installationPhotos.push(r.dataUrl));
+      if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('clients');
+      showToast(results.length+' foto(s) agregada(s) al expediente.','success');
+      leonV2OpenClientDossier(id);
+    }).catch(()=>showToast('No se pudieron procesar algunas fotos.','error'));
+  };
+  window.leonV2RemoveClientPhoto=function(id,idx){
+    const c=(state.clients||[]).find(x=>x.id===id); if(!c||!c.installationPhotos)return;
+    c.installationPhotos.splice(idx,1);
+    if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('clients');
+    leonV2OpenClientDossier(id);
+  };
+  // Documentos generales del cliente (contratos firmados, facturas, permisos...) — se guardan tal
+  // cual (sin recomprimir, a diferencia de las fotos) para no dañar PDFs u otros formatos no-imagen.
+  window.handleClientDocFile=function(event,id){
+    const file=event.target.files[0]; if(!file)return;
+    if(file.size>900000){ showToast('El archivo es muy pesado (máx. ~900KB por documento).','error'); event.target.value=''; return; }
+    const reader=new FileReader();
+    reader.onload=()=>{
+      const c=(state.clients||[]).find(x=>x.id===id); if(!c)return;
+      if(!c.documents)c.documents=[];
+      c.documents.push({name:file.name, dataUrl:reader.result, type:file.type||'application/octet-stream', uploadedAt:new Date().toISOString()});
+      if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('clients');
+      showToast('Documento agregado al expediente.','success');
+      leonV2OpenClientDossier(id);
+    };
+    reader.readAsDataURL(file);
+  };
+  window.leonV2RemoveClientDocument=function(id,idx){
+    const c=(state.clients||[]).find(x=>x.id===id); if(!c||!c.documents)return;
+    c.documents.splice(idx,1);
+    if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('clients');
+    leonV2OpenClientDossier(id);
   };
   window.leonV2ToggleIdReveal=()=>{showToast('El número completo nunca se guarda — solo se conservan los últimos 4 caracteres, por diseño.','info')};
   // Edición directa del expediente del cliente — a diferencia de leonV2UpsertClient (que solo
@@ -3563,6 +4066,7 @@
     if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('trash');
   }
   window.leonV2DeleteClient=id=>{
+    if(!state.currentUser||state.currentUser.role!=='Administrador'){ showToast('Solo un administrador puede eliminar clientes.','error'); return }
     const idx=(state.clients||[]).findIndex(x=>x.id===id); if(idx===-1)return;
     const c=state.clients[idx];
     state.clients.splice(idx,1);
@@ -3627,18 +4131,31 @@
     document.getElementById('v2-price-transport').value=q.transportFee||0;
     document.getElementById('v2-price-tax').value=q.taxRate||0;
     document.getElementById('v2-price-months').value=String(q.financingMonths||0);
+    document.getElementById('v2-price-rate').value=q.financingRate||0;
+    const isSunrun=q.financingProvider==='Sunrun';
+    const isRateProvider=q.financingProvider==='PCI'||q.financingProvider==='Cooperativa';
+    document.getElementById('v2-price-months-wrap').classList.toggle('hidden', isSunrun);
+    document.getElementById('v2-price-rate-wrap').classList.toggle('hidden', !isRateProvider);
+    document.getElementById('v2-price-sunrun-note').classList.toggle('hidden', !isSunrun);
+    document.getElementById('v2-price-disclaimer').classList.toggle('hidden', isSunrun);
     leonV2RecalcPricingPreview();
     open('leon-v2-pricing-modal');
   };
   window.leonV2RecalcPricingPreview=()=>{
     const q=v2PricingQuoteId?state.quotes.find(x=>x.id===v2PricingQuoteId):null;
     if(!q)return;
+    if(q.financingProvider==='Sunrun'){
+      document.getElementById('v2-price-total-preview').textContent=money(leonV2ComputeTotal(q).total);
+      document.getElementById('v2-price-monthly-preview').textContent=typeof q.solarPpaMonthlyYear1==='number'?money(q.solarPpaMonthlyYear1)+' / mes (PPA)':'—';
+      return;
+    }
     const draft={...q,
       discount:Number(document.getElementById('v2-price-discount').value)||0,
       installationFee:Number(document.getElementById('v2-price-install').value)||0,
       transportFee:Number(document.getElementById('v2-price-transport').value)||0,
       taxRate:Number(document.getElementById('v2-price-tax').value)||0,
-      financingMonths:Number(document.getElementById('v2-price-months').value)||0
+      financingMonths:Number(document.getElementById('v2-price-months').value)||0,
+      financingRate:Number(document.getElementById('v2-price-rate').value)||0
     };
     const t=leonV2ComputeTotal(draft);
     document.getElementById('v2-price-total-preview').textContent=money(t.total);
@@ -3651,7 +4168,13 @@
     q.installationFee=Number(document.getElementById('v2-price-install').value)||0;
     q.transportFee=Number(document.getElementById('v2-price-transport').value)||0;
     q.taxRate=Number(document.getElementById('v2-price-tax').value)||0;
-    q.financingMonths=Number(document.getElementById('v2-price-months').value)||0;
+    if(q.financingProvider!=='Sunrun'){
+      q.financingMonths=Number(document.getElementById('v2-price-months').value)||0;
+      if(q.financingProvider==='PCI'||q.financingProvider==='Cooperativa'){
+        q.financingRate=Number(document.getElementById('v2-price-rate').value)||0;
+        if(q.financingMonths && !q.financingRate){showToast('Escribe la tasa de interés anual antes de guardar.','warning');return}
+      }
+    }
     const t=leonV2ComputeTotal(q);
     q.total=t.total;
     q.monthlyPayment=t.monthly;
@@ -3964,6 +4487,115 @@
   // Para operar pagos de verdad hace falta un procesador de pagos (ACH real) o un backend con
   // cifrado en reposo para el número completo — nunca el navegador ni Firestore tal cual.
   let vendorContractPhotoPending = null;
+
+  // ===================== EMPLEADOS (panel centralizado, solo Administrador) =====================
+  // Reúne lo que antes estaba repartido entre "Usuarios" y el árbol de comisiones: foto, contrato,
+  // documentos y — para roles pagados por comisión — un resumen anual de lo pagado, pensado como
+  // insumo para preparar el Formulario 480.6B de Hacienda (Puerto Rico), no como el formulario oficial.
+  function leonV2VendorPaidForYear(userId, year){
+    const paid=(state.commissions||[]).filter(c=>c.beneficiaryId===userId&&c.status==='Pagada').map(c=>{
+      const paidEvent=(c.statusHistory||[]).slice().reverse().find(h=>h.to==='Pagada');
+      const paidAt=paidEvent?paidEvent.at.slice(0,10):(c.createdAt||'');
+      return {...c, paidAt};
+    }).filter(c=>c.paidAt&&c.paidAt.slice(0,4)===String(year)).sort((a,b)=>new Date(a.paidAt)-new Date(b.paidAt));
+    const total=paid.reduce((s,c)=>s+c.amount,0);
+    return {paid, total};
+  }
+  function leonV2AvailableCommissionYears(){
+    const years=new Set([String(new Date().getFullYear())]);
+    (state.commissions||[]).forEach(c=>{
+      if(c.status!=='Pagada')return;
+      const paidEvent=(c.statusHistory||[]).slice().reverse().find(h=>h.to==='Pagada');
+      const paidAt=paidEvent?paidEvent.at.slice(0,10):(c.createdAt||'');
+      if(paidAt)years.add(paidAt.slice(0,4));
+    });
+    return Array.from(years).sort().reverse();
+  }
+  function leon480BlockHtml(u, year, paid, total){
+    const fmt=v=>v?esc(v):'—';
+    return `<div>
+      <h1 style="font-size:20px;margin-bottom:2px">Resumen anual de pagos — ${year}</h1>
+      <div style="font-size:11px;color:#888;margin-bottom:18px">Preparado ${new Date().toLocaleDateString()} — insumo para el Formulario 480.6B (Departamento de Hacienda de Puerto Rico). Esto NO es el formulario oficial ni sustituye asesoría de un contador o profesional de impuestos.</div>
+      <table style="width:100%;border-collapse:collapse;margin-bottom:14px">
+        <tr><td style="width:40%;color:#666;padding:5px 4px;border-bottom:1px solid #eee">Pagador</td><td style="padding:5px 4px;border-bottom:1px solid #eee"><b>LEON Home Solutions</b></td></tr>
+        <tr><td style="color:#666;padding:5px 4px;border-bottom:1px solid #eee">Beneficiario</td><td style="padding:5px 4px;border-bottom:1px solid #eee"><b>${fmt(u.name)}</b></td></tr>
+        <tr><td style="color:#666;padding:5px 4px;border-bottom:1px solid #eee">Seguro Social / EIN</td><td style="padding:5px 4px;border-bottom:1px solid #eee">${fmt(u.taxId)}</td></tr>
+        <tr><td style="color:#666;padding:5px 4px;border-bottom:1px solid #eee">Dirección</td><td style="padding:5px 4px;border-bottom:1px solid #eee">${fmt(u.address)}</td></tr>
+        <tr><td style="color:#666;padding:5px 4px;border-bottom:1px solid #eee">Rol</td><td style="padding:5px 4px;border-bottom:1px solid #eee">${fmt(u.role)} (contratista independiente)</td></tr>
+      </table>
+      <table style="width:100%;border-collapse:collapse">
+        <thead><tr><th style="text-align:left;padding:6px 4px;border-bottom:2px solid #ddd;font-size:11px">Fecha de pago</th><th style="text-align:left;padding:6px 4px;border-bottom:2px solid #ddd;font-size:11px">Venta</th><th style="text-align:left;padding:6px 4px;border-bottom:2px solid #ddd;font-size:11px">Tipo</th><th style="text-align:right;padding:6px 4px;border-bottom:2px solid #ddd;font-size:11px">Monto</th></tr></thead>
+        <tbody>${paid.length?paid.map(c=>`<tr><td style="padding:6px 4px;border-bottom:1px solid #eee;font-size:12px">${fmt(c.paidAt)}</td><td style="padding:6px 4px;border-bottom:1px solid #eee;font-size:12px">${fmt(c.quoteId)}</td><td style="padding:6px 4px;border-bottom:1px solid #eee;font-size:12px">${c.type==='directa'?'Directa':'Referido N'+c.level}</td><td style="padding:6px 4px;border-bottom:1px solid #eee;font-size:12px;text-align:right">${money(c.amount)}</td></tr>`).join(''):'<tr><td colspan="4" style="padding:10px 4px;color:#999;font-size:12px">Sin pagos registrados en '+year+'.</td></tr>'}</tbody>
+      </table>
+      <div style="text-align:right;margin-top:10px;font-size:14px"><b>Total pagado en ${year}: ${money(total)}</b></div>
+    </div>`;
+  }
+  window.leonV2Print480ForVendor=function(userId, year){
+    const u=state.users.find(x=>x.id===userId); if(!u){ showToast('No se encontró el empleado.','warning'); return; }
+    const {paid,total}=leonV2VendorPaidForYear(userId, year);
+    const w=window.open('','_blank');
+    if(!w){ showToast('El navegador bloqueó la ventana emergente — permite pop-ups para descargar el PDF.','error'); return; }
+    w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>480 — ${esc(u.name)} — ${year}</title><style>body{font-family:Arial,Helvetica,sans-serif;color:#1a2233;padding:40px;max-width:760px;margin:0 auto}</style></head><body>${leon480BlockHtml(u,year,paid,total)}<script>window.onload=()=>window.print()<\/script></body></html>`);
+    w.document.close();
+  };
+  window.leonV2Print480All=function(year){
+    const rows=state.users.map(u=>({u, ...leonV2VendorPaidForYear(u.id, year)})).filter(r=>r.total>0);
+    if(!rows.length){ showToast('No hay comisiones pagadas registradas para '+year+'.','info'); return; }
+    const w=window.open('','_blank');
+    if(!w){ showToast('El navegador bloqueó la ventana emergente — permite pop-ups para descargar el PDF.','error'); return; }
+    const body=rows.map((r,i)=>`<div style="${i<rows.length-1?'page-break-after:always;':''}">${leon480BlockHtml(r.u,year,r.paid,r.total)}</div>`).join('');
+    w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Resumen 480 — ${year}</title><style>body{font-family:Arial,Helvetica,sans-serif;color:#1a2233;padding:40px;max-width:760px;margin:0 auto}</style></head><body>${body}<script>window.onload=()=>window.print()<\/script></body></html>`);
+    w.document.close();
+  };
+  window.leonV2RefreshEmpleadosPayroll=function(){
+    const year=document.getElementById('v2-emp-report-year')?.value||String(new Date().getFullYear());
+    const box=document.getElementById('v2-emp-payroll-table'); if(!box)return;
+    const rows=state.users.map(u=>({u, ...leonV2VendorPaidForYear(u.id, year)})).filter(r=>r.total>0||r.u.role!=='Administrador');
+    box.innerHTML=rows.length?`<table class="w-full v2-table"><thead><tr><th>Empleado</th><th>Rol</th><th>Seguro Social / EIN</th><th>Total pagado ${year}</th><th>Acción</th></tr></thead><tbody>${rows.map(r=>`<tr><td><b>${esc(r.u.name)}</b></td><td>${esc(r.u.role)}</td><td>${esc(r.u.taxId||'Sin registrar')}</td><td><b>${money(r.total)}</b></td><td>${r.total>0?`<button onclick="leonV2Print480ForVendor('${r.u.id}','${year}')" class="v2-tab active"><i class="fa-solid fa-file-pdf mr-1"></i>Generar 480</button>`:'<span class="text-[11px] text-slate-400">Sin pagos</span>'}</td></tr>`).join('')}</tbody></table>`:'<div class="v2-empty">No hay empleados registrados.</div>';
+  };
+  window.handleEmployeeDocFile=function(event, userId){
+    const file=event.target.files[0]; if(!file)return;
+    if(file.size>900000){ showToast('El archivo es muy pesado (máx. ~900KB por documento).','error'); event.target.value=''; return; }
+    const reader=new FileReader();
+    reader.onload=()=>{
+      const u=state.users.find(x=>x.id===userId); if(!u)return;
+      if(!u.documents)u.documents=[];
+      u.documents.push({name:file.name, dataUrl:reader.result, type:file.type||'application/octet-stream', uploadedAt:new Date().toISOString()});
+      if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('users');
+      showToast('Documento agregado al expediente del empleado.','success');
+      renderEmpleados();
+    };
+    reader.readAsDataURL(file);
+  };
+  window.leonV2RemoveEmployeeDoc=function(userId, idx){
+    const u=state.users.find(x=>x.id===userId); if(!u||!u.documents)return;
+    u.documents.splice(idx,1);
+    if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('users');
+    renderEmpleados();
+  };
+  function renderEmpleados(){
+    const years=leonV2AvailableCommissionYears();
+    const currentYear=String(new Date().getFullYear());
+    document.getElementById('v2-main').innerHTML=`<div class="v2-card p-6">
+      <div class="flex justify-between items-center flex-wrap gap-3"><div><h3 class="text-xl font-black">Empleados</h3><p class="text-xs text-slate-500 mt-1">Vista central de todo el equipo — contratos, documentos y nómina, en un solo lugar.</p></div></div>
+      <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-5">${state.users.map(u=>`<div class="v2-card p-4">
+        <div class="flex items-center gap-3"><div class="w-12 h-12 rounded-full border border-brand-200 bg-white overflow-hidden flex items-center justify-center shrink-0">${u.photoUrl?`<img src="${esc(u.photoUrl)}" class="w-full h-full object-cover">`:`<i class="fa-solid fa-user text-slate-300"></i>`}</div><div class="min-w-0"><b class="text-sm block truncate">${esc(u.name)}</b><span class="text-[10px] text-slate-400 border border-slate-200 rounded px-1.5 py-0.5">${esc(u.role)}</span></div></div>
+        <div class="text-xs text-slate-500 mt-3 space-y-1"><div><i class="fa-solid fa-envelope w-4 text-slate-400"></i> ${esc(u.email)}</div><div><i class="fa-solid fa-phone w-4 text-slate-400"></i> ${esc(u.phone||'—')}</div></div>
+        <div class="flex flex-wrap gap-2 mt-3"><button onclick="leonV2OpenVendorContract('${u.id}')" class="v2-tab ${u.contract?'':'active'}"><i class="fa-solid fa-file-signature mr-1"></i>${u.contract?'Contrato':'Crear contrato'}</button>${u.contract?`<button onclick="leonV2PrintVendorContract('${u.id}')" class="v2-tab"><i class="fa-solid fa-file-pdf mr-1"></i>PDF</button>`:''}</div>
+        <div class="mt-3 pt-3 border-t border-slate-100"><div class="flex justify-between items-center"><span class="text-[10px] font-black uppercase text-slate-400">Documentos (${(u.documents||[]).length})</span><label class="text-brand-600 text-[11px] font-bold cursor-pointer"><i class="fa-solid fa-upload mr-1"></i>Subir<input type="file" class="hidden" onchange="handleEmployeeDocFile(event,'${u.id}')"></label></div>
+          ${(u.documents||[]).length?`<div class="mt-2 space-y-1">${u.documents.map((d,i)=>`<div class="flex items-center justify-between text-[11px] bg-slate-50 rounded-lg px-2 py-1.5"><a href="${d.dataUrl}" download="${esc(d.name)}" class="text-slate-600 truncate flex-grow hover:text-brand-600"><i class="fa-solid fa-paperclip mr-1"></i>${esc(d.name)}</a><button onclick="leonV2RemoveEmployeeDoc('${u.id}',${i})" class="text-slate-400 hover:text-red-500 ml-2"><i class="fa-solid fa-trash"></i></button></div>`).join('')}</div>`:''}
+        </div>
+      </div>`).join('')}</div>
+      <div class="v2-card p-6 mt-6">
+        <div class="flex justify-between items-center flex-wrap gap-3"><div><h4 class="font-black"><i class="fa-solid fa-file-invoice-dollar text-brand-500 mr-2"></i>Nómina de comisiones — Formulario 480</h4><p class="text-xs text-slate-500 mt-1">Vendedores y consultores se pagan como contratistas independientes — este resumen anual ayuda a preparar el 480.6B, no lo reemplaza.</p></div>
+          <div class="flex gap-2"><select id="v2-emp-report-year" onchange="leonV2RefreshEmpleadosPayroll()" class="px-3 py-2.5 rounded-xl border border-slate-200 text-xs outline-none font-bold">${years.map(y=>`<option value="${y}" ${y===currentYear?'selected':''}>${y}</option>`).join('')}</select><button onclick="leonV2Print480All(document.getElementById('v2-emp-report-year').value)" class="px-4 py-2.5 rounded-xl bg-ink-900 text-white text-xs font-black"><i class="fa-solid fa-file-pdf mr-2"></i>Generar todos</button></div>
+        </div>
+        <div id="v2-emp-payroll-table" class="mt-4 overflow-x-auto"></div>
+      </div>
+    </div>`;
+    leonV2RefreshEmpleadosPayroll();
+  }
+
   window.leonV2OpenVendorContract = function(userId){
     const u = state.users.find(x=>x.id===userId); if(!u) return;
     vendorContractPhotoPending = null;
@@ -3990,13 +4622,55 @@
         </div>
         <div class="mt-3 p-3 rounded-xl bg-amber-50 border border-amber-100 text-[11px] text-amber-800"><i class="fa-solid fa-triangle-exclamation mr-1"></i> El número de cuenta y el routing number se enmascaran de inmediato (solo quedan los últimos 4 dígitos) — el valor completo nunca se guarda en el sistema. Sin backend ni cifrado real, esta es la forma responsable de manejarlo aquí.</div>
       </div>
-      <div><label class="text-[10px] font-black uppercase text-slate-500">Fecha efectiva del contrato</label><input id="vc-effective" type="date" value="${esc(c.effectiveDate||'')}" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3"></div>
-      <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-brand-600 to-brand-400 text-white font-black text-xs uppercase tracking-widest">Guardar contrato de vendedor</button>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div><label class="text-[10px] font-black uppercase text-slate-500">Fecha efectiva del contrato</label><input id="vc-effective" type="date" value="${esc(c.effectiveDate||'')}" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3"></div>
+        <div><label class="text-[10px] font-black uppercase text-slate-500">Seguro Social / EIN ${u.taxId?`(actual: ${esc(u.taxId)})`:''}</label><input id="vc-taxid" type="password" autocomplete="off" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3" placeholder="${u.taxId?'Dejar en blanco para no cambiar':'Para el Formulario 480 — se enmascara al guardar'}"></div>
+      </div>
+      <div class="flex flex-wrap gap-3"><button type="submit" class="flex-grow py-3 rounded-xl bg-gradient-to-r from-brand-600 to-brand-400 text-white font-black text-xs uppercase tracking-widest">Guardar contrato de vendedor</button>${u.contract?`<button type="button" onclick="leonV2PrintVendorContract('${u.id}')" class="px-5 py-3 rounded-xl bg-ink-900 text-white font-black text-xs uppercase tracking-widest"><i class="fa-solid fa-file-pdf mr-2"></i>Descargar PDF</button>`:''}</div>
     </form>`;
     document.getElementById('v2-vendor-contract-content').innerHTML = html;
     open('leon-v2-vendor-contract');
   };
-  function handleVendorPhotoUpload(event){
+  // Genera el PDF del contrato (vía el mismo patrón de impresión que propuestas/comisiones) para
+  // que el empleado lo firme — no depende de ninguna librería externa.
+  window.leonV2PrintVendorContract = function(userId){
+    const u = state.users.find(x=>x.id===userId); if(!u){ showToast('No se encontró el empleado.','warning'); return; }
+    const c = u.contract || {};
+    const fmt = v => v ? esc(v) : '—';
+    const w = window.open('', '_blank');
+    if(!w){ showToast('El navegador bloqueó la ventana emergente — permite pop-ups para descargar el PDF.','error'); return; }
+    w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Contrato — ${fmt(u.name)}</title>
+    <style>body{font-family:Arial,Helvetica,sans-serif;color:#1a2233;padding:40px;max-width:760px;margin:0 auto}h1{font-size:20px;margin-bottom:4px}h2{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:#555;margin-top:28px;border-bottom:2px solid #eee;padding-bottom:6px}table{width:100%;border-collapse:collapse;margin-top:8px}td{padding:7px 4px;border-bottom:1px solid #eee;font-size:13px}td:first-child{color:#666;width:40%}.sig{margin-top:60px;display:flex;gap:40px}.sig div{flex:1;border-top:1px solid #333;padding-top:6px;font-size:11px;color:#666}.note{margin-top:24px;font-size:11px;color:#888}</style>
+    </head><body>
+    <h1>Contrato de Vendedor / Consultor</h1>
+    <div style="font-size:12px;color:#888">Generado ${new Date().toLocaleDateString()} — LEON Solutions</div>
+    <h2>Información del empleado</h2>
+    <table>
+      <tr><td>Nombre completo</td><td><b>${fmt(u.name)}</b></td></tr>
+      <tr><td>Correo</td><td>${fmt(u.email)}</td></tr>
+      <tr><td>Rol</td><td>${fmt(u.role)}</td></tr>
+      <tr><td>Teléfono</td><td>${fmt(u.phone)}</td></tr>
+      <tr><td>Dirección</td><td>${fmt(u.address)}</td></tr>
+      <tr><td>Seguro Social / EIN</td><td>${fmt(u.taxId)}</td></tr>
+    </table>
+    <h2>Condiciones de pago</h2>
+    <table>
+      <tr><td>Entidad bancaria</td><td>${fmt(c.bankName)}</td></tr>
+      <tr><td>Método de pago</td><td>${fmt(c.payMethod)}</td></tr>
+      <tr><td>Número de cuenta</td><td>${fmt(c.accountMasked)}</td></tr>
+      <tr><td>Routing number</td><td>${fmt(c.routingMasked)}</td></tr>
+      <tr><td>Frecuencia de pago</td><td>${fmt(c.frequency)}</td></tr>
+      <tr><td>Día(s) de pago</td><td>${fmt(c.payDay)}</td></tr>
+      <tr><td>Fecha efectiva</td><td>${fmt(c.effectiveDate)}</td></tr>
+    </table>
+    <p class="note">Este documento resume los términos de pago acordados. Firmarlo confirma que el empleado revisó y acepta la información anterior.</p>
+    <div class="sig"><div>Firma del empleado — ${fmt(u.name)}</div><div>Firma de LEON Solutions</div></div>
+    <div class="sig"><div>Fecha</div><div>Fecha</div></div>
+    <script>window.onload=()=>window.print()<\/script>
+    </body></html>`);
+    w.document.close();
+  };
+  window.handleVendorPhotoUpload=function(event){
     const file = event.target.files[0]; if(!file) return;
     if(!file.type.startsWith('image/')){ showToast('La foto debe ser una imagen.','error'); return; }
     compressImageFile(file, 400, 0.85).then(result=>{
@@ -4012,6 +4686,8 @@
     u.phone = document.getElementById('vc-phone').value;
     u.address = document.getElementById('vc-address').value;
     if(vendorContractPhotoPending) u.photoUrl = vendorContractPhotoPending;
+    const taxIdRaw = document.getElementById('vc-taxid').value;
+    if(taxIdRaw) u.taxId = maskId(taxIdRaw);
     const accountRaw = document.getElementById('vc-account').value;
     const routingRaw = document.getElementById('vc-routing').value;
     const prevContract = u.contract || {};
