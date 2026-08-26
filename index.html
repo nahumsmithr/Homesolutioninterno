@@ -532,7 +532,7 @@
                         <button onclick="filterCategory('Domotica', event)" class="cat-btn bg-transparent text-slate-600 hover:text-brand-700 hover:bg-white/70 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300">Domótica</button>
                     </div>
                 </div>
-                <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" style="perspective:1200px;"></div>
+                <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"></div>
                 <div class="text-center mt-10 hidden" id="products-load-more-wrap">
                     <button onclick="loadMoreProducts()" id="products-load-more-btn" class="bg-white border-2 border-brand-200 hover:border-brand-500 text-brand-700 hover:bg-brand-50 px-8 py-3.5 rounded-xl font-black text-xs uppercase tracking-widest transition-all duration-300 shadow-sm hover:shadow-glass-lg hover:-translate-y-0.5">Cargar más equipos <i class="fa-solid fa-chevron-down ml-1"></i></button>
                 </div>
@@ -1186,7 +1186,9 @@
             const pageSlice = filtered.slice(0, productsPage * PAGE_SIZE);
             pageSlice.forEach(prod => {
                 const card = document.createElement('div');
-                card.className = "tilt-3d bg-white rounded-2xl overflow-hidden border border-brand-100 shadow-sm hover:shadow-glass-xl transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between group";
+                // Antes tenía la clase tilt-3d (rotación 3D siguiendo el mouse, tipo hoja moviéndose) —
+                // se quitó a pedido: ahora solo queda el levantamiento + sombra al pasar el mouse.
+                card.className = "bg-white rounded-2xl overflow-hidden border border-brand-100 shadow-sm hover:shadow-glass-xl transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between group";
                 card.innerHTML = `
                     <div>
                         <div class="relative h-48 bg-brand-50 overflow-hidden">
