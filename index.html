@@ -796,6 +796,28 @@
                         <img id="prod-img-preview" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22400%22%20viewBox%3D%220%200%20400%20400%22%3E%0A%3Cdefs%3E%0A%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230a1a2e%22/%3E%0A%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%23025fae%22/%3E%0A%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%231893f5%22/%3E%0A%3C/linearGradient%3E%0A%3Cpattern%20id%3D%22dots%22%20width%3D%2226%22%20height%3D%2226%22%20patternUnits%3D%22userSpaceOnUse%22%3E%0A%3Ccircle%20cx%3D%221.5%22%20cy%3D%221.5%22%20r%3D%221.5%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.10%22/%3E%0A%3C/pattern%3E%0A%3C/defs%3E%0A%3Crect%20width%3D%22400%22%20height%3D%22400%22%20fill%3D%22url%28%23g%29%22/%3E%0A%3Crect%20width%3D%22400%22%20height%3D%22400%22%20fill%3D%22url%28%23dots%29%22/%3E%0A%3Ccircle%20cx%3D%22344.0%22%20cy%3D%2256.00000000000001%22%20r%3D%22128.0%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.05%22/%3E%0A%3Ccircle%20cx%3D%2240.0%22%20cy%3D%22368.0%22%20r%3D%2288.0%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.06%22/%3E%0A%3Ctext%20x%3D%22200.0%22%20y%3D%22184.0%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%22112%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.16%22%20font-weight%3D%22900%22%20text-anchor%3D%22middle%22%3E%EF%BC%8B%3C/text%3E%0A%3Ctext%20x%3D%22200.0%22%20y%3D%22231.99999999999997%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2244%22%20fill%3D%22%23ffffff%22%20font-weight%3D%22900%22%20text-anchor%3D%22middle%22%20letter-spacing%3D%221%22%3EVISTA%20PREVIA%3C/text%3E%0A%0A%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22400%22%20height%3D%226%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.25%22/%3E%0A%3C/svg%3E" class="w-full h-full object-cover">
                     </div>
                 </div>
+                <div class="col-span-1 md:col-span-2 pt-4 border-t border-brand-100">
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Fotos adicionales (galería)</label>
+                    <p class="text-[10px] text-slate-400 mb-2">Estas se suman a la portada de arriba — el cliente podrá pasar varias fotos en el detalle del equipo.</p>
+                    <input type="file" id="prod-extra-img-file" accept="image/*" multiple class="hidden" onchange="handleProdExtraImgFiles(event)">
+                    <button type="button" onclick="document.getElementById('prod-extra-img-file').click()" class="bg-white border border-brand-200 hover:border-brand-400 text-brand-700 px-4 py-2 rounded-lg font-bold text-xs uppercase tracking-wider"><i class="fa-solid fa-images mr-1"></i> Añadir fotos</button>
+                    <span id="prod-extra-img-status" class="text-[10px] text-slate-400 font-mono ml-2"></span>
+                    <div id="prod-extra-images-list" class="flex flex-wrap gap-2 mt-3"></div>
+                </div>
+                <div class="col-span-1 md:col-span-2 pt-4 border-t border-brand-100">
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Video del Equipo (opcional)</label>
+                    <div class="flex gap-1 p-1 bg-brand-50/60 border border-brand-100 rounded-lg mb-3 w-fit">
+                        <button type="button" id="prod-video-mode-url-btn" onclick="setProdVideoMode('url')" class="px-3 py-1.5 rounded-md text-[10px] font-black uppercase tracking-wider transition bg-white text-brand-700 shadow-sm"><i class="fa-solid fa-link mr-1"></i>URL</button>
+                        <button type="button" id="prod-video-mode-file-btn" onclick="setProdVideoMode('file')" class="px-3 py-1.5 rounded-md text-[10px] font-black uppercase tracking-wider transition text-slate-500"><i class="fa-solid fa-upload mr-1"></i>Subir Archivo</button>
+                    </div>
+                    <input type="url" id="prod-video-url" placeholder="Enlace de YouTube, Vimeo o MP4 directo..." onchange="previewProdVideo(this.value)" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2.5 text-slate-900 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 outline-none text-sm mb-3">
+                    <input type="file" id="prod-video-file" accept="video/*" class="hidden w-full text-xs text-slate-600 mb-3 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:bg-ink-900 file:text-white file:text-[10px] file:font-bold file:uppercase file:tracking-wider file:cursor-pointer" onchange="handleProdVideoFile(event)">
+                    <div id="prod-video-file-status" class="hidden text-[10px] text-brand-600 font-mono mb-3"></div>
+                    <div id="prod-video-preview-wrap" class="hidden aspect-video bg-black border border-brand-100 rounded-lg overflow-hidden relative">
+                        <video id="prod-video-preview" controls class="w-full h-full object-contain bg-black"></video>
+                    </div>
+                    <button type="button" id="prod-video-remove-btn" onclick="clearProdVideo()" class="hidden mt-2 text-[10px] font-bold text-slate-400 hover:text-red-500 uppercase tracking-wider transition"><i class="fa-solid fa-trash mr-1"></i>Quitar video</button>
+                </div>
                 <div class="col-span-1 md:col-span-2 pt-4 border-t border-brand-100 flex justify-end gap-3">
                     <button type="button" onclick="closeProductModal()" class="px-5 py-2.5 rounded-lg text-sm font-bold text-slate-500 hover:text-slate-800 transition-colors">Cancelar</button>
                     <button type="submit" class="bg-gradient-to-r from-brand-600 to-brand-400 hover:from-brand-500 hover:to-brand-300 text-white px-6 py-2.5 rounded-lg text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-lg shadow-brand-500/25 hover:-translate-y-0.5">Guardar Equipo</button>
@@ -973,6 +995,8 @@
         window.state = state;
         let currentEditProductId = null;
         let currentProdImgMode = 'url';
+        let currentProductExtraImages = []; // galería de fotos adicionales del equipo en edición (además de la portada)
+        let currentProdVideoMode = 'url';
         let charts = { status: null, category: null };
         // Paginación simple en el cliente para no intentar pintar catálogos/listas enormes de una vez.
         const PAGE_SIZE = 12;
@@ -1201,7 +1225,11 @@
             const product = state.products.find(p => p.id === productId);
             if (!product || product.agotado) return;
             const existing = state.cart.find(item => item.id === productId);
-            if (existing) { existing.qty += 1; } else { state.cart.push({ ...product, qty: 1 }); }
+            // Se excluyen images/video: la propuesta solo necesita la portada — cargar toda la
+            // galería en cada línea de la cotización la infla sin necesidad (y puede pasarse del
+            // límite de 1MB por documento de Firestore).
+            const { images, video, ...productForCart } = product;
+            if (existing) { existing.qty += 1; } else { state.cart.push({ ...productForCart, qty: 1 }); }
             updateCartUI();
             showToast(`Añadido: ${product.name}`, 'success');
         }
@@ -1642,6 +1670,8 @@
                             <span class="text-[9px] uppercase border px-1.5 py-0.5 rounded ${(p.stock || 0) <= 5 ? 'text-red-600 border-red-200' : 'text-slate-500 border-slate-200'}"><i class="fa-solid fa-cubes mr-0.5"></i>${p.stock || 0} en stock</span>
                             ${p.agotado ? `<span class="text-[9px] text-red-600 uppercase border border-red-200 px-1.5 py-0.5 rounded">Agotado</span>` : ''}
                             ${p.oculto ? `<span class="text-[9px] text-slate-500 uppercase border border-slate-200 px-1.5 py-0.5 rounded"><i class="fa-solid fa-eye-slash"></i> Oculto</span>` : ''}
+                            ${(Array.isArray(p.images) && p.images.length) ? `<span class="text-[9px] text-slate-500 uppercase border border-slate-200 px-1.5 py-0.5 rounded"><i class="fa-solid fa-images mr-0.5"></i>+${p.images.length} foto${p.images.length===1?'':'s'}</span>` : ''}
+                            ${p.video ? `<span class="text-[9px] text-slate-500 uppercase border border-slate-200 px-1.5 py-0.5 rounded"><i class="fa-solid fa-circle-play mr-0.5"></i>Video</span>` : ''}
                         </div>
                     </div>
                 </div>
@@ -1660,6 +1690,7 @@
             form.reset();
             renderCategorySelect();
             setProdImgMode('url');
+            setProdVideoMode('url');
             document.getElementById('prod-img-file-status').classList.add('hidden');
             if (id) {
                 const p = state.products.find(p => p.id === id);
@@ -1675,11 +1706,18 @@
                 document.getElementById('prod-oculto').checked = !!p.oculto;
                 document.getElementById('prod-stock').value = (typeof p.stock === 'number') ? p.stock : '';
                 previewProductImg(p.image);
+                currentProductExtraImages = Array.isArray(p.images) ? [...p.images] : [];
+                document.getElementById('prod-video-url').value = p.video || '';
+                previewProdVideo(p.video || '');
             } else {
                 document.getElementById('product-modal-title').innerHTML = '<i class="fa-solid fa-circle-plus text-brand-500"></i> Nuevo Equipo';
                 document.getElementById('prod-stock').value = 0;
                 previewProductImg('');
+                currentProductExtraImages = [];
+                document.getElementById('prod-video-url').value = '';
+                previewProdVideo('');
             }
+            renderProdExtraImagesList();
             const modal = document.getElementById('product-modal');
             modal.classList.remove('hidden');
             modal.classList.add('flex');
@@ -1709,7 +1747,9 @@
                 image: document.getElementById('prod-img').value || 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22600%22%20height%3D%22400%22%20viewBox%3D%220%200%20600%20400%22%3E%0A%3Cdefs%3E%0A%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230a1a2e%22/%3E%0A%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%23025fae%22/%3E%0A%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%231893f5%22/%3E%0A%3C/linearGradient%3E%0A%3Cpattern%20id%3D%22dots%22%20width%3D%2226%22%20height%3D%2226%22%20patternUnits%3D%22userSpaceOnUse%22%3E%0A%3Ccircle%20cx%3D%221.5%22%20cy%3D%221.5%22%20r%3D%221.5%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.10%22/%3E%0A%3C/pattern%3E%0A%3C/defs%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22url%28%23g%29%22/%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22url%28%23dots%29%22/%3E%0A%3Ccircle%20cx%3D%22516.0%22%20cy%3D%2256.00000000000001%22%20r%3D%22128.0%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.05%22/%3E%0A%3Ccircle%20cx%3D%2260.0%22%20cy%3D%22368.0%22%20r%3D%2288.0%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.06%22/%3E%0A%3Ctext%20x%3D%22300.0%22%20y%3D%22184.0%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%22112%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.16%22%20font-weight%3D%22900%22%20text-anchor%3D%22middle%22%3E%EF%BC%8B%3C/text%3E%0A%3Ctext%20x%3D%22300.0%22%20y%3D%22231.99999999999997%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2244%22%20fill%3D%22%23ffffff%22%20font-weight%3D%22900%22%20text-anchor%3D%22middle%22%20letter-spacing%3D%221%22%3ELEON%3C/text%3E%0A%3Ctext%20x%3D%22300.0%22%20y%3D%22266.2%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2218%22%20fill%3D%22%23bfe0ff%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%20letter-spacing%3D%222%22%3EEQUIPO%20NUEVO%3C/text%3E%0A%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22600%22%20height%3D%226%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.25%22/%3E%0A%3C/svg%3E',
                 agotado: document.getElementById('prod-agotado').checked,
                 oculto: document.getElementById('prod-oculto').checked,
-                stock: Math.max(0, parseInt(document.getElementById('prod-stock').value, 10) || 0)
+                stock: Math.max(0, parseInt(document.getElementById('prod-stock').value, 10) || 0),
+                images: [...currentProductExtraImages],
+                video: document.getElementById('prod-video-url').value || ''
             };
             if (currentEditProductId) {
                 const idx = state.products.findIndex(p => p.id === currentEditProductId);
@@ -1762,7 +1802,10 @@
             const product = state.products.find(p => p.id === productId);
             if (!product) return;
             const existing = state.vendorQuoteItems.find(i => i.id === productId);
-            if (existing) existing.qty += qty; else state.vendorQuoteItems.push({ ...product, qty });
+            // Se excluyen images/video por la misma razón que en addToCart: no hacen falta en la
+            // línea de la cotización y pueden pasar el límite de 1MB por documento de Firestore.
+            const { images, video, ...productForQuote } = product;
+            if (existing) existing.qty += qty; else state.vendorQuoteItems.push({ ...productForQuote, qty });
             renderVendorQuoteItems();
         }
         function removeVendorQuoteItem(index) {
@@ -2193,6 +2236,99 @@
             }).catch(err => { console.error(err); statusEl.innerText = 'No se pudo procesar la imagen.'; showToast('No se pudo procesar la imagen.', 'error'); });
         }
 
+        // ===================== GALERÍA DE FOTOS ADICIONALES DEL EQUIPO (además de la portada) =====================
+        function renderProdExtraImagesList() {
+            const wrap = document.getElementById('prod-extra-images-list');
+            if (!wrap) return;
+            wrap.innerHTML = currentProductExtraImages.map((url, i) => `
+                <div class="relative w-16 h-16 rounded-lg overflow-hidden border border-brand-100 bg-brand-50/60 group">
+                    <img src="${url}" class="w-full h-full object-cover">
+                    <button type="button" onclick="removeProdExtraImage(${i})" title="Quitar foto" class="absolute inset-0 bg-ink-950/60 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition"><i class="fa-solid fa-trash text-xs"></i></button>
+                </div>
+            `).join('') || '<div class="text-[10px] text-slate-400">Sin fotos adicionales todavía.</div>';
+        }
+        function handleProdExtraImgFiles(event) {
+            const files = Array.from(event.target.files || []);
+            if (!files.length) return;
+            const statusEl = document.getElementById('prod-extra-img-status');
+            statusEl.innerText = `Optimizando ${files.length} foto${files.length === 1 ? '' : 's'}...`;
+            Promise.all(files.map(f => compressImageFile(f, 1000, 0.82))).then(results => {
+                results.forEach(r => currentProductExtraImages.push(r.dataUrl));
+                renderProdExtraImagesList();
+                statusEl.innerText = `${results.length} foto${results.length === 1 ? '' : 's'} añadida${results.length === 1 ? '' : 's'}.`;
+                event.target.value = '';
+            }).catch(err => { console.error(err); statusEl.innerText = 'No se pudieron procesar algunas fotos.'; showToast('No se pudieron procesar algunas fotos.', 'error'); });
+        }
+        function removeProdExtraImage(index) {
+            currentProductExtraImages.splice(index, 1);
+            renderProdExtraImagesList();
+        }
+
+        // ===================== VIDEO DEL EQUIPO (URL de YouTube/Vimeo/MP4, o archivo subido) =====================
+        function setProdVideoMode(mode) {
+            currentProdVideoMode = mode;
+            const urlInput = document.getElementById('prod-video-url');
+            const fileInput = document.getElementById('prod-video-file');
+            const urlBtn = document.getElementById('prod-video-mode-url-btn');
+            const fileBtn = document.getElementById('prod-video-mode-file-btn');
+            const statusEl = document.getElementById('prod-video-file-status');
+            const activeCls = ['bg-white', 'text-brand-700', 'shadow-sm'];
+            if (mode === 'file') {
+                urlInput.classList.add('hidden');
+                fileInput.classList.remove('hidden');
+                urlBtn.classList.remove(...activeCls); urlBtn.classList.add('text-slate-500');
+                fileBtn.classList.add(...activeCls); fileBtn.classList.remove('text-slate-500');
+            } else {
+                fileInput.classList.add('hidden');
+                urlInput.classList.remove('hidden');
+                if (statusEl) statusEl.classList.add('hidden');
+                fileBtn.classList.remove(...activeCls); fileBtn.classList.add('text-slate-500');
+                urlBtn.classList.add(...activeCls); urlBtn.classList.remove('text-slate-500');
+            }
+        }
+        function previewProdVideo(url) {
+            const wrap = document.getElementById('prod-video-preview-wrap');
+            const video = document.getElementById('prod-video-preview');
+            const removeBtn = document.getElementById('prod-video-remove-btn');
+            if (!url) { wrap.classList.add('hidden'); removeBtn.classList.add('hidden'); return; }
+            // YouTube/Vimeo no se pueden reproducir en un <video>; en el formulario del admin solo
+            // mostramos vista previa real para MP4/archivo directo — para esos casos dejamos el enlace guardado.
+            if (/youtube\.com|youtu\.be|vimeo\.com/i.test(url)) {
+                wrap.classList.add('hidden');
+                removeBtn.classList.remove('hidden');
+                showToast('Enlace de video guardado. La vista previa dentro del catálogo funcionará al ver el equipo.', 'info');
+                return;
+            }
+            video.src = url;
+            wrap.classList.remove('hidden');
+            removeBtn.classList.remove('hidden');
+        }
+        function handleProdVideoFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            if (file.size > 25 * 1024 * 1024) {
+                showToast('Video muy pesado para incrustarlo (máx. 25MB en esta demo).', 'error');
+                event.target.value = '';
+                return;
+            }
+            const statusEl = document.getElementById('prod-video-file-status');
+            statusEl.classList.remove('hidden');
+            statusEl.innerText = 'Cargando video...';
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('prod-video-url').value = e.target.result;
+                previewProdVideo(e.target.result);
+                statusEl.innerText = `${file.name} — ${formatBytes(file.size)}`;
+            };
+            reader.onerror = () => { statusEl.innerText = 'No se pudo leer el video.'; showToast('No se pudo leer el video.', 'error'); };
+            reader.readAsDataURL(file);
+        }
+        function clearProdVideo() {
+            document.getElementById('prod-video-url').value = '';
+            document.getElementById('prod-video-file').value = '';
+            previewProdVideo('');
+        }
+
         // ===================== HISTORIAL DE REGISTROS =====================
         function renderHistorial() {
             const tbody = document.getElementById('historial-table-body');
@@ -2473,8 +2609,15 @@
 .v2-modal{position:fixed;inset:0;background:rgba(3,10,20,.72);backdrop-filter:blur(8px);z-index:100;display:none;align-items:center;justify-content:center;padding:16px}
 .v2-modal.show{display:flex}
 .v2-modal-box{background:#fff;border-radius:26px;max-width:900px;width:100%;max-height:92vh;overflow:auto;box-shadow:0 30px 90px rgba(0,0,0,.3)}
-.v2-product-media{background:linear-gradient(145deg,#06111f,#12395b);min-height:300px;display:flex;align-items:center;justify-content:center;color:white}
+.v2-product-media{background:linear-gradient(145deg,#06111f,#12395b);min-height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:white;gap:14px}
 .v2-product-media img{max-height:320px;max-width:90%;object-fit:contain;border-radius:18px}
+.v2-product-media-main{width:100%;flex:1;display:flex;align-items:center;justify-content:center;min-height:220px}
+.v2-product-video-frame{width:100%;max-width:92%;aspect-ratio:16/9;border:0;border-radius:18px;background:#000}
+.v2-product-thumbs{display:flex;gap:8px;overflow-x:auto;width:100%;padding:2px 0}
+.v2-product-thumb{flex:0 0 auto;width:56px;height:56px;border-radius:10px;overflow:hidden;border:2px solid transparent;opacity:.6;transition:.15s;background:#0a1a2e;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;color:#fff;font-size:16px}
+.v2-product-thumb img{width:100%;height:100%;object-fit:cover}
+.v2-product-thumb.active{border-color:#1893f5;opacity:1}
+.v2-product-thumb:hover{opacity:1}
 .v2-choice{border:2px solid #e4edf6;border-radius:18px;padding:20px;text-align:left;transition:.2s;cursor:pointer;background:#fff}
 .v2-choice:hover{border-color:#1893f5;transform:translateY(-2px);box-shadow:0 12px 30px rgba(24,147,245,.12)}
 .v2-choice.selected{border-color:#1893f5;background:#eef8ff}
@@ -2552,6 +2695,26 @@
 <!-- LEON V2: client 360 dossier -->
 <div id="leon-v2-client-dossier" class="v2-modal"><div class="v2-modal-box p-6 md:p-8 max-w-5xl"><div id="v2-dossier-content"></div></div></div>
 
+<!-- LEON V2: edit client info -->
+<div id="leon-v2-client-edit" class="v2-modal"><div class="v2-modal-box p-6 md:p-8 max-w-2xl">
+  <div class="flex justify-between items-start mb-5"><div><div class="v2-pill mb-2"><i class="fa-solid fa-user-pen"></i> EXPEDIENTE</div><h3 class="text-2xl font-black">Editar información del cliente</h3><p class="text-sm text-slate-500">Los cambios se guardan en el expediente y quedan en el historial de actividad.</p></div><button onclick="leonV2CloseClientEdit()" class="text-slate-400 text-xl"><i class="fa-solid fa-xmark"></i></button></div>
+  <form id="v2-client-edit-form" onsubmit="leonV2SaveClientEdit(event)">
+    <input type="hidden" id="v2-edit-client-id">
+    <div class="grid sm:grid-cols-2 gap-4">
+      <div><label class="text-[10px] font-black uppercase text-slate-500">Nombre completo</label><input id="v2-edit-client-name" required class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3"></div>
+      <div><label class="text-[10px] font-black uppercase text-slate-500">Empresa (opcional)</label><input id="v2-edit-client-company" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3"></div>
+      <div class="sm:col-span-2"><label class="text-[10px] font-black uppercase text-slate-500">Correo</label><input id="v2-edit-client-email" disabled class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3 bg-slate-100 text-slate-500"><p class="text-[10px] text-slate-400 mt-1">El correo identifica el expediente y vincula sus propuestas — no se puede editar aquí.</p></div>
+      <div><label class="text-[10px] font-black uppercase text-slate-500">Teléfono</label><input id="v2-edit-client-phone" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3"></div>
+      <div><label class="text-[10px] font-black uppercase text-slate-500">Municipio</label><input id="v2-edit-client-municipio" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3"></div>
+      <div class="sm:col-span-2"><label class="text-[10px] font-black uppercase text-slate-500">Dirección</label><input id="v2-edit-client-address" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3"></div>
+      <div class="sm:col-span-2"><label class="text-[10px] font-black uppercase text-slate-500">Enlace de ubicación (Google Maps)</label><input id="v2-edit-client-location-url" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3"></div>
+      <div><label class="text-[10px] font-black uppercase text-slate-500">Tipo de identificación</label><select id="v2-edit-client-id-type" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3"><option value="">No especificar</option><option value="SSN">Social Security Number (SSN)</option><option value="ID">ID / Identificación</option><option value="Pasaporte">Pasaporte</option><option value="Licencia">Licencia de conducir</option><option value="Otro">Otro documento</option></select></div>
+      <div><label class="text-[10px] font-black uppercase text-slate-500">Número de identificación</label><input id="v2-edit-client-id-number" class="w-full mt-1 border border-slate-200 rounded-xl px-4 py-3" placeholder="Dejar en blanco para no cambiar"><p class="text-[10px] text-slate-400 mt-1">Se enmascara al guardar — solo se conservan los últimos 4 caracteres.</p></div>
+    </div>
+    <div class="flex justify-end gap-3 mt-6"><button type="button" onclick="leonV2CloseClientEdit()" class="px-5 py-3 rounded-xl bg-slate-100 text-slate-600 font-black text-xs uppercase">Cancelar</button><button type="submit" class="px-6 py-3 rounded-xl bg-gradient-to-r from-brand-600 to-brand-400 text-white font-black text-xs uppercase shadow-lg shadow-brand-500/25"><i class="fa-solid fa-floppy-disk mr-2"></i>Guardar cambios</button></div>
+  </form>
+</div></div>
+
 <!-- LEON V2: drill-down de un vendedor dentro del árbol jerárquico -->
 <div id="leon-v2-vendor-drilldown" class="v2-modal"><div class="v2-modal-box p-6 md:p-8 max-w-4xl"><div id="v2-vendor-drilldown-content"></div></div></div>
 
@@ -2597,6 +2760,7 @@
   const money=n=>'$'+Number(n||0).toLocaleString('en-US',{minimumFractionDigits:0});
   const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
   let v2Flow='propuesta', v2Help=null, v2Blocks=['Encabezado','Información del cliente','Productos seleccionados','Resumen financiero','Condiciones','Firma'];
+  let v2ProductMediaState=null; // {id, media:[{type,url}], idx} — galería de fotos/video del equipo abierto en el detalle
   const DEFAULT_EDITOR_BLOCKS=v2Blocks.slice();
   let v2EditorQuoteId=null, v2PricingQuoteId=null;
   function daysBetween(a,b){const da=new Date(a),db=new Date(b);if(isNaN(da)||isNaN(db))return null;return Math.round((db-da)/(1000*60*60*24))}
@@ -2830,13 +2994,43 @@
   function consultants(){return users().filter(u=>/vendedor|consultor/i.test(u.role));}
   function open(id){document.getElementById(id)?.classList.add('show')}
 
+  // Convierte la URL de video guardada (YouTube, Vimeo o MP4/data URL directo) en el reproductor
+  // adecuado. YouTube/Vimeo necesitan iframe embed; un archivo subido o link directo usa <video>.
+  function leonV2VideoEmbedHtml(url){
+    if(!url) return '';
+    const yt=url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([\w-]{6,})/i);
+    if(yt) return `<iframe src="https://www.youtube.com/embed/${yt[1]}" class="v2-product-video-frame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    const vim=url.match(/vimeo\.com\/(\d+)/i);
+    if(vim) return `<iframe src="https://player.vimeo.com/video/${vim[1]}" class="v2-product-video-frame" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+    return `<video src="${esc(url)}" controls playsinline class="v2-product-video-frame"></video>`;
+  }
+  window.leonV2RenderProductMedia=()=>{
+    const st=v2ProductMediaState; if(!st)return;
+    const m=st.media[st.idx]||st.media[0];
+    const mainEl=document.getElementById('v2-product-media-main');
+    if(mainEl) mainEl.innerHTML = m&&m.type==='video' ? leonV2VideoEmbedHtml(m.url) : (m&&m.url ? `<img src="${esc(m.url)}" alt="" onerror="this.style.display='none'">` : `<div class="text-center"><div class="text-4xl mb-3">⚡</div><div class="font-black text-xl">${esc(st.name||'')}</div></div>`);
+    const thumbsEl=document.getElementById('v2-product-media-thumbs');
+    if(thumbsEl){
+      thumbsEl.innerHTML=st.media.map((mm,i)=>mm.type==='video'
+        ?`<button type="button" onclick="leonV2SetProductMedia(${i})" class="v2-product-thumb${i===st.idx?' active':''}" title="Ver video"><i class="fa-solid fa-circle-play"></i></button>`
+        :`<button type="button" onclick="leonV2SetProductMedia(${i})" class="v2-product-thumb${i===st.idx?' active':''}" title="Ver foto ${i+1}"><img src="${esc(mm.url)}" onerror="this.style.opacity='0'"></button>`
+      ).join('');
+    }
+  };
+  window.leonV2SetProductMedia=(i)=>{ if(!v2ProductMediaState)return; v2ProductMediaState.idx=i; leonV2RenderProductMedia(); };
   window.leonV2OpenProduct=(id)=>{
     const p=products().find(x=>x.id===id); if(!p)return;
-    document.getElementById('v2-product-detail').innerHTML=`<div class="grid lg:grid-cols-2"><div class="v2-product-media p-8"><img src="${esc(p.image||'')}" alt="${esc(p.name)}" onerror="this.style.display='none'"><div class="text-center"><div class="text-4xl mb-3">⚡</div><div class="font-black text-xl">${esc(p.name)}</div></div></div><div class="p-7"><div class="flex justify-between gap-4"><div><div class="v2-pill">${esc(p.category||'Solución')}</div><h3 class="text-3xl font-black text-slate-900 mt-3">${esc(p.name)}</h3></div><button onclick="leonV2Close('leon-v2-product-modal')" class="text-slate-400 text-xl"><i class="fa-solid fa-xmark"></i></button></div><p class="text-slate-600 text-sm leading-relaxed mt-4">${esc(p.desc||'Solución profesional para mejorar el rendimiento y confort de su propiedad.')}</p><div class="grid grid-cols-2 gap-3 mt-6"><div class="p-4 bg-slate-50 rounded-xl"><div class="text-[10px] uppercase font-black text-slate-500">Precio</div><div class="text-xl font-black text-brand-600 mt-1">${money(p.price)}</div></div><div class="p-4 bg-slate-50 rounded-xl"><div class="text-[10px] uppercase font-black text-slate-500">Disponibilidad</div><div class="font-black mt-1">${p.agotado?'Agotado':((typeof p.stock==='number')?p.stock+' en stock':'Disponible')}</div></div></div><div class="mt-6 grid sm:grid-cols-2 gap-3"><button onclick="leonV2AddProduct('${p.id}');leonV2Close('leon-v2-product-modal')" class="py-3 rounded-xl bg-gradient-to-r from-brand-600 to-brand-400 text-white font-black text-xs uppercase"><i class="fa-solid fa-plus mr-2"></i>Agregar a propuesta</button><button onclick="leonV2ShowVideo('${p.id}')" class="py-3 rounded-xl border border-slate-200 font-black text-xs uppercase"><i class="fa-solid fa-play mr-2"></i>Ver video</button></div><div class="mt-7 border-t pt-5"><div class="font-black text-sm mb-3">Documentación</div><div class="grid grid-cols-2 gap-2"><span class="v2-pill"><i class="fa-solid fa-file-pdf"></i> Ficha técnica</span><span class="v2-pill"><i class="fa-solid fa-shield"></i> Garantía</span><span class="v2-pill"><i class="fa-solid fa-screwdriver-wrench"></i> Instalación</span><span class="v2-pill"><i class="fa-solid fa-link"></i> Compatibilidad</span></div></div></div></div>`;
+    const media=[];
+    if(p.image) media.push({type:'image',url:p.image});
+    (Array.isArray(p.images)?p.images:[]).forEach(u=>{ if(u) media.push({type:'image',url:u}) });
+    if(p.video) media.push({type:'video',url:p.video});
+    if(!media.length) media.push({type:'image',url:''});
+    v2ProductMediaState={id:p.id, name:p.name, media, idx:0};
+    document.getElementById('v2-product-detail').innerHTML=`<div class="grid lg:grid-cols-2"><div class="v2-product-media p-6 sm:p-8"><div id="v2-product-media-main" class="v2-product-media-main"></div>${media.length>1?`<div id="v2-product-media-thumbs" class="v2-product-thumbs"></div>`:''}</div><div class="p-7"><div class="flex justify-between gap-4"><div><div class="v2-pill">${esc(p.category||'Solución')}</div><h3 class="text-3xl font-black text-slate-900 mt-3">${esc(p.name)}</h3></div><button onclick="leonV2Close('leon-v2-product-modal')" class="text-slate-400 text-xl"><i class="fa-solid fa-xmark"></i></button></div><p class="text-slate-600 text-sm leading-relaxed mt-4">${esc(p.desc||'Solución profesional para mejorar el rendimiento y confort de su propiedad.')}</p><div class="grid grid-cols-2 gap-3 mt-6"><div class="p-4 bg-slate-50 rounded-xl"><div class="text-[10px] uppercase font-black text-slate-500">Precio</div><div class="text-xl font-black text-brand-600 mt-1">${money(p.price)}</div></div><div class="p-4 bg-slate-50 rounded-xl"><div class="text-[10px] uppercase font-black text-slate-500">Disponibilidad</div><div class="font-black mt-1">${p.agotado?'Agotado':((typeof p.stock==='number')?p.stock+' en stock':'Disponible')}</div></div></div><div class="mt-6"><button onclick="leonV2AddProduct('${p.id}');leonV2Close('leon-v2-product-modal')" class="w-full py-3 rounded-xl bg-gradient-to-r from-brand-600 to-brand-400 text-white font-black text-xs uppercase"><i class="fa-solid fa-plus mr-2"></i>Agregar a propuesta</button></div><div class="mt-7 border-t pt-5"><div class="font-black text-sm mb-3">Documentación</div><div class="grid grid-cols-2 gap-2"><span class="v2-pill"><i class="fa-solid fa-file-pdf"></i> Ficha técnica</span><span class="v2-pill"><i class="fa-solid fa-shield"></i> Garantía</span><span class="v2-pill"><i class="fa-solid fa-screwdriver-wrench"></i> Instalación</span><span class="v2-pill"><i class="fa-solid fa-link"></i> Compatibilidad</span></div></div></div></div>`;
+    leonV2RenderProductMedia();
     open('leon-v2-product-modal');
   };
-  window.leonV2ShowVideo=id=>{const p=products().find(x=>x.id===id); showToast('Vista de video preparada para '+(p?.name||'producto')+'. Puedes conectar aquí YouTube/Vimeo/MP4 desde el administrador.','info')};
-  window.leonV2AddProduct=id=>{const p=products().find(x=>x.id===id); if(!p)return; const ex=state.cart.find(x=>x.id===id); if(ex)ex.qty++;else state.cart.push({...p,qty:1}); if(typeof updateCartUI==='function')updateCartUI(); showToast('Producto añadido a tu propuesta.','success')};
+  window.leonV2AddProduct=id=>{const p=products().find(x=>x.id===id); if(!p)return; const ex=state.cart.find(x=>x.id===id); const {images,video,...pForCart}=p; if(ex)ex.qty++;else state.cart.push({...pForCart,qty:1}); if(typeof updateCartUI==='function')updateCartUI(); showToast('Producto añadido a tu propuesta.','success')};
 
   window.leonV2ChooseFlow=flow=>{v2Flow=flow;document.getElementById('v2-flow').value=flow;leonV2CloseChoice(); if(flow==='asesoria'){showToast('Perfecto. Completa tus datos y asignaremos la solicitud a un consultor.','info')} document.getElementById('v2-consultant').innerHTML=consultants().map(u=>`<option value="${esc(u.name)}">${esc(u.name)} — ${esc(u.role)}</option>`).join('')||'<option>Asignación automática</option>'; leonV2UpdateFinancingOptions(); open('leon-v2-client-form');};
 
@@ -3279,7 +3473,7 @@
       <div class="v2-card p-4"><div class="text-[10px] uppercase font-black text-slate-500">Dirección</div><div class="text-sm mt-1">${esc(c.address||'—')}</div>${c.locationUrl?`<a href="${esc(c.locationUrl)}" target="_blank" rel="noopener" class="text-[11px] font-black text-brand-600 hover:text-brand-800 mt-2 inline-flex items-center gap-1"><i class="fa-solid fa-map-location-dot"></i> Ver ubicación en Google Maps</a>`:'<div class="text-[10px] text-slate-400 mt-2">Sin ubicación GPS compartida</div>'}</div>
       <div class="v2-card p-4">${c.idType?`<div class="flex justify-between items-start"><div><div class="text-[10px] uppercase font-black text-slate-500">${esc(c.idType)}</div><div class="text-sm font-mono mt-1" id="v2-dossier-id-value">${esc(c.idNumber||'—')}</div></div><button onclick="leonV2ToggleIdReveal('${c.id}')" class="text-slate-400 text-xs" title="Este número ya está enmascarado — no hay valor completo guardado para revelar"><i class="fa-solid fa-eye-slash"></i></button></div>`:'<div class="text-[10px] uppercase font-black text-slate-500">Identificación</div><div class="text-sm mt-1 text-slate-400">No registrada</div>'}</div>
     </div>
-    <div class="flex justify-end gap-4 mt-3"><button onclick="leonV2Close('leon-v2-client-dossier');leonV2OpenSection('tickets');leonV2OpenNewTicket('${c.id}')" class="text-[11px] font-bold text-brand-500 hover:text-brand-700 uppercase tracking-wider"><i class="fa-solid fa-ticket mr-1"></i>Nuevo ticket</button><button onclick="leonV2DeleteClient('${c.id}')" class="text-[11px] font-bold text-red-400 hover:text-red-600 uppercase tracking-wider"><i class="fa-solid fa-trash mr-1"></i>Mover a papelera</button></div>
+    <div class="flex justify-end gap-4 mt-3"><button onclick="leonV2OpenEditClient('${c.id}')" class="text-[11px] font-bold text-slate-500 hover:text-ink-900 uppercase tracking-wider"><i class="fa-solid fa-user-pen mr-1"></i>Editar información</button><button onclick="leonV2Close('leon-v2-client-dossier');leonV2OpenSection('tickets');leonV2OpenNewTicket('${c.id}')" class="text-[11px] font-bold text-brand-500 hover:text-brand-700 uppercase tracking-wider"><i class="fa-solid fa-ticket mr-1"></i>Nuevo ticket</button><button onclick="leonV2DeleteClient('${c.id}')" class="text-[11px] font-bold text-red-400 hover:text-red-600 uppercase tracking-wider"><i class="fa-solid fa-trash mr-1"></i>Mover a papelera</button></div>
     <div class="grid lg:grid-cols-[1fr_1fr] gap-6 mt-6">
       <div class="v2-card p-6"><h4 class="font-black">Propuestas vinculadas (${quotes.length})</h4><div class="mt-4 space-y-2 max-h-72 overflow-y-auto">${quotes.length?quotes.map(q=>`<div class="flex justify-between items-center p-3 bg-slate-50 rounded-xl"><div><b class="text-sm">${esc(q.id)}</b><div class="text-[11px] text-slate-500">${esc(q.createdAt||'')}</div></div><div class="text-right"><div class="text-sm font-bold">${money(leonV2ComputeTotal(q).total)}</div><span class="v2-status bg-blue-50 text-blue-700">${esc(q.status)}</span></div></div>`).join(''):'<div class="text-sm text-slate-400">Sin propuestas todavía.</div>'}</div></div>
       <div class="v2-card p-6"><h4 class="font-black">Actividad</h4><div class="v2-timeline mt-5 space-y-4 max-h-56 overflow-y-auto">${activity.length?activity.map(a=>`<div class="relative"><span class="v2-dot"></span><b class="text-sm">${esc(a.text)}</b><div class="text-xs text-slate-500">${esc(new Date(a.at).toLocaleString())} · ${esc(a.by||'')}</div></div>`).join(''):'<div class="text-sm text-slate-400">Sin actividad registrada.</div>'}</div>
@@ -3306,6 +3500,56 @@
     showToast((labels[type]||'Nota')+' registrada en el expediente.','success');
   };
   window.leonV2ToggleIdReveal=()=>{showToast('El número completo nunca se guarda — solo se conservan los últimos 4 caracteres, por diseño.','info')};
+  // Edición directa del expediente del cliente — a diferencia de leonV2UpsertClient (que solo
+  // actualiza el expediente como efecto secundario al generar una propuesta), esto permite
+  // corregir los datos del cliente en cualquier momento sin necesidad de una nueva propuesta.
+  window.leonV2OpenEditClient=id=>{
+    const c=(state.clients||[]).find(x=>x.id===id); if(!c)return;
+    document.getElementById('v2-edit-client-id').value=c.id;
+    document.getElementById('v2-edit-client-name').value=c.name||'';
+    document.getElementById('v2-edit-client-company').value=c.company||'';
+    document.getElementById('v2-edit-client-email').value=c.email||'';
+    document.getElementById('v2-edit-client-phone').value=c.phone||'';
+    document.getElementById('v2-edit-client-municipio').value=c.municipio||'';
+    document.getElementById('v2-edit-client-address').value=c.address||'';
+    document.getElementById('v2-edit-client-location-url').value=c.locationUrl||'';
+    document.getElementById('v2-edit-client-id-type').value=c.idType||'';
+    document.getElementById('v2-edit-client-id-number').value='';
+    leonV2Close('leon-v2-client-dossier');
+    open('leon-v2-client-edit');
+  };
+  window.leonV2CloseClientEdit=()=>{leonV2Close('leon-v2-client-edit')};
+  window.leonV2SaveClientEdit=e=>{
+    e.preventDefault();
+    const id=document.getElementById('v2-edit-client-id').value;
+    const c=(state.clients||[]).find(x=>x.id===id); if(!c){showToast('No se encontró el expediente.','warning');return}
+    const name=document.getElementById('v2-edit-client-name').value.trim();
+    if(!name){showToast('El nombre no puede quedar vacío.','warning');return}
+    const changes=[];
+    const setIfChanged=(field,val,label)=>{ if((c[field]||'')!==val){ changes.push(label); c[field]=val } };
+    setIfChanged('name',name,'nombre');
+    setIfChanged('company',document.getElementById('v2-edit-client-company').value.trim(),'empresa');
+    setIfChanged('phone',document.getElementById('v2-edit-client-phone').value.trim(),'teléfono');
+    setIfChanged('municipio',document.getElementById('v2-edit-client-municipio').value.trim(),'municipio');
+    setIfChanged('address',document.getElementById('v2-edit-client-address').value.trim(),'dirección');
+    setIfChanged('locationUrl',document.getElementById('v2-edit-client-location-url').value.trim(),'ubicación GPS');
+    const idType=document.getElementById('v2-edit-client-id-type').value;
+    setIfChanged('idType',idType,'tipo de identificación');
+    const idRaw=document.getElementById('v2-edit-client-id-number').value.trim();
+    if(idRaw){ c.idNumber=maskId(idRaw); changes.push('número de identificación') }
+    if(!changes.length){ showToast('No hubo cambios para guardar.','info'); leonV2CloseClientEdit(); return }
+    const actor=(state.currentUser&&state.currentUser.name)||'Equipo';
+    const now=new Date().toISOString();
+    if(!c.activity)c.activity=[];
+    c.activity.push({type:'edicion',text:'Expediente editado — '+changes.join(', '),at:now,by:actor});
+    c.lastContact=now;
+    if(typeof window.leonV2SyncCollection==='function')window.leonV2SyncCollection('clients');
+    leonV2Audit('Cliente editado', c.name+' — '+changes.join(', '));
+    leonV2CloseClientEdit();
+    leonV2OpenClientDossier(id);
+    if(document.getElementById('v2-main').innerHTML.includes('Expediente 360'))renderClientsList();
+    showToast('Información del cliente actualizada.','success');
+  };
 
   // ===================== PAPELERA (soft-delete, 30 días antes de purga) =====================
   function leonV2SoftDelete(type, obj, label){
